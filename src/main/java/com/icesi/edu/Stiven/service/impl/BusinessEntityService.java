@@ -1,6 +1,7 @@
 package com.icesi.edu.Stiven.service.impl;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -18,9 +19,11 @@ public class BusinessEntityService implements IBusinessEntityService{
 		this.businessEntityR = businessEntityR;
 	}
 	
-	public <S extends Businessentity> S save(S businessentity) {
+	public Businessentity save(Businessentity businessentity) {
+		businessentity = new Businessentity(); 
+		businessentity.setModifieddate(Timestamp.from(Instant.now()));
 		if(businessentity.getModifieddate() != null) {
-			businessEntityR.save(businessentity);
+			businessentity = businessEntityR.save(businessentity);
 			return businessentity;
 		}else {
 			throw new NullPointerException("Modification date does not exist");

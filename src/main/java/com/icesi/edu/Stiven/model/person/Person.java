@@ -42,7 +42,6 @@ public class Person implements Serializable {
 
 	private String middlename;
 	
-	@JsonFormat(pattern="dd/mm/yyyy")
 	private Timestamp modifieddate;
 
 	private String namestyle;

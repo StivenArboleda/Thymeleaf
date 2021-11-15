@@ -41,13 +41,17 @@ public class PersonService implements IPersonService{
 		
 	}
 	
-	public void saveCorrect(Person person, Integer businessentityid) {
+	public void saveCorrect(Person person) {
 		
-		Optional<Businessentity> businessEntity = ber.findById(businessentityid);
+	
+		Businessentity businessEntity = new Businessentity();
+		businessEntity.setModifieddate(Timestamp.from(Instant.now()));
+		businessEntity = ber.save(businessEntity);
+		person.setModifieddate(Timestamp.from(Instant.now()));
 		
 		if(person.getFirstname().length() >= 3 && person.getLastname().length() >= 3 && person.getModifieddate() != null) {
 			
-			person.setBusinessentity(businessEntity.get());
+			person.setBusinessentity(businessEntity);
 			
 			personR.save(person);
 			

@@ -1,9 +1,5 @@
 package com.icesi.edu.Stiven.controller;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-
-import org.aspectj.weaver.patterns.PerObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,19 +16,19 @@ import com.icesi.edu.Stiven.service.inter.IPersonService;
 
 
 @Controller
-public class PersonController {
+public class provinceAddressController {
 
-	private IPersonService ps;
+	/*private IPersonService ps;
 	private IBusinessEntityService bes;
 	
 	
 	@Autowired
-	public PersonController(IPersonService ps, IBusinessEntityService bes) {
+	public provinceAddressController(IPersonService ps, IBusinessEntityService bes) {
 		this.ps = ps;
 		this.bes = bes;
 	}
 	
-	@GetMapping("/person/")
+	@GetMapping("/provinceAddress/")
 	public String index(Model model) {
 		model.addAttribute("persons", ps.findAll());
 		return "/persons/index";
@@ -89,6 +85,6 @@ public class PersonController {
 		ps.deletePerson(p);
 		
 		return "redirect:/person/";
-	}
+	}*/
 	
 }

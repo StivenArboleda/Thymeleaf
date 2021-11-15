@@ -7,7 +7,7 @@ import com.icesi.edu.Stiven.model.person.Person;
 
 public interface IPersonService {
 	
-	public void saveCorrect(Person person, Integer businessentityid);
+	public void saveCorrect(Person person);
 	
 	public Iterable<Person> findAll();
 	

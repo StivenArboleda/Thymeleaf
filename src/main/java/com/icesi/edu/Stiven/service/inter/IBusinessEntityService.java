@@ -4,6 +4,6 @@ import com.icesi.edu.Stiven.model.person.Businessentity;
 
 public interface IBusinessEntityService {
 	
-	public <S extends Businessentity> S save(S be);
+	public Businessentity save(Businessentity be);
 	
 }

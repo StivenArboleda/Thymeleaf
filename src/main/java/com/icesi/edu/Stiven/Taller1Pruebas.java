@@ -94,7 +94,7 @@ public class Taller1Pruebas {
 		}
 		
 		be.setPerson(p1);
-		p.saveCorrect(p1, be.getBusinessentityid());
+		p.saveCorrect(p1);
 		
 		
 		IPersonService ps = c.getBean(PersonService.class);
@@ -108,7 +108,7 @@ public class Taller1Pruebas {
 		DateFormat df2 = new SimpleDateFormat("yyyy-mm-dd");
 		Date date2;
 		try {
-			date2 = df1.parse("2020-06-19");
+			date2 = df2.parse("2020-06-19");
 			long time2 = date2.getTime();
 			Timestamp ModiDate = new Timestamp(time2);
 			p2.setModifieddate(ModiDate);
@@ -117,7 +117,7 @@ public class Taller1Pruebas {
 		}
 		
 		be.setPerson(p2);
-		ps.saveCorrect(p2, be.getBusinessentityid());
+		ps.saveCorrect(p2);
 	}
 	
 	
