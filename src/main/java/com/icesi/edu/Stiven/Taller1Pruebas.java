@@ -7,29 +7,29 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 import com.icesi.edu.Stiven.model.person.Address;
 import com.icesi.edu.Stiven.model.person.Businessentity;
+import com.icesi.edu.Stiven.model.person.Businessentityaddress;
 import com.icesi.edu.Stiven.model.person.Person;
 import com.icesi.edu.Stiven.model.person.Stateprovince;
 import com.icesi.edu.Stiven.model.person.UserModel;
 import com.icesi.edu.Stiven.model.person.UserType;
 import com.icesi.edu.Stiven.service.impl.AddressService;
+import com.icesi.edu.Stiven.service.impl.BusinessEntityAddressService;
 import com.icesi.edu.Stiven.service.impl.BusinessEntityService;
 import com.icesi.edu.Stiven.service.impl.PersonService;
 import com.icesi.edu.Stiven.service.impl.StateProvinceService;
 import com.icesi.edu.Stiven.service.impl.UserService;
 import com.icesi.edu.Stiven.service.inter.IAddressService;
+import com.icesi.edu.Stiven.service.inter.IBusinessEntityAddressService;
 import com.icesi.edu.Stiven.service.inter.IBusinessEntityService;
 import com.icesi.edu.Stiven.service.inter.IPersonService;
 import com.icesi.edu.Stiven.service.inter.IStateProvinceService;
-import com.icesi.edu.Stiven.service.inter.IUserService;
 
 
 @SpringBootApplication
@@ -165,8 +165,18 @@ public class Taller1Pruebas {
 		
 		state2 = sps.saveCorrect(state2);
 		
-
+		//tercer servicio businessentityaddress
 		
+		IBusinessEntityAddressService bea = c.getBean(BusinessEntityAddressService.class);
+		Businessentityaddress bentity = new Businessentityaddress();
+
+		//BusinessentityaddressPK bePK = new BusinessentityaddressPK();
+		bentity.setBusinessentityid(5);
+		bentity.setAddressid(2);
+		bentity.setAddresstypeid(8);
+		
+		bentity = bea.save(bentity);
+		//System.out.println(bentity.getAddressid() +" - "+ bentity.getAddresstypeid());
 	}
 	
 	

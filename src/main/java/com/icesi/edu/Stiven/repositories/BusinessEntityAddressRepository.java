@@ -7,6 +7,6 @@ import com.icesi.edu.Stiven.model.person.Businessentityaddress;
 import com.icesi.edu.Stiven.model.person.BusinessentityaddressPK;
 
 @Repository
-public interface BusinessEntityAddressRepository extends CrudRepository<Businessentityaddress, BusinessentityaddressPK>{
+public interface BusinessEntityAddressRepository extends CrudRepository<Businessentityaddress, Integer>{
 
 }

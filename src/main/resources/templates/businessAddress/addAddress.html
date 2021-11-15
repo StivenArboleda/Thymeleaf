@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Add persons</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+    />
+    <link rel="stylesheet" href="../css/shards.min.css" />
+  </head>
+  <body>
+    <div class="container my-1">
+      <h2 class="mb-5">Add Business Entity Address</h2>
+      <div class="row">
+        <div class="col-md-5">
+          <form
+            action="#"
+            th:object="${businessentityaddress}"
+            th:action="@{/businessAddress/addAddress}"
+            method="post"
+          >
+            <div class="row">
+              <div class="form-group col-md-6">
+		</div>
+			
+
+              <div class="form-group col-md-6">
+                <label for="visible" class="col-form-label">ID Address</label>
+                <input
+                  type="number"
+                  th:field="*{addressid}"
+                  class="form-control"
+                  id="addressid"
+                  placeholder="IS A NUMBER"
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="visible" class="col-form-label">ID Address type</label>
+                <input
+                  type="number"
+                  th:field="*{addresstypeid}"
+                  class="form-control"
+                  id="addresstypeid"
+                  placeholder="IS A NUMBER"
+                />
+              </div>
+    	
+    		<div class="form-group col-md-6">
+                <label for="city" class="col-form-label">ID Business entity</label>
+                <input
+                  type="number"
+                  th:field="*{businessentityid}"
+                  class="form-control"
+                  id="businessentityid"
+                  placeholder="IS A NUMBER"
+                />
+              </div>
+
+               
+          	 <div class="col-md-6 mt-3">
+                <input
+                  type="submit"
+                  name="action"
+                  class="btn btn-primary"
+                  value="Add"
+                />
+              </div>
+              <div class="col-md-6 mt-3">
+                <input type="reset" class="btn btn-secondary" value="Clear" />
+              </div>
+              <div class="col-md-6 mt-3">
+                <input
+                  type="submit"
+                  name="action"
+                  class="btn btn-secondary"
+                  value="Cancel"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      	<a href="/"><i class="fas fa-home ml-2"></i> Go back to main</a>
+    </div>
+  </body>
+</html>

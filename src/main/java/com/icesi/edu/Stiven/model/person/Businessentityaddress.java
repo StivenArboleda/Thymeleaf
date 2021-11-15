@@ -3,11 +3,15 @@ package com.icesi.edu.Stiven.model.person;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import javax.persistence.EmbeddedId;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 
 /**
  * The persistent class for the businessentityaddress database table.
@@ -18,9 +22,23 @@ import javax.persistence.NamedQuery;
 public class Businessentityaddress implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private BusinessentityaddressPK id;
+	//@EmbeddedId
+	//private BusinessentityaddressPK id;
+	
+	@Id
+	@SequenceGenerator(name = "BUSINESSENTITYADDRESS_BUSINESSENTITYADDRESSID_GENERATOR", allocationSize = 1, sequenceName = "BUSINESSENTITYADDRESS_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BUSINESSENTITYADDRESS_BUSINESSENTITYADDRESSID_GENERATOR")
+	private Integer id;
+	
+	@Column(insertable=false, updatable=false)
+	private Integer businessentityid;
 
+	@Column(insertable=false, updatable=false)
+	private Integer addressid;
+
+	@Column(insertable=false, updatable=false)
+	private Integer addresstypeid;
+		
 	private Timestamp modifieddate;
 
 	private Integer rowguid;
@@ -55,7 +73,7 @@ public class Businessentityaddress implements Serializable {
 		return this.businessentity;
 	}
 
-	public BusinessentityaddressPK getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
@@ -79,7 +97,7 @@ public class Businessentityaddress implements Serializable {
 		this.businessentity = businessentity;
 	}
 
-	public void setId(BusinessentityaddressPK id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -89,6 +107,25 @@ public class Businessentityaddress implements Serializable {
 
 	public void setRowguid(Integer rowguid) {
 		this.rowguid = rowguid;
+	}
+	
+	public Integer getBusinessentityid() {
+		return this.businessentityid;
+	}
+	public void setBusinessentityid(Integer businessentityid) {
+		this.businessentityid = businessentityid;
+	}
+	public Integer getAddressid() {
+		return this.addressid;
+	}
+	public void setAddressid(Integer addressid) {
+		this.addressid = addressid;
+	}
+	public Integer getAddresstypeid() {
+		return this.addresstypeid;
+	}
+	public void setAddresstypeid(Integer addresstypeid) {
+		this.addresstypeid = addresstypeid;
 	}
 
 }

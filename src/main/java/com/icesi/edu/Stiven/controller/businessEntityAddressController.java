@@ -1,7 +1,5 @@
 package com.icesi.edu.Stiven.controller;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,58 +9,46 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.icesi.edu.Stiven.model.person.Address;
-import com.icesi.edu.Stiven.model.person.Stateprovince;
-import com.icesi.edu.Stiven.service.inter.IAddressService;
-import com.icesi.edu.Stiven.service.inter.IStateProvinceService;
+import com.icesi.edu.Stiven.model.person.Businessentityaddress;
+import com.icesi.edu.Stiven.service.inter.IBusinessEntityAddressService;
 
 
 @Controller
-public class provinceAddressController {
+public class businessEntityAddressController {
 
-	private IStateProvinceService ps;
-	private IAddressService as;
+	private IBusinessEntityAddressService bea;
 	
 	@Autowired
-	public provinceAddressController(IStateProvinceService ps, IAddressService as) {
-		this.ps = ps;
-		this.as = as;
+	public businessEntityAddressController(IBusinessEntityAddressService bea) {
+		this.bea = bea;
 	}
 	
-	@GetMapping("/provinceAddress/")
+	@GetMapping("/businessAddress/")
 	public String index(Model model) {
-		model.addAttribute("addresses", as.findAll());
-		return "/provinceAddress/index";
+		model.addAttribute("businessentityaddresses", bea.findAll());
+
+		return "/businessAddress/index";
 	}
 	
-	@GetMapping("/provinceAddress/addAddress")
+	@GetMapping("/businessAddress/addAddress")
 	public String addressAdd(Model model) {
 		
-		Address address = new Address();
-		
-		model.addAttribute("address", address);
-		model.addAttribute("stateprovinces", ps.findAll());
-		
-		return "provinceAddress/addAddress";
+		Businessentityaddress bea = new Businessentityaddress();
+		model.addAttribute("businessentityaddress", bea);
+				
+		return "businessAddress/addAddress";
 	}
 	
-	@PostMapping("/provinceAddress/addAddress")	
-	public String addAddress(@ModelAttribute("address") Address address,
+	@PostMapping("/businessAddress/addAddress")	
+	public String addAddress(@ModelAttribute("address") Businessentityaddress beadress,
 			@RequestParam(value="action", required=true) String action, Model model) {
 		
-		model.addAttribute("stateprovinces", ps.findAll());
+		bea.save(beadress);
 		
-		Stateprovince sp = new Stateprovince();
-		sp = address.getStateprovince();
-		sp = ps.saveCorrect(sp);
-		address.setStateprovince(sp);
-		as.save(address);
-		
-		return "redirect:/provinceAddress/";
+		return "redirect:/businessAddress/";
 	}
 	
-	@GetMapping("/updateAddress/{id}")
+	/*@GetMapping("/updateAddress/{id}")
 	public String addresUpdate(Model model, @PathVariable Integer id) {
 		
 		model.addAttribute("address", as.findbyId(id));
@@ -79,14 +65,14 @@ public class provinceAddressController {
 				address.getPostalcode(), address.getStateprovince());
 		
 		return "redirect:/provinceAddress/";
-	}
+	}*/
 	
 	
-	@GetMapping("/provinceAddress/delete/{id}")
+	@GetMapping("/businessAddress/delete/{id}")
 	public String delete(Model model, @PathVariable Integer id) {
 
-		as.deletebyId(id);
+		bea.deletebyId(id);
 		
-		return "redirect:/provinceAddress/";
+		return "redirect:/businessAddress/";
 	}
 }
