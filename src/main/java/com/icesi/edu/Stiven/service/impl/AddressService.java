@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.icesi.edu.Stiven.model.person.Address;
+import com.icesi.edu.Stiven.model.person.Person;
 import com.icesi.edu.Stiven.repositories.AddressRepository;
 import com.icesi.edu.Stiven.service.inter.IAddressService;
 
@@ -58,10 +59,14 @@ public class AddressService implements IAddressService{
 	public Iterable<Address> findAllById(Iterable<Integer> ads) {
 		return as.findAllById(ads);
 	}
+	@Override
+	public Iterable<Address> findAll() {
+		return as.findAll();
+	}
 	
 	@Override
-	public Optional<Address> findbyId(Integer id) {
-		return as.findById(id);
+	public Address findbyId(Integer id) {
+		return as.findById(id).get();
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 
 import org.springframework.boot.CommandLineRunner;
@@ -13,15 +14,21 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
+import com.icesi.edu.Stiven.model.person.Address;
 import com.icesi.edu.Stiven.model.person.Businessentity;
 import com.icesi.edu.Stiven.model.person.Person;
+import com.icesi.edu.Stiven.model.person.Stateprovince;
 import com.icesi.edu.Stiven.model.person.UserModel;
 import com.icesi.edu.Stiven.model.person.UserType;
+import com.icesi.edu.Stiven.service.impl.AddressService;
 import com.icesi.edu.Stiven.service.impl.BusinessEntityService;
 import com.icesi.edu.Stiven.service.impl.PersonService;
+import com.icesi.edu.Stiven.service.impl.StateProvinceService;
 import com.icesi.edu.Stiven.service.impl.UserService;
+import com.icesi.edu.Stiven.service.inter.IAddressService;
 import com.icesi.edu.Stiven.service.inter.IBusinessEntityService;
 import com.icesi.edu.Stiven.service.inter.IPersonService;
+import com.icesi.edu.Stiven.service.inter.IStateProvinceService;
 import com.icesi.edu.Stiven.service.inter.IUserService;
 
 
@@ -118,6 +125,31 @@ public class Taller1Pruebas {
 		
 		be.setPerson(p2);
 		ps.saveCorrect(p2);
+		
+				
+		//AÑADIR STATE PROVINCE
+		
+		IAddressService as = c.getBean(AddressService.class);
+		Address address = new Address();
+		
+		address.setAddressline1("Carrera");
+		address.setCity("Cali");
+		address.setPostalcode("0032");
+		address.setModifieddate(Timestamp.from(Instant.now()));
+		
+		
+		IStateProvinceService sps = c.getBean(StateProvinceService.class);
+		Stateprovince state = new Stateprovince();
+		
+		state.setName("Colombia");
+		state.setStateprovincecode("57");
+		state.setIsonlystateprovinceflag("Amarillo, azul y rojo");
+		
+		state = sps.saveCorrect(state);
+		address.setStateprovince(state);
+		
+		as.save(address);
+		
 	}
 	
 	

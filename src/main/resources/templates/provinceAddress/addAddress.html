@@ -17,73 +17,72 @@
   </head>
   <body>
     <div class="container my-1">
-      <h2 class="mb-5">Add person</h2>
+      <h2 class="mb-5">Add address state province</h2>
       <div class="row">
         <div class="col-md-5">
           <form
             action="#"
-            th:object="${person}"
-            th:action="@{/persons/addPersons}"
+            th:object="${stateprovince}"
+            th:action="@{/provinceAddress/addAddress}"
             method="post"
           >
             <div class="row">
               <div class="form-group col-md-6">
 		</div>
-
+			
+			<div class="form-group col-md-6">
+			<label for="productsubcategory"  class="col-form-label">State province</label>
+            	<select id="stateprovinces" th:field="*{stateprovince}">
+                	<option
+                    	th:each="state : ${stateprovinces}"
+                        th:value="${state.stateprovinceid}"
+                        th:text="${state.stateprovinceid + ': ' + state.name}"
+                        th:selected="${state.stateprovince==state}">
+                  	</option>
+                 </select>		
+			</div>
               <div class="form-group col-md-6">
-                <label for="visible" class="col-form-label">First name</label>
+                <label for="visible" class="col-form-label">Address 1</label>
                 <input
                   type="text"
-                  th:field="*{firstname}"
+                  th:field="*{addressline1}"
                   class="form-control"
-                  id="firstname"
-                  placeholder="NAME"
+                  id="addressline1"
+                  placeholder="ADDRESS ONE"
                 />
               </div>
               <div class="form-group col-md-6">
-                <label for="visible" class="col-form-label">Last name</label>
+                <label for="visible" class="col-form-label">Address 2</label>
                 <input
                   type="text"
-                  th:field="*{lastname}"
+                  th:field="*{addressline2}"
                   class="form-control"
-                  id="lastname"
-                  placeholder="LAST NAME"
+                  id="addressline2"
+                  placeholder="CAN BE EMPTY"
                 />
               </div>
     	
     		<div class="form-group col-md-6">
-                <label for="visible" class="col-form-label">Title</label>
+                <label for="visible" class="col-form-label">City</label>
                 <input
                   type="text"
-                  th:field="*{title}"
+                  th:field="*{city}"
                   class="form-control"
-                  id="title"
-                  placeholder="TITLE"
+                  id="city"
+                  placeholder="CITY"
                 />
               </div>
               <div class="form-group col-md-6">
-                <label for="name" class="col-form-label">Email promotion</label>
+                <label for="name" class="col-form-label">Code postal</label>
                 <input
                   type="number"
-                  th:value="*{emailpromotion}"
+                  th:value="*{postalcode}"
                   class="form-control"
-                  id="emailpromotion"
-                  placeholder="The email promotion is a number"
+                  id="postalcode"
+                  placeholder="Postal code"
                 />
               </div>
-                                      
-              <div class="form-group col-md-6">
-                <label for="visible" class="col-form-label">Modified Date</label>
-                <input
-                  type="date"
-                  th:value="*{modifieddate}"
-                  class="form-control"
-                  id="modifieddate"
-                  placeholder="01/01/2000"
-                />
-              </div>
-             
-     
+               
           	 <div class="col-md-6 mt-3">
                 <input
                   type="submit"

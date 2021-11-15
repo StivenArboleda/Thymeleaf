@@ -9,45 +9,44 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.icesi.edu.Stiven.model.person.Businessentity;
-import com.icesi.edu.Stiven.model.person.Person;
+import com.icesi.edu.Stiven.model.person.Address;
+import com.icesi.edu.Stiven.model.person.Stateprovince;
+import com.icesi.edu.Stiven.service.inter.IAddressService;
 import com.icesi.edu.Stiven.service.inter.IBusinessEntityService;
 import com.icesi.edu.Stiven.service.inter.IPersonService;
+import com.icesi.edu.Stiven.service.inter.IStateProvinceService;
 
 
 @Controller
 public class provinceAddressController {
 
-	/*private IPersonService ps;
-	private IBusinessEntityService bes;
-	
+	private IStateProvinceService ps;
+	private IAddressService as;
 	
 	@Autowired
-	public provinceAddressController(IPersonService ps, IBusinessEntityService bes) {
+	public provinceAddressController(IStateProvinceService ps, IAddressService as) {
 		this.ps = ps;
-		this.bes = bes;
+		this.as = as;
 	}
 	
 	@GetMapping("/provinceAddress/")
 	public String index(Model model) {
-		model.addAttribute("persons", ps.findAll());
-		return "/persons/index";
+		model.addAttribute("addresses", as.findAll());
+		return "/provinceAddress/index";
 	}
 	
-	@GetMapping("/persons/addPersons")
+	@GetMapping("/provinceAddress/addAddress")
 	public String personsAdd(Model model) {
 		
-		Person p = new Person();
-		Businessentity b = new Businessentity();
-		p.setBusinessentity(b);
+		Address address = new Address();
 		
-		model.addAttribute("person", p);
+		model.addAttribute("address", address);
 
 		
-		return "persons/addPersons";
+		return "provinceAddress/addAddress";
 	}
 	
-	@PostMapping("/persons/addPersons")	
+	/*@PostMapping("/persons/addPersons")	
 	public String addPersons(@ModelAttribute("person") Person person,
 			@RequestParam(value="action", required=true) String action, Model model) {
 		
@@ -76,15 +75,14 @@ public class provinceAddressController {
 		model.addAttribute("person", ps.findbyId(id));
 		
 		return "persons/updatePersons";
-	}
-	
-	@GetMapping("/persons/delete/{id}")
-	public String delete(Model model, @PathVariable Integer id) {
-		
-		Person p = ps.findbyId(id);
-		ps.deletePerson(p);
-		
-		return "redirect:/person/";
 	}*/
+	
+	@GetMapping("/provinceAddress/addAddress/{id}")
+	public String delete(Model model, @PathVariable Integer id) {
+
+		as.deletebyId(id);
+		
+		return "redirect:/provinceAddress/";
+	}
 	
 }

@@ -5,13 +5,16 @@ import java.util.Optional;
 
 import com.icesi.edu.Stiven.model.person.Address;
 
+
 public interface IAddressService {
 
 	public <S extends Address> S save(S address);
 	
 	public <S extends Address> Iterable<S> saveAll(Iterable<S> a);
 	
-	public Optional<Address> findbyId(Integer id);
+	public Address findbyId(Integer id);
+	
+	public Iterable<Address> findAll();
 	
 	public boolean existsById(Integer id);
 	
