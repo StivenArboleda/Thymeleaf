@@ -1,5 +1,8 @@
 package com.icesi.edu.Stiven.controller;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.icesi.edu.Stiven.model.person.Address;
 import com.icesi.edu.Stiven.model.person.Stateprovince;
 import com.icesi.edu.Stiven.service.inter.IAddressService;
-import com.icesi.edu.Stiven.service.inter.IBusinessEntityService;
-import com.icesi.edu.Stiven.service.inter.IPersonService;
 import com.icesi.edu.Stiven.service.inter.IStateProvinceService;
 
 
@@ -36,53 +37,57 @@ public class provinceAddressController {
 	}
 	
 	@GetMapping("/provinceAddress/addAddress")
-	public String personsAdd(Model model) {
+	public String addressAdd(Model model) {
 		
 		Address address = new Address();
 		
 		model.addAttribute("address", address);
-
+		model.addAttribute("stateprovinces", ps.findAll());
 		
 		return "provinceAddress/addAddress";
 	}
 	
-	/*@PostMapping("/persons/addPersons")	
-	public String addPersons(@ModelAttribute("person") Person person,
+	@PostMapping("/provinceAddress/addAddress")	
+	public String addAddress(@ModelAttribute("address") Address address,
 			@RequestParam(value="action", required=true) String action, Model model) {
 		
-		Businessentity be = new Businessentity();
-		be = person.getBusinessentity();
-		be = bes.save(be);
-		person.setBusinessentity(be);
-		ps.saveCorrect(person);
+		model.addAttribute("stateprovinces", ps.findAll());
 		
-		return "redirect:/person/";
-	}
-	
-	
-	@PostMapping("/persons/updatePersons/{id}")
-	public String updatePerson(Model model, @PathVariable Integer id, @ModelAttribute Person person,
-			@RequestParam(value="action", required=true) String action) {
-		
-		ps.editPerson(person.getBusinessentityid(), person.getEmailpromotion(), person.getFirstname(), 
-				person.getLastname(), person.getModifieddate(), person.getTitle());
-		
-		return "redirect:/person/";
-	}
-	
-	@GetMapping("/updatePersons/{id}")
-	public String personUpdate(Model model, @PathVariable Integer id) {
-		model.addAttribute("person", ps.findbyId(id));
-		
-		return "persons/updatePersons";
-	}*/
-	
-	@GetMapping("/provinceAddress/addAddress/{id}")
-	public String delete(Model model, @PathVariable Integer id) {
-
-		as.deletebyId(id);
+		Stateprovince sp = new Stateprovince();
+		sp = address.getStateprovince();
+		sp = ps.saveCorrect(sp);
+		address.setStateprovince(sp);
+		as.save(address);
 		
 		return "redirect:/provinceAddress/";
 	}
 	
+	@GetMapping("/updateAddress/{id}")
+	public String addresUpdate(Model model, @PathVariable Integer id) {
+		
+		model.addAttribute("address", as.findbyId(id));
+		model.addAttribute("stateprovinces", ps.findAll());
+		
+		return "provinceAddress/updateAddress";
+	}
+	
+	@PostMapping("/provinceAddress/updateAddress/{id}")
+	public String updateAddress(Model model, @PathVariable Integer id, @ModelAttribute Address address,
+			@RequestParam(value="action", required=true) String action) {
+		
+		as.editAddress(id, address.getAddressline1(), address.getAddressline2(), address.getCity(),
+				address.getPostalcode(), address.getStateprovince());
+		
+		return "redirect:/provinceAddress/";
+	}
+	
+	
+	@GetMapping("/provinceAddress/delete/{id}")
+	public String delete(Model model, @PathVariable Integer id) {
+
+		Address ad = as.findbyId(id);
+		as.deletebyId(id);
+		
+		return "redirect:/provinceAddress/";
+	}
 }

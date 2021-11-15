@@ -147,8 +147,25 @@ public class Taller1Pruebas {
 		
 		state = sps.saveCorrect(state);
 		address.setStateprovince(state);
-		
 		as.save(address);
+		
+		Stateprovince state1 = new Stateprovince();
+		
+		state1.setName("Chile");
+		state1.setStateprovincecode("570");
+		state1.setIsonlystateprovinceflag("rojo");
+		
+		state1 = sps.saveCorrect(state1);
+		
+		Stateprovince state2 = new Stateprovince();
+		
+		state2.setName("Medellin");
+		state2.setStateprovincecode("22");
+		state2.setIsonlystateprovinceflag("Verde");
+		
+		state2 = sps.saveCorrect(state2);
+		
+
 		
 	}
 	

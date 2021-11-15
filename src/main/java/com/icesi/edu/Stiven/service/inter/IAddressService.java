@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Optional;
 
 import com.icesi.edu.Stiven.model.person.Address;
+import com.icesi.edu.Stiven.model.person.Stateprovince;
 
 
 public interface IAddressService {
@@ -20,6 +21,5 @@ public interface IAddressService {
 	
 	public void deletebyId(Integer id);
 	
-	public void editAddress(Integer addressid, String addressline1, String addressline2, String city, Timestamp modifieddate, String postalcode, 
-			Integer rowguid, String spatiallocation);
+	public void editAddress(Integer addressid, String addressline1, String addressline2, String city, String postalcode, Stateprovince sp); 
 }

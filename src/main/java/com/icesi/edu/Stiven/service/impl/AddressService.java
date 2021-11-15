@@ -1,28 +1,34 @@
 package com.icesi.edu.Stiven.service.impl;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.icesi.edu.Stiven.model.person.Address;
-import com.icesi.edu.Stiven.model.person.Person;
+import com.icesi.edu.Stiven.model.person.Stateprovince;
 import com.icesi.edu.Stiven.repositories.AddressRepository;
 import com.icesi.edu.Stiven.service.inter.IAddressService;
+import com.icesi.edu.Stiven.service.inter.IStateProvinceService;
+
 
 @Service
 public class AddressService implements IAddressService{
 	
 	private AddressRepository as;
+	private IStateProvinceService sps;
 	
-	public AddressService(AddressRepository as) {
+	public AddressService(AddressRepository as, IStateProvinceService sps) {
 		this.as = as;
+		this.sps = sps;
 	}
 	
 	public <S extends Address> S save(S address) {
 
 		if(!(address.getCity().isEmpty()) && !(address.getPostalcode().isEmpty()) && !(address.getAddressline1().isEmpty())) {
 			if(address.getStateprovince() != null) {
+				address.getStateprovince().setModifieddate(Timestamp.from(Instant.now()));
 				as.save(address);
 				return address;
 				
@@ -74,20 +80,20 @@ public class AddressService implements IAddressService{
 		as.deleteById(id);
 	}
 	
-	public void editAddress(Integer addressid, String addressline1, String addressline2, String city, Timestamp modifieddate, String postalcode, 
-			Integer rowguid, String spatiallocation) {
+	public void editAddress(Integer addressid, String addressline1, String addressline2, String city, String postalcode, Stateprovince sp) {
 		
 		if(!(city.isEmpty()) && !(postalcode.isEmpty()) && !(addressline1.isEmpty())) {
 			
+						
 			Address ads = as.findById(addressid).get();
 			
 			ads.setAddressline1(addressline1);
 			ads.setAddressline2(addressline2);
 			ads.setCity(city);
-			ads.setModifieddate(modifieddate);
 			ads.setPostalcode(postalcode);
-			ads.setRowguid(rowguid);
-			ads.setSpatiallocation(spatiallocation);
+			
+			sp = sps.saveCorrect(sp);
+			ads.setStateprovince(sp);
 			
 			save(ads);
 			

@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="../css/shards.min.css" />
 </head>
 <body>
-	<div th:switch="${stateprovinces}" class="container my-5">
+	<div th:switch="${addresses}" class="container my-5">
 		<div class="row">
 			<div class="col-md-10">
 				<h2 th:case="null">No states provinces yet!</h2>
@@ -31,6 +31,8 @@
 								<th>City</th>
 								<th>Code postal</th>
 								<th>Modified date</th>
+								<th>State province</th>
+								<th>Id state province</th>
 								<th>Edit</th>
 								<th>Delete</th>
 							</tr>
@@ -43,14 +45,15 @@
 								<td class="text-info" th:text="${address.city}"></td>
 								<td class="text-info" th:text="${address.postalcode}"></td>
 								<td class="text-info" th:text="${address.modifieddate}"></td>
-
+								<td class="text-info" th:text="${address.stateprovince.name}"></td>
+								<td class="text-info" th:text="${address.stateprovince.stateprovinceid}"></td>
 								<td><a
-									th:href="@{/updateAddress/{id}(id=${address.saddressid})}"
+									th:href="@{/updateAddress/{id}(id=${address.addressid})}"
 									class="btn btn-primary"><i
 										class="fas fa-user-edit ml-2"></i></a></td>
 								<td><a
 								
-									th:href="@{/provinceAddress/delete/{id}(id=${addressid})}"
+									th:href="@{/provinceAddress/delete/{id}(id=${address.addressid})}"
 									class="btn btn-primary"><i
 										class="fas fa-user-times ml-2"></i>
 										</a></td>

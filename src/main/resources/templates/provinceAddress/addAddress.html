@@ -22,7 +22,7 @@
         <div class="col-md-5">
           <form
             action="#"
-            th:object="${stateprovince}"
+            th:object="${address}"
             th:action="@{/provinceAddress/addAddress}"
             method="post"
           >
@@ -31,13 +31,13 @@
 		</div>
 			
 			<div class="form-group col-md-6">
-			<label for="productsubcategory"  class="col-form-label">State province</label>
-            	<select id="stateprovinces" th:field="*{stateprovince}">
+			<label for="stateprovince"  class="col-form-label">State province</label>
+            	<select id="stateprovince" th:field="*{stateprovince}">
                 	<option
                     	th:each="state : ${stateprovinces}"
                         th:value="${state.stateprovinceid}"
                         th:text="${state.stateprovinceid + ': ' + state.name}"
-                        th:selected="${state.stateprovince==state}">
+                        th:selected="${address.stateprovince==state}">
                   	</option>
                  </select>		
 			</div>
@@ -63,7 +63,7 @@
               </div>
     	
     		<div class="form-group col-md-6">
-                <label for="visible" class="col-form-label">City</label>
+                <label for="city" class="col-form-label">City</label>
                 <input
                   type="text"
                   th:field="*{city}"
@@ -73,10 +73,10 @@
                 />
               </div>
               <div class="form-group col-md-6">
-                <label for="name" class="col-form-label">Code postal</label>
+                <label for="postalcode" class="col-form-label">Code postal</label>
                 <input
-                  type="number"
-                  th:value="*{postalcode}"
+                  type="text"
+                  th:field="*{postalcode}"
                   class="form-control"
                   id="postalcode"
                   placeholder="Postal code"
@@ -106,7 +106,7 @@
           </form>
         </div>
       </div>
-      	<a href="/person/"><i class="fas fa-home ml-2"></i> Go back to main</a>
+      	<a href="/"><i class="fas fa-home ml-2"></i> Go back to main</a>
     </div>
   </body>
 </html>
