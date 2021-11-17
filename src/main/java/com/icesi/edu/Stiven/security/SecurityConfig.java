@@ -8,7 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import com.icesi.edu.Stiven.model.person.UserType;
 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -39,10 +40,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 
-		httpSecurity.authorizeRequests().antMatchers("/login/**").permitAll().anyRequest().authenticated().and()
-		.formLogin().loginPage("/login").defaultSuccessUrl("/").and().logout()
-        .invalidateHttpSession(true).clearAuthentication(true)
-        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")
-        .permitAll().and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+		httpSecurity.authorizeRequests()
+		// .antMatchers("/**").permitAll()
+		.antMatchers("/login/**").permitAll().antMatchers("/logout/**").permitAll()
+		// persons
+		.antMatchers("/person*").permitAll().antMatchers("/persons/addPersons/**")
+		.hasRole(UserType.Administrador.toString()).antMatchers("/persons/updatePersons/**")
+		.hasRole(UserType.Administrador.toString())
+		// provinceAddress
+		.antMatchers("/provinceAddress*").permitAll().antMatchers("/provinceAddress/addAddress/**")
+		.hasRole(UserType.Administrador.toString()).antMatchers("/provinceAddress/updateAddress/**")
+		.hasRole(UserType.Administrador.toString())
+		// business address
+		.antMatchers("/businessAddress*").permitAll().antMatchers("/businessAddress/addAddress/**")
+		.hasRole(UserType.Operador.toString()).antMatchers("/businessAddress/updateAddress/**")
+		.hasRole(UserType.Operador.toString())
+		// business contact
+		.antMatchers("/businessentitycontact*").permitAll().antMatchers("/businessentitycontact/index/**").permitAll()
+		.antMatchers("/documents/add/**").hasRole(UserType.Operador.toString())
+		.antMatchers("/documents/edit/**").hasRole(UserType.Operador.toString()).antMatchers("/**")
+		
+		.authenticated().anyRequest().permitAll().and().formLogin().loginPage("/login").defaultSuccessUrl("/")
+		.failureUrl("/login?error").and().logout().logoutUrl("/logout").logoutSuccessUrl("/login").permitAll()
+		.and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 	}
 }

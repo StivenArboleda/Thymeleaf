@@ -27,12 +27,11 @@
 							<tr>
 								<th>Id</th>
 								<th>Address 1</th>
-								<th>Address 2</th>
 								<th>City</th>
 								<th>Code postal</th>
 								<th>Modified date</th>
 								<th>State province</th>
-								<th>Id state province</th>
+								<th>Search</th>
 								<th>Edit</th>
 								<th>Delete</th>
 							</tr>
@@ -41,12 +40,14 @@
 							<tr th:each="address : ${addresses}">
 								<td class="text-info" th:text="${address.addressid}"></td>
 								<td class="text-info" th:text="${address.addressline1}"></td>
-								<td class="text-info" th:text="${address.addressline2}"></td>
 								<td class="text-info" th:text="${address.city}"></td>
 								<td class="text-info" th:text="${address.postalcode}"></td>
 								<td class="text-info" th:text="${address.modifieddate}"></td>
 								<td class="text-info" th:text="${address.stateprovince.name}"></td>
-								<td class="text-info" th:text="${address.stateprovince.stateprovinceid}"></td>
+								<td><a
+									th:href="@{/searchAddress/{id}(id=${address.addressid})}"
+									class="btn btn-primary"><i
+										class="fas fa-search ml-2"></i></a></td>
 								<td><a
 									th:href="@{/updateAddress/{id}(id=${address.addressid})}"
 									class="btn btn-primary"><i

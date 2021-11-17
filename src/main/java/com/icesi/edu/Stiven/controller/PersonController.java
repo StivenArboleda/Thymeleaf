@@ -34,6 +34,13 @@ public class PersonController {
 		return "/persons/index";
 	}
 	
+	@GetMapping("/searchPersons/{id}")
+	public String search(Model model, @PathVariable Integer id) {
+		
+		model.addAttribute("person", ps.findbyId(id));
+		return "persons/searchPersons";
+	}
+	
 	@GetMapping("/persons/addPersons")
 	public String personsAdd(Model model) {
 		

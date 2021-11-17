@@ -29,29 +29,21 @@
 								<th>Id address</th>
 								<th>Id address type</th>
 								<th>Id business entity</th>
-								<th>Modified date</th>
-								<th>Edit</th>
 								<th>Delete</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="businessentityaddress : ${businessentityaddresses}">
 								<td class="text-info" th:text="${businessentityaddress.id}"></td>
-								<td class="text-info" th:text="${businessentityaddress.addressid}"></td>
-								<td class="text-info" th:text="${businessentityaddress.addresstypeid}"></td>
-								<td class="text-info" th:text="${businessentityaddress.businessentityid}"></td>
-								<td class="text-info" th:text="${businessentityaddress.modifieddate}"></td>
-								
+								<td class="text-info" th:text="${businessentityaddress.address.addressid}"></td>
+								<td class="text-info" th:text="${businessentityaddress.addresstype.addresstypeid}"></td>
+								<td class="text-info" th:text="${businessentityaddress.businessentity.businessentityid}"></td>
+
 								<td><a
-									th:href="@{/updateAddress/{id}(id=${businessentityaddress.id})}"
-									class="btn btn-primary"><i
-										class="fas fa-user-edit ml-2"></i></a></td>
-								<td><a
-								
 									th:href="@{/businessAddress/delete/{id}(id=${businessentityaddress.id})}"
 									class="btn btn-primary"><i
-										class="fas fa-user-times ml-2"></i>
-										</a></td>
+									class="fas fa-user-times ml-2"></i>
+								</a></td>
 							</tr>
 						</tbody>
 					</table>

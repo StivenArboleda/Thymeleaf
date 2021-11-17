@@ -24,7 +24,7 @@ public class MyCustomUserDetailsService implements UserDetailsService {
 		if (us != null) {
 
 			User.UserBuilder builder = User.withUsername(nickname).password(us.getPassword())
-					.roles(us.getType() + "");
+					.roles(us.getType().toString());
 
 			return builder.build();
 		} else {

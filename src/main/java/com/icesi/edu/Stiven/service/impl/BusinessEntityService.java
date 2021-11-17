@@ -5,7 +5,6 @@ import java.time.Instant;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-
 import com.icesi.edu.Stiven.model.person.Businessentity;
 import com.icesi.edu.Stiven.repositories.BusinessEntityRepository;
 import com.icesi.edu.Stiven.service.inter.IBusinessEntityService;
@@ -20,7 +19,7 @@ public class BusinessEntityService implements IBusinessEntityService{
 	}
 	
 	public Businessentity save(Businessentity businessentity) {
-		businessentity = new Businessentity(); 
+		//businessentity = new Businessentity(); 
 		businessentity.setModifieddate(Timestamp.from(Instant.now()));
 		if(businessentity.getModifieddate() != null) {
 			businessentity = businessEntityR.save(businessentity);
@@ -33,6 +32,11 @@ public class BusinessEntityService implements IBusinessEntityService{
 	
 	public Optional<Businessentity> findById(Integer id) {
 		return businessEntityR.findById(id);
+	}
+	
+	@Override
+	public Iterable<Businessentity> findAll() {
+		return businessEntityR.findAll();
 	}
 	
 	public boolean existsById(Integer id) {

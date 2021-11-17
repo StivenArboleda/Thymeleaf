@@ -31,6 +31,7 @@
 								<th>email promotion</th>
 								<th>Modified date</th>
 								<th>Title</th>
+								<th>Search</th>
 								<th>Edit</th>
 								<th>Delete</th>
 							</tr>
@@ -43,6 +44,10 @@
 								<td class="text-info" th:text="${person.emailpromotion}"></td>
 								<td class="text-info" th:text="${person.modifieddate}"></td>
 								<td class="text-info" th:text="${person.title}"></td>
+								<td><a
+									th:href="@{/searchPersons/{id}(id=${person.businessentityid})}"
+									class="btn btn-primary"><i
+										class="fas fa-search ml-2"></i></a></td>
 								<td><a
 									th:href="@{/updatePersons/{id}(id=${person.businessentityid})}"
 									class="btn btn-primary"><i

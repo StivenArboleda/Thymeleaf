@@ -1,8 +1,5 @@
 package com.icesi.edu.Stiven.controller;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +31,12 @@ public class provinceAddressController {
 	public String index(Model model) {
 		model.addAttribute("addresses", as.findAll());
 		return "/provinceAddress/index";
+	}
+	@GetMapping("/searchAddress/{id}")
+	public String search(Model model, @PathVariable Integer id) {
+		
+		model.addAttribute("address", as.findbyId(id));
+		return "provinceAddress/searchAddress";
 	}
 	
 	@GetMapping("/provinceAddress/addAddress")

@@ -5,5 +5,7 @@ import com.icesi.edu.Stiven.model.person.Businessentity;
 public interface IBusinessEntityService {
 	
 	public Businessentity save(Businessentity be);
+	public Iterable<Businessentity> findAll();
+	
 	
 }

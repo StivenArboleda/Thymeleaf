@@ -1,6 +1,5 @@
 package com.icesi.edu.Stiven.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,33 +8,51 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.icesi.edu.Stiven.model.person.Address;
+import com.icesi.edu.Stiven.model.person.Addresstype;
+import com.icesi.edu.Stiven.model.person.Businessentity;
 import com.icesi.edu.Stiven.model.person.Businessentityaddress;
+import com.icesi.edu.Stiven.service.inter.IAddressService;
+import com.icesi.edu.Stiven.service.inter.IAddressTypeService;
 import com.icesi.edu.Stiven.service.inter.IBusinessEntityAddressService;
+import com.icesi.edu.Stiven.service.inter.IBusinessEntityService;
 
 
 @Controller
 public class businessEntityAddressController {
 
 	private IBusinessEntityAddressService bea;
+	private IAddressService as;
+	private IAddressTypeService ats;
+	private IBusinessEntityService bes;
 	
+
 	@Autowired
-	public businessEntityAddressController(IBusinessEntityAddressService bea) {
+	public businessEntityAddressController(IBusinessEntityAddressService bea, IAddressService as,
+			IAddressTypeService ats, IBusinessEntityService bes) {
 		this.bea = bea;
+		this.as = as;
+		this.ats = ats;
+		this.bes = bes;
 	}
-	
+
 	@GetMapping("/businessAddress/")
 	public String index(Model model) {
+					
 		model.addAttribute("businessentityaddresses", bea.findAll());
-
-		return "/businessAddress/index";
+		return "businessAddress/index";
 	}
 	
 	@GetMapping("/businessAddress/addAddress")
 	public String addressAdd(Model model) {
 		
 		Businessentityaddress bea = new Businessentityaddress();
+		
 		model.addAttribute("businessentityaddress", bea);
-				
+		model.addAttribute("addresses", as.findAll());
+		model.addAttribute("addresstypes", ats.findAll());
+		model.addAttribute("businesses", bes.findAll());
+		
 		return "businessAddress/addAddress";
 	}
 	
@@ -43,7 +60,15 @@ public class businessEntityAddressController {
 	public String addAddress(@ModelAttribute("address") Businessentityaddress beadress,
 			@RequestParam(value="action", required=true) String action, Model model) {
 		
-		bea.save(beadress);
+		Address a = beadress.getAddress();
+		Addresstype at = beadress.getAddresstype();
+		Businessentity be = beadress.getBusinessentity();
+		
+		a = as.save(a);
+		at = ats.save(at);
+		be = bes.save(be);
+		
+		bea.save(beadress, a.getAddressid(), at.getAddresstypeid(), be.getBusinessentityid());
 		
 		return "redirect:/businessAddress/";
 	}
@@ -66,7 +91,6 @@ public class businessEntityAddressController {
 		
 		return "redirect:/provinceAddress/";
 	}*/
-	
 	
 	@GetMapping("/businessAddress/delete/{id}")
 	public String delete(Model model, @PathVariable Integer id) {

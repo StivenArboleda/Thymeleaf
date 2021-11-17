@@ -2,8 +2,6 @@ package com.icesi.edu.Stiven.model.person;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,33 +27,24 @@ public class Businessentityaddress implements Serializable {
 	@SequenceGenerator(name = "BUSINESSENTITYADDRESS_BUSINESSENTITYADDRESSID_GENERATOR", allocationSize = 1, sequenceName = "BUSINESSENTITYADDRESS_SEQ")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BUSINESSENTITYADDRESS_BUSINESSENTITYADDRESSID_GENERATOR")
 	private Integer id;
-	
-	@Column(insertable=false, updatable=false)
-	private Integer businessentityid;
-
-	@Column(insertable=false, updatable=false)
-	private Integer addressid;
-
-	@Column(insertable=false, updatable=false)
-	private Integer addresstypeid;
-		
+			
 	private Timestamp modifieddate;
 
 	private Integer rowguid;
 
 	// bi-directional many-to-one association to Address
 	@ManyToOne
-	@JoinColumn(name = "addressid", insertable = false, updatable = false)
+	@JoinColumn(name = "addressid")
 	private Address address;
 
 	// bi-directional many-to-one association to Addresstype
 	@ManyToOne
-	@JoinColumn(name = "addresstypeid", insertable = false, updatable = false)
+	@JoinColumn(name = "addresstypeid")
 	private Addresstype addresstype;
 
 	// bi-directional many-to-one association to Businessentity
 	@ManyToOne
-	@JoinColumn(name = "businessentityid", insertable = false, updatable = false)
+	@JoinColumn(name = "businessentityid")
 	private Businessentity businessentity;
 
 	public Businessentityaddress() {
@@ -109,23 +98,6 @@ public class Businessentityaddress implements Serializable {
 		this.rowguid = rowguid;
 	}
 	
-	public Integer getBusinessentityid() {
-		return this.businessentityid;
-	}
-	public void setBusinessentityid(Integer businessentityid) {
-		this.businessentityid = businessentityid;
-	}
-	public Integer getAddressid() {
-		return this.addressid;
-	}
-	public void setAddressid(Integer addressid) {
-		this.addressid = addressid;
-	}
-	public Integer getAddresstypeid() {
-		return this.addresstypeid;
-	}
-	public void setAddresstypeid(Integer addresstypeid) {
-		this.addresstypeid = addresstypeid;
-	}
+
 
 }

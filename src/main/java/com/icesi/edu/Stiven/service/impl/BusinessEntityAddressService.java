@@ -1,53 +1,50 @@
 package com.icesi.edu.Stiven.service.impl;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+
+import com.icesi.edu.Stiven.model.person.Address;
+import com.icesi.edu.Stiven.model.person.Addresstype;
+import com.icesi.edu.Stiven.model.person.Businessentity;
 import com.icesi.edu.Stiven.model.person.Businessentityaddress;
+import com.icesi.edu.Stiven.repositories.AddressRepository;
+import com.icesi.edu.Stiven.repositories.AddressTypeRepository;
 import com.icesi.edu.Stiven.repositories.BusinessEntityAddressRepository;
+import com.icesi.edu.Stiven.repositories.BusinessEntityRepository;
 import com.icesi.edu.Stiven.service.inter.IBusinessEntityAddressService;
 
 @Service
 public class BusinessEntityAddressService implements IBusinessEntityAddressService {
 	
 	BusinessEntityAddressRepository ber;
+	AddressRepository addressR;
+	AddressTypeRepository at;
+	BusinessEntityRepository entity;
 	
-	public BusinessEntityAddressService(BusinessEntityAddressRepository ber) {
+		
+	public BusinessEntityAddressService(BusinessEntityAddressRepository ber, AddressRepository addressR,
+			AddressTypeRepository at, BusinessEntityRepository entity) {
 		this.ber = ber;
+		this.addressR = addressR;
+		this.at = at;
+		this.entity = entity;
 	}
-	
-	/*public <S extends Businessentityaddress> S save(S businessAddress) {
-		BusinessentityaddressPK pk = businessAddress.getId();
-		if(pk != null) {
-			if(pk.getBusinessentityid() != null ) {
-				if(pk.getAddresstypeid() != null) {
-					if(pk.getAddressid() != null) {
-						
-						ber.save(businessAddress);
-						return businessAddress;
-						
-					}else {
-						throw new NullPointerException("The foreign key of the address does not exist");
-					}
-				}else {
-					throw new NullPointerException("The foreign key of the address type does not exist");
-				}
-			}else {
-				throw new NullPointerException("The foreign key of the business entity does not exist");
-			}		
-		}else {
-			throw new NullPointerException("The foreign key of the business entity address does not exist");
-		}
+
+	public Businessentityaddress save (Businessentityaddress bea, Integer address, Integer addressType, Integer business) {
 		
-	}*/
-	
-	public Businessentityaddress save (Businessentityaddress bea) {
-		
-		if(bea.getAddressid() != null) {
-			if(bea.getAddresstypeid() != null) {
-				if(bea.getBusinessentityid() != null) {
+		if(address != null) {
+			if(addressType != null) {
+				if(business != null) {
+					
+					Address a = addressR.findById(address).get();
+					Addresstype atype = at.findById(addressType).get();
+					Businessentity b = entity.findById(business).get();
+					
+					bea.setAddress(a);
+					bea.setAddresstype(atype);
+					bea.setBusinessentity(b);
+					
 					ber.save(bea);
 					return bea;
 				}else {
@@ -60,13 +57,6 @@ public class BusinessEntityAddressService implements IBusinessEntityAddressServi
 			throw new NullPointerException("The foreign key of the address does not exist");
 		}
 		
-	}
-	
-	public <S extends Businessentityaddress> Iterable<S> saveAll(Iterable<S> businessAddress) {
-		for (Businessentityaddress doc : businessAddress) {
-			save(doc);
-		}
-		return businessAddress;
 	}
 	
 	public Optional<Businessentityaddress> findById(Integer id) {
@@ -87,14 +77,33 @@ public class BusinessEntityAddressService implements IBusinessEntityAddressServi
 	}
 
 	
-	public void editBusinessentityaddress(Integer id) {
+	/*public void editBusinessentityaddress(Integer id, Integer address, Integer addressType, Integer business) {
 		
 		Businessentityaddress b = ber.findById(id).get();
 		
-		b.setModifieddate(Timestamp.from(Instant.now()));
-		
-		save(b);
-	}
+		if(address != null) {
+			if(addressType != null) {
+				if(business != null) {
+					
+					Address a = addressR.findById(address).get();
+					
+					Businessentity be = entity.findById(business).get();
+					Addresstype atype = at.findById(addressType).get();
+					b.setAddress(a);
+					b.setAddresstype(atype);
+					b.setBusinessentity(be);
+					
+					ber.save(b);
+				}else {
+					throw new NullPointerException("The foreign key of the business entity does not exist");
+				}
+			}else {
+				throw new NullPointerException("The foreign key of the address type does not exist");
+			}
+		}else {
+			throw new NullPointerException("The foreign key of the address does not exist");
+		}
+	}*/
 
 
 }

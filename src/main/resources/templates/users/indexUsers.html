@@ -32,8 +32,7 @@
                   <th>id</th>
                   <th>userName</th>
                   <th>Type</th>
-                  <th>Edit</th>
-                  <th>Delete</th>
+ 
                 </tr>
               </thead>
               <tbody>
@@ -42,18 +41,7 @@
                   <td class="text-info" th:text="${user.userName}"></td>
                   <td class="text-info" th:text="${user.type}"></td>
                   <td>
-                    <a
-                      th:href="@{/users/edit/{id}(id=${user.id})}"
-                      class="btn btn-primary"
-                      ><i class="fas fa-user-edit ml-2"></i
-                    ></a>
-                  </td>
-                  <td>
-                    <a
-                      th:href="@{/users/delete/{id}(id=${user.id})}"
-                      class="btn btn-primary"
-                      ><i class="fas fa-user-times ml-2"></i
-                    ></a>
+ 
                   </td>
                 </tr>
               </tbody>
@@ -62,11 +50,6 @@
           <p class="my-5">
             <a href="/users/addUser" class="btn btn-primary"
               ><i class="fas fa-user-plus ml-2"></i
-            ></a>
-          </p>
-          <p class="my-5">
-            <a href="/apps/add" class="btn btn-primary"
-              ><i class="fas fa-calendar-plus ml-2"></i
             ></a>
           </p>
         </div>
