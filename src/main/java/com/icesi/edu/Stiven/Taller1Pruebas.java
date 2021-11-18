@@ -198,8 +198,12 @@ public class Taller1Pruebas {
 		//bentity.setAddresstype(at);
 		//bentity.setBusinessentity(be);
 		
-		bea.save(bentity, address.getAddressid(), at.getAddresstypeid(), be.getBusinessentityid());
+		bentity = bea.save(bentity, address.getAddressid(), at.getAddresstypeid(), be.getBusinessentityid());
 		bea.save(bentity2, address2.getAddressid(), at2.getAddresstypeid(), be.getBusinessentityid());
+		
+		/*System.out.println(bentity.getAddress().getAddressline1() + "\n" +
+						   bentity.getBusinessentity().getBusinessentityid() + "\n" +
+						   bentity.getAddresstype().getAddresstypeid());*/
 	}
 	
 	

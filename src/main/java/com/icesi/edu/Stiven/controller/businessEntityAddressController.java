@@ -43,6 +43,13 @@ public class businessEntityAddressController {
 		return "businessAddress/index";
 	}
 	
+	@GetMapping("/businessAddress/searchAddress/{id}")
+	public String search(Model model, @PathVariable Integer id) {
+					
+		model.addAttribute("businessentityaddress", bea.findById(id));
+		return "businessAddress/searchAddress";
+	}
+	
 	@GetMapping("/businessAddress/addAddress")
 	public String addressAdd(Model model) {
 		
@@ -66,7 +73,7 @@ public class businessEntityAddressController {
 		
 		a = as.save(a);
 		at = ats.save(at);
-		be = bes.save(be);
+		be = bes.saveForAddress(be);
 		
 		bea.save(beadress, a.getAddressid(), at.getAddresstypeid(), be.getBusinessentityid());
 		

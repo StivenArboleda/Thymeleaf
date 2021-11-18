@@ -19,6 +19,17 @@ public class BusinessEntityService implements IBusinessEntityService{
 	}
 	
 	public Businessentity save(Businessentity businessentity) {
+		businessentity = new Businessentity(); 
+		businessentity.setModifieddate(Timestamp.from(Instant.now()));
+		if(businessentity.getModifieddate() != null) {
+			businessentity = businessEntityR.save(businessentity);
+			return businessentity;
+		}else {
+			throw new NullPointerException("Modification date does not exist");
+		}
+	}
+	
+	public Businessentity saveForAddress(Businessentity businessentity) {
 		//businessentity = new Businessentity(); 
 		businessentity.setModifieddate(Timestamp.from(Instant.now()));
 		if(businessentity.getModifieddate() != null) {
@@ -27,7 +38,6 @@ public class BusinessEntityService implements IBusinessEntityService{
 		}else {
 			throw new NullPointerException("Modification date does not exist");
 		}
-		
 	}
 	
 	public Optional<Businessentity> findById(Integer id) {

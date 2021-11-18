@@ -26,7 +26,6 @@ public class PersonService implements IPersonService{
 	
 	public <S extends Person> S save(S person) {
 		
-		
 		if(person.getFirstname().length() >= 3 && person.getLastname().length() >= 3 && person.getModifieddate() != null) {
 			personR.save(person);
 			return person;

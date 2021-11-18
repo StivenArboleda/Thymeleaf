@@ -29,7 +29,7 @@ public class PersonController {
 	}
 	
 	@GetMapping("/person/")
-	public String index(Model model) {
+	public String index(Model model, Person p) {
 		model.addAttribute("persons", ps.findAll());
 		return "/persons/index";
 	}

@@ -83,8 +83,7 @@ public class AddressService implements IAddressService{
 	public void editAddress(Integer addressid, String addressline1, String addressline2, String city, String postalcode, Stateprovince sp) {
 		
 		if(!(city.isEmpty()) && !(postalcode.isEmpty()) && !(addressline1.isEmpty())) {
-			
-						
+				
 			Address ads = as.findById(addressid).get();
 			
 			ads.setAddressline1(addressline1);
@@ -92,6 +91,7 @@ public class AddressService implements IAddressService{
 			ads.setCity(city);
 			ads.setPostalcode(postalcode);
 			
+			ads.setModifieddate(Timestamp.from(Instant.now()));
 			sp = sps.saveCorrect(sp);
 			ads.setStateprovince(sp);
 			

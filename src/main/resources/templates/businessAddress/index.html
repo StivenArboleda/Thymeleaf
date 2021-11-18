@@ -29,6 +29,7 @@
 								<th>Id address</th>
 								<th>Id address type</th>
 								<th>Id business entity</th>
+								<th>Search</th>
 								<th>Delete</th>
 							</tr>
 						</thead>
@@ -38,7 +39,13 @@
 								<td class="text-info" th:text="${businessentityaddress.address.addressid}"></td>
 								<td class="text-info" th:text="${businessentityaddress.addresstype.addresstypeid}"></td>
 								<td class="text-info" th:text="${businessentityaddress.businessentity.businessentityid}"></td>
-
+		
+								<td><a
+									th:href="@{/businessAddress/searchAddress/{id}(id=${businessentityaddress.id})}"
+									class="btn btn-primary"><i
+									class="fas fa-search ml-2"></i>
+								</a></td>
+								
 								<td><a
 									th:href="@{/businessAddress/delete/{id}(id=${businessentityaddress.id})}"
 									class="btn btn-primary"><i

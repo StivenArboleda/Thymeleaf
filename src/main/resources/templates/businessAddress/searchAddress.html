@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>update Address</title>
+    <title>search persons</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="stylesheet"
@@ -17,97 +17,88 @@
   </head>
   <body>
     <div class="container my-1">
-      <h2 class="mb-5">Address state province</h2>
+      <h2 class="mb-5">Business Entity Address</h2>
       <div class="row">
         <div class="col-md-5">
           <form
             action="#"
-            th:object="${address}"
-            th:action="@{/provinceAddress/searchAddress/{id}(id=${address.addressid})}"
-            
+            th:object="${businessentityaddress}"
+            th:action="@{/businessAddress/searchAddress}"
+            method="post"
           >
             <div class="row">
               <div class="form-group col-md-6">
 		</div>
-			<div class="form-group col-md-6">
-                <label for="visible" class="col-form-label">Id</label>
-                <input
-                  type="text"
-                  th:field="${address.addressid}"
-                  class="form-control"
-                  id="addressid"
-                  readonly
-                />
-              </div>
-	
-			<div class="form-group col-md-6">
-                <label for="visible" class="col-form-label">State provinces</label>
-                <input
-                  type="text"
-                  th:field="*{stateprovince.name}"
-                  class="form-control"
-                  id="stateprovince"
-                  readonly
-                />
-              </div>
-              
+			
               <div class="form-group col-md-6">
-                <label for="visible" class="col-form-label">ID State provinces</label>
+                <label for="visible" class="col-form-label">Id business entity Address</label>
                 <input
                   type="text"
-                  th:field="*{stateprovince.stateprovinceid}"
-                  class="form-control"
-                  id="stateprovince"
-                  readonly
-                />
-              </div>
-              
-              <div class="form-group col-md-6">
-                <label for="visible" class="col-form-label">Address 1</label>
-                <input
-                  type="text"
-                  th:field="*{addressline1}"
+                  th:field="*{id}"
                   class="form-control"
                   id="addressline1"
                   readonly
                 />
               </div>
+              
               <div class="form-group col-md-6">
-                <label for="visible" class="col-form-label">Address 2</label>
+                <label for="visible" class="col-form-label">ID Address</label>
                 <input
                   type="text"
-                  th:field="*{addressline2}"
+                  th:field="*{address.addressid}"
                   class="form-control"
-                  id="addressline2"
+                  id="idaddress"
                   readonly
                 />
               </div>
-    	
+              
     		<div class="form-group col-md-6">
-                <label for="city" class="col-form-label">City</label>
+                <label for="visible" class="col-form-label">City Address</label>
                 <input
                   type="text"
-                  th:field="*{city}"
+                  th:field="*{address.city}"
                   class="form-control"
-                  id="city"
+                  id="cityaddress"
                   readonly
                 />
               </div>
               <div class="form-group col-md-6">
-                <label for="postalcode" class="col-form-label">Code postal</label>
+                <label for="visible" class="col-form-label">Address line 1</label>
                 <input
                   type="text"
-                  th:field="*{postalcode}"
+                  th:field="*{address.addressline1}"
                   class="form-control"
-                  id="postalcode"
+                  id="address1"
                   readonly
                 />
               </div>
+              
+    		<div class="form-group col-md-6">
+                <label for="city" class="col-form-label">Id address type</label>
+                <input
+                  type="text"
+                  th:field="*{addresstype.addresstypeid}"
+                  class="form-control"
+                  id="addresstypeid"
+                  readonly
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="postalcode" class="col-form-label">ID Business entity</label>
+                <input
+                  type="text"
+                  th:field="*{businessentity.businessentityid}"
+                  class="form-control"
+                  id="businessentity"
+                  readonly
+                />
+              </div>
+
             </div>
           </form>
         </div>
       </div>
-      	<a href="/provinceAddress/"><i class="fas fa-home ml-2"></i> Go back to main</a>
+      	<a href="/businessAddress/"><i class="fas fa-home ml-2"></i> Go back to main</a>
     </div>
   </body>
 </html>

@@ -28,9 +28,7 @@
 								<th>id</th>
 								<th>first name</th>
 								<th>last name</th>
-								<th>email promotion</th>
 								<th>Modified date</th>
-								<th>Title</th>
 								<th>Search</th>
 								<th>Edit</th>
 								<th>Delete</th>
@@ -41,9 +39,7 @@
 								<td class="text-info" th:text="${person.businessentityid}"></td>
 								<td class="text-info" th:text="${person.firstname}"></td>
 								<td class="text-info" th:text="${person.lastname}"></td>
-								<td class="text-info" th:text="${person.emailpromotion}"></td>
 								<td class="text-info" th:text="${person.modifieddate}"></td>
-								<td class="text-info" th:text="${person.title}"></td>
 								<td><a
 									th:href="@{/searchPersons/{id}(id=${person.businessentityid})}"
 									class="btn btn-primary"><i

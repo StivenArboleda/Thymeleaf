@@ -6,6 +6,6 @@ public interface IBusinessEntityService {
 	
 	public Businessentity save(Businessentity be);
 	public Iterable<Businessentity> findAll();
-	
+	public Businessentity saveForAddress(Businessentity businessentity);
 	
 }
