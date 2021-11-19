@@ -5,9 +5,13 @@ import java.sql.Timestamp;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 
 /**
  * The persistent class for the businessentitycontact database table.
@@ -18,8 +22,13 @@ import javax.persistence.NamedQuery;
 public class Businessentitycontact implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private BusinessentitycontactPK id;
+	//@EmbeddedId
+	//private BusinessentitycontactPK id;
+	
+	@Id
+	@SequenceGenerator(name = "BUSINESSENTITYCONTACT_BUSINESSENTITYCONTACTID_GENERATOR", allocationSize = 1, sequenceName = "BUSINESSENTITYCONTACT_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BUSINESSENTITYCONTACT_BUSINESSENTITYCONTACTID_GENERATOR")
+	private Integer id;
 
 	private Timestamp modifieddate;
 
@@ -27,17 +36,17 @@ public class Businessentitycontact implements Serializable {
 
 	// bi-directional many-to-one association to Businessentity
 	@ManyToOne
-	@JoinColumn(name = "businessentityid", insertable = false, updatable = false)
+	@JoinColumn(name = "businessentityid")
 	private Businessentity businessentity;
 
 	// bi-directional many-to-one association to Contacttype
 	@ManyToOne
-	@JoinColumn(name = "contacttypeid", insertable = false, updatable = false)
+	@JoinColumn(name = "contacttypeid")
 	private Contacttype contacttype;
 
 	// bi-directional many-to-one association to Person
 	@ManyToOne
-	@JoinColumn(name = "personid", insertable = false, updatable = false)
+	@JoinColumn(name = "personid")
 	private Person person;
 
 	public Businessentitycontact() {
@@ -51,7 +60,7 @@ public class Businessentitycontact implements Serializable {
 		return this.contacttype;
 	}
 
-	public BusinessentitycontactPK getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
@@ -75,7 +84,7 @@ public class Businessentitycontact implements Serializable {
 		this.contacttype = contacttype;
 	}
 
-	public void setId(BusinessentitycontactPK id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

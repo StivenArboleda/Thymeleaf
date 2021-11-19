@@ -9,6 +9,8 @@ public interface IPersonService {
 	
 	public void saveCorrect(Person person);
 	
+	public Person saveForContact(Person person);
+	
 	public Iterable<Person> findAll();
 	
 	public Person findbyId(Integer id);

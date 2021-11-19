@@ -41,8 +41,7 @@ public class PersonService implements IPersonService{
 	}
 	
 	public void saveCorrect(Person person) {
-		
-	
+			
 		Businessentity businessEntity = new Businessentity();
 		businessEntity.setModifieddate(Timestamp.from(Instant.now()));
 		businessEntity = ber.save(businessEntity);
@@ -62,6 +61,28 @@ public class PersonService implements IPersonService{
 			throw new IllegalArgumentException("It has no modification date");
 		}
 		
+	}
+	public Person saveForContact(Person person) {
+		
+		Businessentity businessEntity = new Businessentity();
+		businessEntity.setModifieddate(Timestamp.from(Instant.now()));
+		businessEntity = ber.save(businessEntity);
+		person.setModifieddate(Timestamp.from(Instant.now()));
+		
+		if(person.getFirstname().length() >= 3 && person.getLastname().length() >= 3 && person.getModifieddate() != null) {
+			
+			person.setBusinessentity(businessEntity);
+			
+			personR.save(person);
+			return person;
+		}else if(person.getFirstname().length() < 3){
+			throw new IllegalArgumentException("The name is too short");
+		}else if(person.getLastname().length() < 3) {
+			throw new IllegalArgumentException("The lastname is too short");
+		}else if(person.getModifieddate() == null) {
+			throw new IllegalArgumentException("It has no modification date");
+		}
+		return null;
 	}
 	
 	public <S extends Person> Iterable<S> saveAll(Iterable<S> persons) {

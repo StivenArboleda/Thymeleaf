@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Add persons</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+    />
+    <link rel="stylesheet" href="../css/shards.min.css" />
+  </head>
+  <body>
+    <div class="container my-1">
+      <h2 class="mb-5">Add address state province</h2>
+      <div class="row">
+        <div class="col-md-5">
+          <form
+            action="#"
+            th:object="${businessentitycontact}"
+            th:action="@{/businessentitycontact/addContact}"
+            method="post"
+          >
+            <div class="row">
+              <div class="form-group col-md-6">
+		</div>
+			
+			<div class="form-group col-md-6">
+			<label for="business"  class="col-form-label">ID Business entity</label>
+            	<select id="businessentity" th:field="*{businessentity}">
+                	<option
+                    	th:each="bus : ${businesses}"
+                        th:value="${bus.businessentityid}"
+                        th:text="${bus.businessentityid}"
+                        th:selected="${businessentitycontact.businessentity==bus}">
+                  	</option>
+                 </select>		
+			</div>
+			<div class="form-group col-md-6">
+			<label for="cont"  class="col-form-label">ID Contact Type</label>
+            	<select id="contact" th:field="*{contacttype}">
+                	<option
+                    	th:each="conta : ${contacts}"
+                        th:value="${conta.contacttypeid}"
+                        th:text="${conta.contacttypeid}"
+                        th:selected="${businessentitycontact.contacttype==conta}">
+                  	</option>
+                 </select>		
+			</div>
+         	<div class="form-group col-md-6">
+			<label for="pers"  class="col-form-label">ID Person</label>
+            	<select id="person" th:field="*{person}">
+                	<option
+                    	th:each="perso : ${persons}"
+                        th:value="${perso.businessentityid}"
+                        th:text="${perso.businessentityid + ': ' + perso.firstname + ' ' + perso.lastname}"       
+                        th:selected="${businessentitycontact.person==conta}">
+                  	</option>
+                 </select>		
+			</div>
+    	    		               
+          	 <div class="col-md-6 mt-3">
+                <input
+                  type="submit"
+                  name="action"
+                  class="btn btn-primary"
+                  value="Add"
+                />
+              </div>
+              <div class="col-md-6 mt-3">
+                <input type="reset" class="btn btn-secondary" value="Clear" />
+              </div>
+              <div class="col-md-6 mt-3">
+                <input
+                  type="submit"
+                  name="action"
+                  class="btn btn-secondary"
+                  value="Cancel"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      	<a href="/"><i class="fas fa-home ml-2"></i> Go back to main</a>
+    </div>
+  </body>
+</html>

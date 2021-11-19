@@ -12,72 +12,81 @@ import com.icesi.edu.Stiven.model.person.Address;
 import com.icesi.edu.Stiven.model.person.Addresstype;
 import com.icesi.edu.Stiven.model.person.Businessentity;
 import com.icesi.edu.Stiven.model.person.Businessentityaddress;
+import com.icesi.edu.Stiven.model.person.Businessentitycontact;
+import com.icesi.edu.Stiven.model.person.Contacttype;
+import com.icesi.edu.Stiven.model.person.Person;
+import com.icesi.edu.Stiven.service.impl.ContactTypeService;
 import com.icesi.edu.Stiven.service.inter.IAddressService;
 import com.icesi.edu.Stiven.service.inter.IAddressTypeService;
 import com.icesi.edu.Stiven.service.inter.IBusinessEntityAddressService;
+import com.icesi.edu.Stiven.service.inter.IBusinessEntityContactService;
 import com.icesi.edu.Stiven.service.inter.IBusinessEntityService;
+import com.icesi.edu.Stiven.service.inter.IContactTypeService;
+import com.icesi.edu.Stiven.service.inter.IPersonService;
 
 
 @Controller
-public class businessEntityAddressController {
+public class businessEntityContactController {
 
-	private IBusinessEntityAddressService bea;
-	private IAddressService as;
-	private IAddressTypeService ats;
+	
+	private IBusinessEntityContactService bea;
 	private IBusinessEntityService bes;
+	private IContactTypeService cts;
+	private IPersonService ps;
 	
 
 	@Autowired
-	public businessEntityAddressController(IBusinessEntityAddressService bea, IAddressService as,
-			IAddressTypeService ats, IBusinessEntityService bes) {
+	public businessEntityContactController(IBusinessEntityContactService bea, IBusinessEntityService bes,
+			IContactTypeService cts, IPersonService ps) {
+		super();
 		this.bea = bea;
-		this.as = as;
-		this.ats = ats;
 		this.bes = bes;
+		this.cts = cts;
+		this.ps = ps;
 	}
-
-	@GetMapping("/businessAddress/")
+	
+	@GetMapping("/businessentitycontact/")
 	public String index(Model model) {
 					
-		model.addAttribute("businessentityaddresses", bea.findAll());
-		return "businessAddress/index";
+		model.addAttribute("businessentitycontacts", bea.findAll());
+		return "businessentitycontact/index";
 	}
 	
-	@GetMapping("/businessAddress/searchAddress/{id}")
+	@GetMapping("/businessentitycontact/searchAddress/{id}")
 	public String search(Model model, @PathVariable Integer id) {
 					
-		model.addAttribute("businessentityaddress", bea.findById(id));
-		return "businessAddress/searchAddress";
+		model.addAttribute("businessentitycontact", bea.findById(id));
+		return "businessentitycontact/searchAddress";
 	}
 	
-	@GetMapping("/businessAddress/addAddress")
+	@GetMapping("/businessentitycontact/addContact")
 	public String addressAdd(Model model) {
 		
-		Businessentityaddress bea = new Businessentityaddress();
+		Businessentitycontact bec = new Businessentitycontact();
 		
-		model.addAttribute("businessentityaddress", bea);
-		model.addAttribute("addresses", as.findAll());
-		model.addAttribute("addresstypes", ats.findAll());
+		model.addAttribute("businessentitycontact", bec);
 		model.addAttribute("businesses", bes.findAll());
+		model.addAttribute("contacts", cts.findAll());
+		model.addAttribute("persons", ps.findAll());
 		
-		return "businessAddress/addAddress";
+		return "businessentitycontact/addContact";
 	}
 	
-	@PostMapping("/businessAddress/addAddress")	
-	public String addAddress(@ModelAttribute("businessentityaddress") Businessentityaddress beadress,
+	@PostMapping("/businessentitycontact/addContact")	
+	public String addAddress(@ModelAttribute("businessentitycontact") Businessentitycontact beadress,
 			@RequestParam(value="action", required=true) String action, Model model) {
 		
-		Address a = beadress.getAddress();
-		Addresstype at = beadress.getAddresstype();
 		Businessentity be = beadress.getBusinessentity();
+		Contacttype ct = beadress.getContacttype();
+		Person p = beadress.getPerson();
 		
-		a = as.save(a);
-		at = ats.save(at);
 		be = bes.saveForAddress(be);
+		ct = cts.save(ct);
+		p = ps.saveForContact(p);
 		
-		bea.save(beadress, a.getAddressid(), at.getAddresstypeid(), be.getBusinessentityid());
+		bea.save(beadress, be.getBusinessentityid(), ct.getContacttypeid(), p.getBusinessentityid());
 		
-		return "redirect:/businessAddress/";
+		return "redirect:/businessentitycontact/";
 	}
 	
 	/*@GetMapping("/updateAddress/{id}")
@@ -99,11 +108,11 @@ public class businessEntityAddressController {
 		return "redirect:/provinceAddress/";
 	}*/
 	
-	@GetMapping("/businessAddress/delete/{id}")
+	@GetMapping("/businessentitycontact/delete/{id}")
 	public String delete(Model model, @PathVariable Integer id) {
 
 		bea.deletebyId(id);
 		
-		return "redirect:/businessAddress/";
+		return "redirect:/businessentitycontac/";
 	}
 }

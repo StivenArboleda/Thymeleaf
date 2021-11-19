@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>search persons</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+    />
+    <link rel="stylesheet" href="../css/shards.min.css" />
+  </head>
+  <body>
+    <div class="container my-1">
+      <h2 class="mb-5">Business Entity Contact</h2>
+      <div class="row">
+        <div class="col-md-5">
+          <form
+            action="#"
+            th:object="${businessentitycontact}"
+            th:action="@{/businessentitycontact/searchAddress}"
+            method="post"
+          >
+            <div class="row">
+              <div class="form-group col-md-6">
+		</div>
+			
+              <div class="form-group col-md-6">
+                <label for="visible" class="col-form-label">Id business entity contact</label>
+                <input
+                  type="text"
+                  th:field="*{id}"
+                  class="form-control"
+                  id="addressline1"
+                  readonly
+                />
+              </div>
+              
+              <div class="form-group col-md-6">
+                <label for="visible" class="col-form-label">ID Business entity</label>
+                <input
+                  type="text"
+                  th:field="*{businessentity.businessentityid}"
+                  class="form-control"
+                  id="idcontact"
+                  readonly
+                />
+              </div>
+              
+    		<div class="form-group col-md-6">
+                <label for="visible" class="col-form-label">ID Contact Type</label>
+                <input
+                  type="text"
+                  th:field="*{contacttype.contacttypeid}"
+                  class="form-control"
+                  id="ciontacttype"
+                  readonly
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="visible" class="col-form-label">ID Person</label>
+                <input
+                  type="text"
+                  th:field="*{person.businessentityid}"
+                  class="form-control"
+                  id="personid"
+                  readonly
+                />
+              </div>
+              
+    		<div class="form-group col-md-6">
+                <label for="city" class="col-form-label">Name person</label>
+                <input
+                  type="text"
+                  th:field="*{person.firstname}"
+                  class="form-control"
+                  id="firstname"
+                  readonly
+                />
+              </div>
+                <div class="form-group col-md-6">
+                <label for="city" class="col-form-label">Lastname person</label>
+                <input
+                  type="text"
+                  th:field="*{person.lastname}"
+                  class="form-control"
+                  id="lastname"
+                  readonly
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="postalcode" class="col-form-label">Title person</label>
+                <input
+                  type="text"
+                  th:field="*{person.title}"
+                  class="form-control"
+                  id="businessentity"
+                  readonly
+                />
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+      	<a href="/businessentitycontact/"><i class="fas fa-home ml-2"></i> Go back to main</a>
+    </div>
+  </body>
+</html>

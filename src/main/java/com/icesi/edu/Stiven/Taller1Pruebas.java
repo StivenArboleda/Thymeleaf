@@ -16,6 +16,8 @@ import com.icesi.edu.Stiven.model.person.Address;
 import com.icesi.edu.Stiven.model.person.Addresstype;
 import com.icesi.edu.Stiven.model.person.Businessentity;
 import com.icesi.edu.Stiven.model.person.Businessentityaddress;
+import com.icesi.edu.Stiven.model.person.Businessentitycontact;
+import com.icesi.edu.Stiven.model.person.Contacttype;
 import com.icesi.edu.Stiven.model.person.Person;
 import com.icesi.edu.Stiven.model.person.Stateprovince;
 import com.icesi.edu.Stiven.model.person.UserModel;
@@ -23,14 +25,18 @@ import com.icesi.edu.Stiven.model.person.UserType;
 import com.icesi.edu.Stiven.service.impl.AddressService;
 import com.icesi.edu.Stiven.service.impl.AddressTypeService;
 import com.icesi.edu.Stiven.service.impl.BusinessEntityAddressService;
+import com.icesi.edu.Stiven.service.impl.BusinessEntityContactService;
 import com.icesi.edu.Stiven.service.impl.BusinessEntityService;
+import com.icesi.edu.Stiven.service.impl.ContactTypeService;
 import com.icesi.edu.Stiven.service.impl.PersonService;
 import com.icesi.edu.Stiven.service.impl.StateProvinceService;
 import com.icesi.edu.Stiven.service.impl.UserService;
 import com.icesi.edu.Stiven.service.inter.IAddressService;
 import com.icesi.edu.Stiven.service.inter.IAddressTypeService;
 import com.icesi.edu.Stiven.service.inter.IBusinessEntityAddressService;
+import com.icesi.edu.Stiven.service.inter.IBusinessEntityContactService;
 import com.icesi.edu.Stiven.service.inter.IBusinessEntityService;
+import com.icesi.edu.Stiven.service.inter.IContactTypeService;
 import com.icesi.edu.Stiven.service.inter.IPersonService;
 import com.icesi.edu.Stiven.service.inter.IStateProvinceService;
 
@@ -201,9 +207,16 @@ public class Taller1Pruebas {
 		bentity = bea.save(bentity, address.getAddressid(), at.getAddresstypeid(), be.getBusinessentityid());
 		bea.save(bentity2, address2.getAddressid(), at2.getAddresstypeid(), be.getBusinessentityid());
 		
-		/*System.out.println(bentity.getAddress().getAddressline1() + "\n" +
-						   bentity.getBusinessentity().getBusinessentityid() + "\n" +
-						   bentity.getAddresstype().getAddresstypeid());*/
+		//BUSINESS ENTITY CONTACT
+		
+		IBusinessEntityContactService bec = c.getBean(BusinessEntityContactService.class);
+		Businessentitycontact bc = new Businessentitycontact();
+		IContactTypeService cts = c.getBean(ContactTypeService.class);
+		Contacttype ct = new Contacttype();
+		ct = cts.save(ct);
+		
+		
+		bec.save(bc, be.getBusinessentityid(), ct.getContacttypeid(), p1.getBusinessentityid());
 	}
 	
 	
