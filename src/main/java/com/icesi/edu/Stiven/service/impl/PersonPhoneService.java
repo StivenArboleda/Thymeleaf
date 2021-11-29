@@ -19,17 +19,11 @@ public class PersonPhoneService {
 	}
 	
 	public <S extends Personphone> S save (S personp) {
-		PersonphonePK pk = personp.getId();
 		if(personp.getId() != null) {
-			if(pk.getPhonenumbertypeid() != null) {
-				if(pk.getBusinessentityid() != null) {
-					if(pk.getPhonenumber().length() == 10) {
+			if(personp.getPhonenumbertype().getPhonenumbertypeid() != null) {
+				if(personp.getPerson().getBusinessentityid() != null) {
 						personP.save(personp);
 						return personp;
-						
-					}else {
-						throw new NumberFormatException("The phone number is not 10 digits");
-					}
 				}else {
 					throw new NullPointerException("The foreign key of the business entity does not exist");
 				}

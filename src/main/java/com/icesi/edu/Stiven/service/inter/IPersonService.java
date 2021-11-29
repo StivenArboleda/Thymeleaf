@@ -2,7 +2,6 @@ package com.icesi.edu.Stiven.service.inter;
 
 import java.sql.Timestamp;
 
-
 import com.icesi.edu.Stiven.model.person.Person;
 
 public interface IPersonService {

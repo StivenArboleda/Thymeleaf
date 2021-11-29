@@ -5,9 +5,14 @@ import java.sql.Timestamp;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.Size;
 
 /**
  * The persistent class for the personphone database table.
@@ -18,9 +23,12 @@ import javax.persistence.NamedQuery;
 public class Personphone implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private PersonphonePK id;
-
+	//@EmbeddedId
+	//private PersonphonePK id;
+	@Id
+	@SequenceGenerator(name = "PERSONPHONE_PERSONPHONE_GENERATOR", allocationSize = 1, sequenceName = "PERSONPHONE_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSONPHONE_PERSONPHONEID_GENERATOR")
+	private Integer id;
 	private Timestamp modifieddate;
 
 	// bi-directional many-to-one association to Person
@@ -33,10 +41,13 @@ public class Personphone implements Serializable {
 	@JoinColumn(name = "phonenumbertypeid", insertable = false, updatable = false)
 	private Phonenumbertype phonenumbertype;
 
+	@Size(min = 10, max = 10)
+	private String phone;
+	
 	public Personphone() {
 	}
-
-	public PersonphonePK getId() {
+	
+	public Integer getId() {
 		return this.id;
 	}
 
@@ -52,7 +63,7 @@ public class Personphone implements Serializable {
 		return this.phonenumbertype;
 	}
 
-	public void setId(PersonphonePK id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -67,5 +78,14 @@ public class Personphone implements Serializable {
 	public void setPhonenumbertype(Phonenumbertype phonenumbertype) {
 		this.phonenumbertype = phonenumbertype;
 	}
+	
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 
 }
