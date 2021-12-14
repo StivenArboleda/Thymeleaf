@@ -26,8 +26,8 @@
 						<thead>
 							<tr>
 								<th>Id</th>
-								<th>Store</th>
-								<th>Clients</th>
+								<th>Name</th>
+								
 								<th>Search</th>
 								<th>Edit</th>
 								<th>Delete</th>
@@ -37,12 +37,9 @@
 							<tr th:each="store : ${stores}">
 								<td class="text-info" th:text="${store.businessentityid}"></td>
 								<td class="text-info" th:text="${store.name}"></td>
+								
 								<td><a
-									th:href="@{/admin/store/customers/{id}(id=${store.businessentityid})}"
-                                    class="btn btn-primary"><i 
-                                    class="fas fa-address-card ml-2"></i></i></a></td>
-								<td><a
-									th:href="@{/searchStore/{id}(id=${store.businessentityid})}"
+									th:href="@{/stores/searchStore/{id}(id=${store.businessentityid})}"
 									class="btn btn-primary"><i
 										class="fas fa-search ml-2"></i></a></td>
 								<td><a
@@ -60,7 +57,7 @@
 					</table>
 				</div>
 				<p class="my-5">
-					<a href="/stores/addStore" class="btn btn-primary"><i
+					<a href="/stores/addStores" class="btn btn-primary"><i
 						class="fas fa-user-plus ml-2"></i></a>
 				</p>
 

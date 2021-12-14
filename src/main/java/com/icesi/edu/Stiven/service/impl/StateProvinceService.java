@@ -39,7 +39,6 @@ public class StateProvinceService implements IStateProvinceService{
 	public Stateprovince saveCorrect(Stateprovince sp) {
 		stateR.save(sp);
 		return sp;
-		
 	}
 
 }
