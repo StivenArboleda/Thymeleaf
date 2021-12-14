@@ -1,30 +1,29 @@
 package com.icesi.edu.Stiven.service.impl;
 
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.icesi.edu.Stiven.DAO.AddressDAO;
+import com.icesi.edu.Stiven.DAO.AddressTypeDAO;
+import com.icesi.edu.Stiven.DAO.BusinessEntityAddressDAO;
+import com.icesi.edu.Stiven.DAO.BusinessEntityDAO;
 import com.icesi.edu.Stiven.model.person.Address;
 import com.icesi.edu.Stiven.model.person.Addresstype;
 import com.icesi.edu.Stiven.model.person.Businessentity;
 import com.icesi.edu.Stiven.model.person.Businessentityaddress;
-import com.icesi.edu.Stiven.repositories.AddressRepository;
-import com.icesi.edu.Stiven.repositories.AddressTypeRepository;
-import com.icesi.edu.Stiven.repositories.BusinessEntityAddressRepository;
-import com.icesi.edu.Stiven.repositories.BusinessEntityRepository;
 import com.icesi.edu.Stiven.service.inter.IBusinessEntityAddressService;
 
 @Service
 public class BusinessEntityAddressService implements IBusinessEntityAddressService {
 	
-	BusinessEntityAddressRepository ber;
-	AddressRepository addressR;
-	AddressTypeRepository at;
-	BusinessEntityRepository entity;
+	BusinessEntityAddressDAO ber;
+	AddressDAO addressR;
+	AddressTypeDAO at;
+	BusinessEntityDAO entity;
 	
 		
-	public BusinessEntityAddressService(BusinessEntityAddressRepository ber, AddressRepository addressR,
-			AddressTypeRepository at, BusinessEntityRepository entity) {
+	public BusinessEntityAddressService(BusinessEntityAddressDAO ber, AddressDAO addressR,
+			AddressTypeDAO at, BusinessEntityDAO entity) {
 		this.ber = ber;
 		this.addressR = addressR;
 		this.at = at;
@@ -37,9 +36,9 @@ public class BusinessEntityAddressService implements IBusinessEntityAddressServi
 			if(addressType != null) {
 				if(business != null) {
 					
-					Address a = addressR.findById(address).get();
-					Addresstype atype = at.findById(addressType).get();
-					Businessentity b = entity.findById(business).get();
+					Address a = addressR.findById(address);
+					Addresstype atype = at.findById(addressType);
+					Businessentity b = entity.findById(business);
 					
 					bea.setAddress(a);
 					bea.setAddresstype(atype);
@@ -59,7 +58,7 @@ public class BusinessEntityAddressService implements IBusinessEntityAddressServi
 		
 	}
 	
-	public Optional<Businessentityaddress> findById(Integer id) {
+	public Businessentityaddress findById(Integer id) {
 		return ber.findById(id);
 	}
 	
@@ -69,11 +68,7 @@ public class BusinessEntityAddressService implements IBusinessEntityAddressServi
 	
 	@Override
 	public void deletebyId(Integer id) {
-		ber.deleteById(id);
-	}
-
-	public boolean existsById(Integer id) {
-		return ber.existsById(id);
+		ber.delete(id);
 	}
 
 	

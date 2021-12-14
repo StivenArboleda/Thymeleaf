@@ -9,6 +9,8 @@ public interface IStateProvinceService {
 	public Stateprovince findbyId(Integer id);
 	
 	public void deleteStateprovince(Stateprovince sp);
+	
+	public void delete(Integer id);
 
 	public Stateprovince saveCorrect(Stateprovince sp);
 }

@@ -5,6 +5,8 @@ import java.time.Instant;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+
+import com.icesi.edu.Stiven.DAO.BusinessEntityDAO;
 import com.icesi.edu.Stiven.model.person.Businessentity;
 import com.icesi.edu.Stiven.repositories.BusinessEntityRepository;
 import com.icesi.edu.Stiven.service.inter.IBusinessEntityService;
@@ -12,9 +14,9 @@ import com.icesi.edu.Stiven.service.inter.IBusinessEntityService;
 @Service
 public class BusinessEntityService implements IBusinessEntityService{
 	
-	private BusinessEntityRepository businessEntityR;
+	private BusinessEntityDAO businessEntityR;
 	
-	public BusinessEntityService(BusinessEntityRepository businessEntityR) {
+	public BusinessEntityService(BusinessEntityDAO businessEntityR) {
 		this.businessEntityR = businessEntityR;
 	}
 	
@@ -40,7 +42,7 @@ public class BusinessEntityService implements IBusinessEntityService{
 		}
 	}
 	
-	public Optional<Businessentity> findById(Integer id) {
+	public Businessentity findById(Integer id) {
 		return businessEntityR.findById(id);
 	}
 	
@@ -49,14 +51,11 @@ public class BusinessEntityService implements IBusinessEntityService{
 		return businessEntityR.findAll();
 	}
 	
-	public boolean existsById(Integer id) {
-		return businessEntityR.existsById(id);
-	}
 	
 	public void editBusinessEntity(Integer businessentityid, Timestamp modifieddate, Integer rowguid) {
 		
 		if(modifieddate != null) {
-			Businessentity be = findById(businessentityid).get();
+			Businessentity be = findById(businessentityid);
 			
 			be.setModifieddate(modifieddate);
 			be.setRowguid(rowguid);

@@ -27,7 +27,7 @@ public class AddressTypeDAO implements Dao<Addresstype>{
 	@Transactional
 	@Override
 	public Addresstype findById(Integer id) {
-		String jpql = "SELECT e FROM Addresstype e WHERE e.adresstypeid=:id";
+		String jpql = "SELECT e FROM Addresstype e WHERE e.addresstypeid=:id";
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("id", id);
 		Addresstype at = null;

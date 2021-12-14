@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.icesi.edu.Stiven.model.person.Address;
 import com.icesi.edu.Stiven.model.person.Businessentity;
+import com.icesi.edu.Stiven.model.person.Stateprovince;
 
 
 @Repository
@@ -24,7 +25,6 @@ public class AddressDAO implements Dao<Address> {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
-
 
 	@Transactional
 	@Override
@@ -36,7 +36,7 @@ public class AddressDAO implements Dao<Address> {
 	@Transactional
 	@Override
 	public Address findById(Integer id) {
-		String jpql = "SELECT e FROM Address e WHERE e.businessentityid = :id ";
+		String jpql = "SELECT e FROM Address e WHERE e.addressid = :id ";
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("id", id);
 		
@@ -72,9 +72,8 @@ public class AddressDAO implements Dao<Address> {
 	public void delete(Integer id) {
 		Address a = findById(id);
 		entityManager.remove(a);
-		
 	}
-
+	
 	@Override
 	public void delete(Address a) {
 		entityManager.remove(a);

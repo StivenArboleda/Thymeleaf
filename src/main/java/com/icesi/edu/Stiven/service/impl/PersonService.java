@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.icesi.edu.Stiven.DAO.BusinessEntityDAO;
+import com.icesi.edu.Stiven.DAO.PersonDAO;
 import com.icesi.edu.Stiven.model.person.Businessentity;
 import com.icesi.edu.Stiven.model.person.Person;
 import com.icesi.edu.Stiven.repositories.BusinessEntityRepository;
@@ -15,11 +17,11 @@ import com.icesi.edu.Stiven.service.inter.IPersonService;
 @Service
 public class PersonService implements IPersonService{
 
-	PersonRepository personR;
+	PersonDAO personR;
 	
-	private BusinessEntityRepository ber;
+	private BusinessEntityDAO ber;
 	
-	public PersonService(PersonRepository personR, BusinessEntityRepository ber) {
+	public PersonService(PersonDAO personR, BusinessEntityDAO ber) {
 		this.personR = personR;
 		this.ber = ber;
 	}
@@ -92,20 +94,20 @@ public class PersonService implements IPersonService{
 		return persons;
 	}
 	
-	public Optional<Person> findId(Integer id) {
+	public Person findId(Integer id) {
 		return personR.findById(id);
 	}
 	
-	public boolean existsById(Integer id) {
+	/*public boolean existsById(Integer id) {
 		return personR.existsById(id);
-	}
+	}*/
 	
 	public void editPerson(Integer businessentityid, Integer emailpromotion, String firstname,
 			String lastname, Timestamp modifieddate, String title) {
 		modifieddate = Timestamp.from(Instant.now());
 		if(firstname.length() >= 3 && lastname.length() >= 3 && modifieddate != null) {
 			
-			Person pr = personR.findById(businessentityid).get();
+			Person pr = personR.findById(businessentityid);
 			
 			pr.setEmailpromotion(emailpromotion);
 			pr.setFirstname(firstname);
@@ -127,7 +129,7 @@ public class PersonService implements IPersonService{
 
 	@Override
 	public Person findbyId(Integer id) {
-		return personR.findById(id).get();
+		return personR.findById(id);
 	}
 	
 	public void deletePerson(Person p) {

@@ -25,7 +25,7 @@ public class BusinessEntityAddressDAO implements Dao<Businessentityaddress> {
 
 	@Override
 	public Businessentityaddress findById(Integer id) {
-		String jpql = "SELECT e FROM Businessentityaddress e WHERE e.Businessentityaddressid=:id";
+		String jpql = "SELECT e FROM Businessentityaddress e WHERE e.id=:id";
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("id", id);
 		Businessentityaddress be = null;

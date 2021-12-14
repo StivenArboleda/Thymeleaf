@@ -12,10 +12,8 @@ public interface IAddressService {
 	public <S extends Address> Iterable<S> saveAll(Iterable<S> a);
 	
 	public Address findbyId(Integer id);
-	
+		
 	public Iterable<Address> findAll();
-	
-	public boolean existsById(Integer id);
 	
 	public void deletebyId(Integer id);
 	

@@ -113,6 +113,6 @@ public class businessEntityContactController {
 
 		bea.deletebyId(id);
 		
-		return "redirect:/businessentitycontac/";
+		return "redirect:/businessentitycontact/";
 	}
 }

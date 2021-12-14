@@ -1,19 +1,19 @@
 package com.icesi.edu.Stiven.service.impl;
 
 
-import java.util.Optional;
 import org.springframework.stereotype.Service;
+
+import com.icesi.edu.Stiven.DAO.AddressTypeDAO;
 import com.icesi.edu.Stiven.model.person.Addresstype;
-import com.icesi.edu.Stiven.repositories.AddressTypeRepository;
 import com.icesi.edu.Stiven.service.inter.IAddressTypeService;
 
 
 @Service
 public class AddressTypeService implements IAddressTypeService{
 	
-	private AddressTypeRepository as;
+	private AddressTypeDAO as;
 	
-	public AddressTypeService(AddressTypeRepository as) {
+	public AddressTypeService(AddressTypeDAO as) {
 		this.as = as;
 	}
 	
@@ -31,17 +31,11 @@ public class AddressTypeService implements IAddressTypeService{
 		return ads;
 	}
 	
-	public Optional<Addresstype> findById(Integer id) {
+	public Addresstype findById(Integer id) {
 		return as.findById(id);
 	}
 	
-	public boolean existsById(Integer id) {
-		return as.existsById(id);
-	}
-	
-	public Iterable<Addresstype> findAllById(Iterable<Integer> ads) {
-		return as.findAllById(ads);
-	}
+
 	@Override
 	public Iterable<Addresstype> findAll() {
 		return as.findAll();
@@ -49,12 +43,12 @@ public class AddressTypeService implements IAddressTypeService{
 	
 	@Override
 	public Addresstype findbyId(Integer id) {
-		return as.findById(id).get();
+		return as.findById(id);
 	}
 
 	@Override
 	public void deletebyId(Integer id) {
-		as.deleteById(id);
+		as.deleteId(id);
 	}
 
 

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.icesi.edu.Stiven.DAO.PersonPhoneDAO;
 import com.icesi.edu.Stiven.model.person.Personphone;
 import com.icesi.edu.Stiven.model.person.PersonphonePK;
 import com.icesi.edu.Stiven.repositories.PersonPhoneRepository;
@@ -12,9 +13,9 @@ import com.icesi.edu.Stiven.repositories.PersonPhoneRepository;
 @Service
 public class PersonPhoneService {
 	
-	private PersonPhoneRepository personP;
+	private PersonPhoneDAO personP;
 	
-	public PersonPhoneService(PersonPhoneRepository personP) {
+	public PersonPhoneService(PersonPhoneDAO personP) {
 		this.personP = personP;
 	}
 	
@@ -43,30 +44,16 @@ public class PersonPhoneService {
 		return pp;
 	}
 	
-	public Optional<Personphone> findById(PersonphonePK id) {
+	public Personphone findById(Integer id) {
 		return personP.findById(id);
 	}
 
-	public boolean existsById(PersonphonePK id) {
-		return personP.existsById(id);
-	}
 	
-	public Iterable<Personphone> findAllById(Iterable<PersonphonePK> pp) {
-		return personP.findAllById(pp);
-	}
-	
-	public void editPersonPhone(PersonphonePK id, Timestamp modifieddate) {
-		
-		if(id.getPhonenumber().length() == 10) {
-			Personphone pp = findById(id).get();
-			
-			pp.setModifieddate(modifieddate);
-			
+	public void editPersonPhone(Integer id, Timestamp modifieddate) {
+
+			Personphone pp = findById(id);
+			pp.setModifieddate(modifieddate);			
 			save(pp);
-		}else {
-			throw new NumberFormatException("The phone number is not 10 digits");
-		}
-		
 		
 	}
 	

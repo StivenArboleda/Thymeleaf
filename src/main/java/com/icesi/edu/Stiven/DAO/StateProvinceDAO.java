@@ -63,8 +63,7 @@ public class StateProvinceDAO implements Dao<Stateprovince>{
 	@Transactional
 	public void delete(Integer id) {
 		Stateprovince t = findById(id);
-		entityManager.remove(t);
-
+		entityManager.remove(t);;
 		
 	}
 

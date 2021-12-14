@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.icesi.edu.Stiven.DAO.BusinessEntityDAO;
+import com.icesi.edu.Stiven.DAO.PersonDAO;
 import com.icesi.edu.Stiven.model.person.Address;
 import com.icesi.edu.Stiven.model.person.Addresstype;
 import com.icesi.edu.Stiven.model.person.Businessentity;
@@ -26,12 +28,12 @@ public class BusinessEntityContactService implements IBusinessEntityContactServi
 	
 	BusinessEntityContactRepository ber;
 	ContactTypeRepository ct;
-	BusinessEntityRepository entity;
-	PersonRepository pr;
+	BusinessEntityDAO entity;
+	PersonDAO pr;
 	
 
 	public BusinessEntityContactService(BusinessEntityContactRepository ber, ContactTypeRepository ct,
-			BusinessEntityRepository entity, PersonRepository pr) {
+			BusinessEntityDAO entity, PersonDAO pr) {
 		this.ber = ber;
 		this.ct = ct;
 		this.entity = entity;
@@ -44,9 +46,9 @@ public class BusinessEntityContactService implements IBusinessEntityContactServi
 			if(contact != null) {
 				if(person != null) {
 					
-					Businessentity b = entity.findById(business).get();
+					Businessentity b = entity.findById(business);
 					Contacttype c = ct.findById(contact).get();
-					Person p = pr.findById(person).get();
+					Person p = pr.findById(person);
 					
 					bea.setBusinessentity(b);
 					bea.setContacttype(c);

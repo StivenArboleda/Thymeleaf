@@ -32,7 +32,7 @@ public class PersonDAO implements Dao<Person>{
 	@Override
 	@Transactional
 	public Person findById(Integer id) {
-		String jpql = "SELECT t FROM Person t WHERE t.businessentity =: id";
+		String jpql = "SELECT t FROM Person t WHERE t.businessentityid =: id";
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("id", id);
 		Person p = null;
@@ -46,7 +46,7 @@ public class PersonDAO implements Dao<Person>{
 	
 
 	@Transactional
-	public List<Address> findByTitle(String title) {
+	public List<Person> findByTitle(String title) {
 		String jpql = "SELECT e FROM Address e WHERE modifieddate e.title  = :title"; 
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("title", title);
@@ -59,7 +59,14 @@ public class PersonDAO implements Dao<Person>{
 		String jpql = "SELECT e FROM Person e";
         return entityManager.createQuery(jpql).getResultList();
 	}
-
+	
+	@Transactional
+	public List<Person> findByDateInterval(String date1, String date2) {
+		Query query = entityManager.createQuery("SELECT e FROM Person e WHERE modifieddate BETWEEN " + "\'"+date1+"\'" 
+				+ " AND " + "\'"+date2+"\'" + " AND counter >= 1 ORDER BY lastname");
+        return query.getResultList();
+	}
+	
 	@Override
 	@Transactional
 	public Person save(Person p) {
