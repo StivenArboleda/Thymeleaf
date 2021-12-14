@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Update customer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+    />
+    <link rel="stylesheet" href="../css/shards.min.css" />
+  </head>
+  <body>
+    <div class="container my-1">
+      <h2 class="mb-5">Update customer</h2>
+      <div class="row">
+        <div class="col-md-5">
+          <form
+            action="#"
+            th:object="${customer}"
+            th:action="@{/customers/updateCustomer/{id}(id=${customer.customerid})}"
+            method="post"
+          >
+            <div class="row">
+              <div class="form-group col-md-6">
+		</div>
+		        <div class="form-group col-md-6">
+                <label for="id" class="col-form-label">Id</label>
+                <input
+                  type="text"
+                  th:field="${customer.customerid}"
+                  class="form-control"
+                  id="id"
+                  readonly
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="idP"  class="col-form-label">ID Person</label>
+            	<select id="idPer" th:field="*{person}">
+                	<option
+                    	th:each="idP : ${persons}"
+                        th:value="${idP.businessentityid}"
+                        th:text="${idP.businessentityid + ': ' + idP.firstname}"
+                        th:selected="${customer.==idP}">
+                  	</option>
+                 </select>	
+              </div>
+       
+          	 <div class="col-md-6 mt-3">
+                <input
+                  type="submit"
+                  name="action"
+                  class="btn btn-primary"
+                  value="Update"
+                />
+              </div>
+              <div class="col-md-6 mt-3">
+                <input type="reset" class="btn btn-secondary" value="Clear" />
+              </div>
+              <div class="col-md-6 mt-3">
+                <input
+                  type="submit"
+                  name="action"
+                  class="btn btn-secondary"
+                  value="Cancel"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      	<a href="/stores/"><i class="fas fa-home ml-2"></i> Go back to main</a>
+    </div>
+  </body>
+</html>
