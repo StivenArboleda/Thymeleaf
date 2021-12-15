@@ -29,7 +29,7 @@ public class CustomerService implements ICustomerService{
 	public <S extends Customer> S save(S customer) {
 		Customer nc = customer;
 		Person p = pd.findById(nc.getPersonid());
-		Store s = sd.findById(nc.getStore().getBusinessentityid());
+		Store s = sd.findById(nc.getStoreid1());
 		
 		if (p != null) {
 			if (s != null) {
@@ -73,7 +73,7 @@ public class CustomerService implements ICustomerService{
 	public void editCustomer(Customer o) {
 		Customer nc = o;
 		Person p = pd.findById(nc.getPersonid());
-		Store s = sd.findById(nc.getStore().getBusinessentityid());
+		Store s = sd.findById(nc.getStoreid1());
 		
 		if (p != null) {
 			if (s != null) {

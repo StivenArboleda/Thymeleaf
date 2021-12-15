@@ -35,14 +35,14 @@ public class customerController {
 		return "customers/index";
 	}
 	
-	@GetMapping("/customers/searchStore/{id}")
+	@GetMapping("/customers/searchCustomer/{id}")
 	public String search(Model model, @PathVariable Integer id) {
 					
 		model.addAttribute("store", ss.findbyId(id));
 		return "stores/searchStore";
 	}
 	
-	@GetMapping("/customers/addStores")
+	@GetMapping("/customers/addCustomers")
 	public String customerAdd(Model model) {
 		
 		Customer c = new Customer();
@@ -58,7 +58,7 @@ public class customerController {
 	public String addCustomer(@ModelAttribute("customer") Customer customer,
 			@RequestParam(value="action", required=true) String action, Model model) {
 		
-		Store s = customer.getStore();
+		Store s = ss.findbyId(customer.getStoreid1());
 		s.addCustomer(customer);
 		
 		cs.save(customer);

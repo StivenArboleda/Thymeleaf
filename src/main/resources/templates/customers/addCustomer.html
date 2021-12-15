@@ -32,7 +32,7 @@
 			
 			<div class="form-group col-md-6">
                 <label for="idP"  class="col-form-label">ID Person</label>
-            	<select id="idPer" th:field="*{person}">
+            	<select id="idPer" th:field="*{personid}">
                 	<option
                     	th:each="idP : ${persons}"
                         th:value="${idP.businessentityid}"
@@ -43,11 +43,11 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="idS"  class="col-form-label">ID Store</label>
-            	<select id="idSt" th:field="*{store}">
+            	<select id="idSt" th:field="*{storeid1}">
                 	<option
                     	th:each="idS : ${stores}"
                         th:value="${idS.businessentityid}"
-                        th:text="${idS.businessentityid + ': ' + idP.name}"
+                        th:text="${idS.businessentityid + ': ' + idS.name}"
                         th:selected="${customer.store==idS}">
                   	</option>
                  </select>	
