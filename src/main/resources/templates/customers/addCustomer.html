@@ -37,7 +37,7 @@
                     	th:each="idP : ${persons}"
                         th:value="${idP.businessentityid}"
                         th:text="${idP.businessentityid + ': ' + idP.firstname}"
-                        th:selected="${customer.==idP}">
+                        th:selected="${person==idP}">
                   	</option>
                  </select>	
               </div>

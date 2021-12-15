@@ -13,5 +13,5 @@ public interface ICustomerService {
 	
 	public void deletebyId(Integer id);
 	
-	public void editStore(Customer o);
+	public void editCustomer(Customer o);
 }

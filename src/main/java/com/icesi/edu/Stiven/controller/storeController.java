@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.icesi.edu.Stiven.model.sales.Store;
-import com.icesi.edu.Stiven.service.impl.StoreService;
+import com.icesi.edu.Stiven.service.inter.IStoreService;
 
 @Controller
 public class storeController {
-	private StoreService ss;
+	private IStoreService ss;
 	
 	@Autowired
-	public storeController(StoreService ss) {
+	public storeController(IStoreService ss) {
 		this.ss = ss;
 	}
 	

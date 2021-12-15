@@ -1,23 +1,47 @@
 package com.icesi.edu.Stiven.service.impl;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.stereotype.Service;
 
 import com.icesi.edu.Stiven.DAO.CustomerDAO;
+import com.icesi.edu.Stiven.DAO.PersonDAO;
+import com.icesi.edu.Stiven.DAO.StoreDAO;
+import com.icesi.edu.Stiven.model.person.Person;
 import com.icesi.edu.Stiven.model.sales.Customer;
+import com.icesi.edu.Stiven.model.sales.Store;
 import com.icesi.edu.Stiven.service.inter.ICustomerService;
 
 @Service
 public class CustomerService implements ICustomerService{
 	
 	CustomerDAO cd;
+	PersonDAO pd;
+	StoreDAO sd;
 
-	public CustomerService(CustomerDAO cd) {
+	public CustomerService(CustomerDAO cd, PersonDAO pd, StoreDAO sd) {
 		this.cd = cd;
+		this.pd = pd;
+		this.sd = sd;
 	}
 
 	@Override
 	public <S extends Customer> S save(S customer) {
-		return (S) cd.save(customer);
+		Customer nc = customer;
+		Person p = pd.findById(nc.getPersonid());
+		Store s = sd.findById(nc.getStore().getBusinessentityid());
+		
+		if (p != null) {
+			if (s != null) {
+				s.addCustomer(customer);
+				sd.update(s);
+				return (S) cd.save(customer);
+			}else {
+				throw new EntityNotFoundException("Store not valid");
+			}
+		}else {
+			throw new EntityNotFoundException("Person id not valid");
+		}
 	}
 
 	@Override
@@ -46,7 +70,20 @@ public class CustomerService implements ICustomerService{
 	}
 
 	@Override
-	public void editStore(Customer o) {
+	public void editCustomer(Customer o) {
+		Customer nc = o;
+		Person p = pd.findById(nc.getPersonid());
+		Store s = sd.findById(nc.getStore().getBusinessentityid());
+		
+		if (p != null) {
+			if (s != null) {
+				cd.update(o);
+			}else {
+				throw new EntityNotFoundException("Store not valid");
+			}
+		}else {
+			throw new EntityNotFoundException("Person id not valid");
+		}
 		cd.update(o);
 	}
 
