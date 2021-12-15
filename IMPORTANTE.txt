@@ -1,0 +1,3 @@
+Se hacen las mejoras del taller 3. Se agrega una consulta a los DAO's correspondiente a la búsqueda por 
+intervalo de fechas.
+A parte, se realizan las pruebas para verificación de los DAO's
