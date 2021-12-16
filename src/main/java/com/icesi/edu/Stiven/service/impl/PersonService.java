@@ -2,6 +2,7 @@ package com.icesi.edu.Stiven.service.impl;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -26,9 +27,13 @@ public class PersonService implements IPersonService{
 		this.ber = ber;
 	}
 	
-	public <S extends Person> S save(S person) {
+	public <S extends Person> S save(S person, Integer business) {
+		
+		Businessentity be = new Businessentity();
+		be = ber.findById(business);
 		
 		if(person.getFirstname().length() >= 3 && person.getLastname().length() >= 3 && person.getModifieddate() != null) {
+			person.setBusinessentity(be);
 			personR.save(person);
 			return person;
 		}else if(person.getFirstname().length() < 3){
@@ -47,7 +52,7 @@ public class PersonService implements IPersonService{
 		Businessentity businessEntity = new Businessentity();
 		businessEntity.setModifieddate(Timestamp.from(Instant.now()));
 		businessEntity = ber.save(businessEntity);
-		person.setModifieddate(Timestamp.from(Instant.now()));
+		person.setModifieddate(LocalDate.now());
 		
 		if(person.getFirstname().length() >= 3 && person.getLastname().length() >= 3 && person.getModifieddate() != null) {
 			
@@ -69,7 +74,7 @@ public class PersonService implements IPersonService{
 		Businessentity businessEntity = new Businessentity();
 		businessEntity.setModifieddate(Timestamp.from(Instant.now()));
 		businessEntity = ber.save(businessEntity);
-		person.setModifieddate(Timestamp.from(Instant.now()));
+		person.setModifieddate(LocalDate.now());
 		
 		if(person.getFirstname().length() >= 3 && person.getLastname().length() >= 3 && person.getModifieddate() != null) {
 			
@@ -87,13 +92,7 @@ public class PersonService implements IPersonService{
 		return null;
 	}
 	
-	public <S extends Person> Iterable<S> saveAll(Iterable<S> persons) {
-		for (Person person : persons) {
-			save(person);
-		}
-		return persons;
-	}
-	
+
 	public Person findId(Integer id) {
 		return personR.findById(id);
 	}
@@ -103,9 +102,12 @@ public class PersonService implements IPersonService{
 	}*/
 	
 	public void editPerson(Integer businessentityid, Integer emailpromotion, String firstname,
-			String lastname, Timestamp modifieddate, String title) {
-		modifieddate = Timestamp.from(Instant.now());
+			String lastname, LocalDate modifieddate, String title) {
+		modifieddate = LocalDate.now();
 		if(firstname.length() >= 3 && lastname.length() >= 3 && modifieddate != null) {
+			
+			Businessentity be = new Businessentity();
+			be = ber.findById(businessentityid);
 			
 			Person pr = personR.findById(businessentityid);
 			
@@ -114,8 +116,10 @@ public class PersonService implements IPersonService{
 			pr.setLastname(lastname);
 			pr.setModifieddate(modifieddate);
 			pr.setTitle(title);
+			pr.setBusinessentity(be);
 			
-			save(pr);
+			
+			saveCorrect(pr);
 			
 		}else {
 			throw new IllegalArgumentException("One of the arguments is invalid" + firstname +"/"+ lastname +"/" +modifieddate);

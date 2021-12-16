@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.springframework.boot.SpringApplication;
@@ -56,7 +57,7 @@ public class Taller1Pruebas {
 		
 		UserModel u1 = new UserModel();
 		u1.setId(123);
-		u1.setUserName("admin");
+		u1.setUsername("admin");
 		u1.setPassword("{noop}admin");
 		u1.setType(UserType.Administrador);
 		
@@ -66,7 +67,7 @@ public class Taller1Pruebas {
 		
 		UserModel u2 = new UserModel();
 		u2.setId(1234);
-		u2.setUserName("Stiven");
+		u2.setUsername("Stiven");
 		u2.setPassword("{noop}admin");
 		u2.setType(UserType.Operador);
 		
@@ -105,7 +106,7 @@ public class Taller1Pruebas {
 			
 			date1 = df1.parse("2020-07-22");
 			long time1 = date1.getTime();
-			Timestamp ModiDate = new Timestamp(time1);
+			LocalDate ModiDate = LocalDate.now();
 			p1.setModifieddate(ModiDate);
 		} catch (ParseException e1) {
 			e1.printStackTrace();
@@ -128,7 +129,7 @@ public class Taller1Pruebas {
 		try {
 			date2 = df2.parse("2020-06-19");
 			long time2 = date2.getTime();
-			Timestamp ModiDate = new Timestamp(time2);
+			LocalDate ModiDate = LocalDate.now();
 			p2.setModifieddate(ModiDate);
 		} catch (ParseException e1) {
 			e1.printStackTrace();
@@ -221,8 +222,8 @@ public class Taller1Pruebas {
 		bec.save(bc, be.getBusinessentityid(), ct.getContacttypeid(), p1.getBusinessentityid());
 	}
 	
-	@Bean
-	public RestTemplate restTemplate() {
-	    return new RestTemplate();
-	}
+	//@Bean
+	//public RestTemplate restTemplate() {
+	//    return new RestTemplate();
+	//}
 }

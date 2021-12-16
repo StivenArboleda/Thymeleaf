@@ -2,6 +2,8 @@ package com.icesi.edu.Stiven.service.impl;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDate;
+
 import org.springframework.stereotype.Service;
 
 import com.icesi.edu.Stiven.DAO.AddressDAO;
@@ -26,7 +28,7 @@ public class AddressService implements IAddressService{
 
 		if(!(address.getCity().isEmpty()) && !(address.getPostalcode().isEmpty()) && !(address.getAddressline1().isEmpty())) {
 			if(address.getStateprovince() != null) {
-				address.getStateprovince().setModifieddate(Timestamp.from(Instant.now()));
+				address.getStateprovince().setModifieddate(LocalDate.now());
 				as.save(address);
 				return address;
 				

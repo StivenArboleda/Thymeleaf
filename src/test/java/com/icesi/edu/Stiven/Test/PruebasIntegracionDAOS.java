@@ -234,7 +234,7 @@ public class PruebasIntegracionDAOS {
 		person.setFirstname("Alejandro");
 		person.setLastname("Garcia");
 		person.setTitle("Abogado");
-		person.setModifieddate(Timestamp.from(Instant.now()));
+		person.setModifieddate(LocalDate.now());
 		
 		personRepository.save(person);
 		List<Person> persons = personRepository.findAll(); 
