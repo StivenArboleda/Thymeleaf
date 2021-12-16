@@ -14,6 +14,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import com.icesi.edu.Stiven.model.person.Person;
+
 /**
  * The persistent class for the customer database table.
  *
@@ -35,7 +37,7 @@ public class Customer implements Serializable {
 	private Integer rowguid;
 	
 	private Integer storeid1;
-
+	
 	// bi-directional many-to-one association to Salesterritory
 	@ManyToOne
 	@JoinColumn(name = "territoryid")
@@ -45,6 +47,11 @@ public class Customer implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "storeid")
 	private Store store;
+	
+	// bi-directional many-to-one association to Store
+	@ManyToOne
+	@JoinColumn(name = "personid1")
+	private Person person;
 
 	// bi-directional many-to-one association to Salesorderheader
 	@OneToMany(mappedBy = "customer")
@@ -87,6 +94,10 @@ public class Customer implements Serializable {
 	public Store getStore() {
 		return this.store;
 	}
+	
+	public Person getPerson() {
+		return this.person;
+	}
 
 	public Salesorderheader removeSalesorderheader(Salesorderheader salesorderheader) {
 		getSalesorderheaders().remove(salesorderheader);
@@ -121,6 +132,10 @@ public class Customer implements Serializable {
 
 	public void setStore(Store store) {
 		this.store = store;
+	}
+	
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 	public Integer getStoreid1() {

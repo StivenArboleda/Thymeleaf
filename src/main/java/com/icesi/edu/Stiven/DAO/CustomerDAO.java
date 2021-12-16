@@ -46,14 +46,14 @@ public class CustomerDAO implements Dao<Customer>{
 	@Transactional
 	@Override
 	public Customer save(Customer t) {
-		// TODO Auto-generated method stub
-		return null;
+		entityManager.persist(t);
+		return t;
 	}
 
 	@Transactional
 	@Override
 	public void update(Customer t) {
-		// TODO Auto-generated method stub
+		entityManager.merge(t);
 	}
 
 	@Transactional
