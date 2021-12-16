@@ -33,8 +33,10 @@ public class CustomerService implements ICustomerService{
 		
 		if (p != null) {
 			if (s != null) {
+				p.addCustomer(customer);
 				s.addCustomer(customer);
-				sd.update(s);
+				sd.save(s);
+				pd.save(p);
 				return (S) cd.save(customer);
 			}else {
 				throw new EntityNotFoundException("Store not valid");

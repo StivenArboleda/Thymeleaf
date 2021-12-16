@@ -15,11 +15,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
-
 import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.icesi.edu.Stiven.model.sales.Customer;
 
 /**
  * The persistent class for the person database table.
@@ -85,6 +83,10 @@ public class Person implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "person")
 	private List<Personphone> personphones;
+	
+	// bi-directional many-to-one association to Customer
+	@OneToMany(mappedBy = "person")
+	private List<Customer> customers;
 
 	public Person() {
 	}
@@ -164,6 +166,10 @@ public class Person implements Serializable {
 
 	public List<Personphone> getPersonphones() {
 		return this.personphones;
+	}
+	
+	public List<Customer> getCustomers() {
+		return this.customers;
 	}
 
 	public String getPersontype() {
@@ -258,6 +264,10 @@ public class Person implements Serializable {
 	public void setPersonphones(List<Personphone> personphones) {
 		this.personphones = personphones;
 	}
+	
+	public void setCustomers(List<Customer> customers) {
+		this.customers = customers;
+	}
 
 	public void setPersontype(String persontype) {
 		this.persontype = persontype;
@@ -273,6 +283,12 @@ public class Person implements Serializable {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public Customer addCustomer(Customer customer) {
+		getCustomers().add(customer);
+
+		return customer;
 	}
 
 }

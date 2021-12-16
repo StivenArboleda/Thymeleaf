@@ -1,5 +1,8 @@
 package com.icesi.edu.Stiven.controller;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.icesi.edu.Stiven.model.person.Person;
 import com.icesi.edu.Stiven.model.sales.Customer;
 import com.icesi.edu.Stiven.model.sales.Store;
 import com.icesi.edu.Stiven.service.inter.ICustomerService;
@@ -38,8 +42,8 @@ public class customerController {
 	@GetMapping("/customers/searchCustomer/{id}")
 	public String search(Model model, @PathVariable Integer id) {
 					
-		model.addAttribute("store", ss.findbyId(id));
-		return "stores/searchStore";
+		model.addAttribute("customer", cs.findbyId(id));
+		return "customers/searchCustomer";
 	}
 	
 	@GetMapping("/customers/addCustomers")
@@ -60,9 +64,10 @@ public class customerController {
 		
 		Store s = ss.findbyId(customer.getStoreid1());
 		s.addCustomer(customer);
+		customer.setStore(s);
 		
-		cs.save(customer);
 		ss.editStore(s);
+		cs.save(customer);
 		
 		return "redirect:/customers/";
 	}
@@ -71,8 +76,17 @@ public class customerController {
 	public String updateCustomer(Model model, @PathVariable Integer id, @ModelAttribute Customer customer,
 			@RequestParam(value = "action", required = true) String action) {
 
+		Store s = ss.findbyId(customer.getStoreid1());
+		Person p = ps.findbyId(customer.getPersonid());
+		s.addCustomer(customer);
+		p.addCustomer(customer);
+		customer.setStore(s);
+		customer.setPerson(p);
+		
+		ps.editPerson(p.getBusinessentityid(), p.getEmailpromotion(), p.getFirstname(), p.getLastname(), Timestamp.from(Instant.now()), p.getTitle());
+		ss.editStore(s);
 		cs.editCustomer(customer);
-
+		
 		return "redirect:/customers/";
 	}
 
@@ -80,6 +94,8 @@ public class customerController {
 	public String customerUpdate(Model model, @PathVariable Integer id) {
 		
 		model.addAttribute("customer", cs.findbyId(id));
+		model.addAttribute("persons", ps.findAll());
+		model.addAttribute("stores", ss.findAll());
 
 		return "customers/updateCustomer";
 	}
