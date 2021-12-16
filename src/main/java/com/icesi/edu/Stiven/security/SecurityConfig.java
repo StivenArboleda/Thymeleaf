@@ -1,4 +1,4 @@
-package com.icesi.edu.Stiven.security;
+	package com.icesi.edu.Stiven.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -43,6 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		httpSecurity.authorizeRequests()
 		// .antMatchers("/**").permitAll()
 		.antMatchers("/login/**").permitAll().antMatchers("/logout/**").permitAll()
+		
+		.antMatchers("/api/**")
+		.permitAll()
 		// persons
 		.antMatchers("/person*").permitAll().antMatchers("/persons/addPersons/**")
 		.hasRole(UserType.Administrador.toString()).antMatchers("/persons/updatePersons/**")

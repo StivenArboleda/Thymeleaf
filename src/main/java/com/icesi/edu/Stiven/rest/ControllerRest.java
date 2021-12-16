@@ -23,6 +23,7 @@ import com.icesi.edu.Stiven.model.person.Person;
 
 
 @RestController
+@RequestMapping("/api")
 public class ControllerRest {
 	
 	PersonDAO person;

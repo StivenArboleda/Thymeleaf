@@ -18,7 +18,7 @@ import com.icesi.edu.Stiven.model.person.Person;
 public class BusinessDelegate {
 	
 	@Autowired
-	private static RestTemplate template;
+	private RestTemplate restTemplate;
 	
 
 	//PERSON
@@ -26,13 +26,13 @@ public class BusinessDelegate {
 
 	public Person findbyId(Integer id) {
 		String url = "http://localhost:8080/persons/" + id;
-		Person pers = template.getForObject(url, Person.class);
+		Person pers = restTemplate.getForObject(url, Person.class);
 		return pers;
 	}
 
 	public Iterable<Person> findAll() {
-		String url = "http://localhost:8080/persons";
-		Person[] pe = template.getForObject(url, Person[].class);
+		String url = "http://localhost:8080/person";
+		Person[] pe = restTemplate.getForObject(url, Person[].class);
 		return Arrays.asList(pe);
 	}
 
@@ -41,7 +41,7 @@ public class BusinessDelegate {
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<Person> entity = new HttpEntity<Person>(p, headers);
 
-		return template.exchange("http://localhost:8080/persons", HttpMethod.POST, entity, String.class).getBody();
+		return restTemplate.exchange("http://localhost:8080/persons", HttpMethod.POST, entity, String.class).getBody();
 	}
 
 	public String editPerson(Integer id, Person pe) {
@@ -49,20 +49,20 @@ public class BusinessDelegate {
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<Person> entity = new HttpEntity<Person>(pe, headers);
 
-		return template.exchange("http://localhost:8080/persons/" + id, HttpMethod.PUT, entity, String.class).getBody();
+		return restTemplate.exchange("http://localhost:8080/persons/" + id, HttpMethod.PUT, entity, String.class).getBody();
 	}
 	
 	//BUSINESS ENTITY
 	
 	public Businessentity getEntity(Integer id) {
 		String url = "http://localhost:8080/entities/" + id;
-		Businessentity be = template.getForObject(url, Businessentity.class);
+		Businessentity be = restTemplate.getForObject(url, Businessentity.class);
 		return be;
 	}
 
 	public Iterable<Businessentity> getAllEntities() {
 		String url = "http://localhost:8080/entities";
-		Businessentity[] be = template.getForObject(url, Businessentity[].class);
+		Businessentity[] be = restTemplate.getForObject(url, Businessentity[].class);
 		return Arrays.asList(be);
 	}
 
@@ -71,7 +71,7 @@ public class BusinessDelegate {
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<Businessentity> entity = new HttpEntity<Businessentity>(be, headers);
 
-		return template.exchange("http://localhost:8080/entities", HttpMethod.POST, entity, String.class).getBody();
+		return restTemplate.exchange("http://localhost:8080/entities", HttpMethod.POST, entity, String.class).getBody();
 	}
 
 	public String updateEntity(Integer id, Businessentity be) {
@@ -79,7 +79,7 @@ public class BusinessDelegate {
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<Businessentity> entity = new HttpEntity<Businessentity>(be, headers);
 
-		return template.exchange("http://localhost:8080/entities/" + id, HttpMethod.PUT, entity, String.class)
+		return restTemplate.exchange("http://localhost:8080/entities/" + id, HttpMethod.PUT, entity, String.class)
 				.getBody();
 	}
 	
