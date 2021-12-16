@@ -166,8 +166,8 @@ public class Taller1Pruebas {
 		state = sps.saveCorrect(state);
 		address.setStateprovince(state);
 		address2.setStateprovince(state);
-		as.save(address);
-		as.save(address2);
+		address = as.save(address);
+		address2 = as.save(address2);
 		
 		Stateprovince state1 = new Stateprovince();
 		

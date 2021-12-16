@@ -23,6 +23,7 @@ import com.icesi.edu.Stiven.model.person.Businessentity;
 import com.icesi.edu.Stiven.model.person.Businessentityaddress;
 import com.icesi.edu.Stiven.model.person.Person;
 import com.icesi.edu.Stiven.model.person.Stateprovince;
+import com.icesi.edu.Stiven.model.person.UserModel;
 
 
 
@@ -50,6 +51,16 @@ public class BusinessDelegate {
 	
 	public RestTemplate getRestTemplate() {
 		return restTemplate;
+	}
+	
+	//=====================================
+	//=====================================
+	//				USERS
+	//=====================================
+	//=====================================
+	public List<UserModel> showUserList() {
+		UserModel[] userarray = restTemplate.getForObject(baseurl + "/userRest/list", UserModel[].class);
+		return Arrays.asList(userarray);
 	}
 	
 	//=====================================

@@ -10,22 +10,21 @@ import com.icesi.edu.Stiven.service.inter.IUserService;
 @Controller
 public class UserController {
 
-	private IUserService us;
+	/*private IUserService us;
 	
 	@Autowired
 	public UserController(IUserService us ) {
 		this.us= us;
-	}
+	}*/
+	
+	@Autowired
+	private BusinessDelegate us;
 	
 	@GetMapping("/users/")
 	public String login(Model model) {
-		model.addAttribute("users", us.findAll());
+		model.addAttribute("users", us.showUserList());
 		return "/users/indexUsers";
 	}
 	
-	@GetMapping("/user/addUsers")
-	public String index(Model model) {
-		//model.addAttribute("users", us.findAll());
-		return "/users/addUsers";
-	}
+
 }
