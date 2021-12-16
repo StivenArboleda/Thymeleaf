@@ -66,7 +66,7 @@ public class businessEntityAddressController {
 	@PostMapping("/businessAddress/searchAddressId")
 	public String searchId(@RequestParam("search") @PathVariable Integer id, Model model) {
 					
-		model.addAttribute("businessentityaddress", bea.findById(id));
+		model.addAttribute("businessentityaddress", bea.getFindByIdBusiness(id));
 		return "businessAddress/searchAddress";
 	}
 	
