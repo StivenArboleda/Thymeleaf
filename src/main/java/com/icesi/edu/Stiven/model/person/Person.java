@@ -2,8 +2,10 @@ package com.icesi.edu.Stiven.model.person;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,9 +15,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
-
+import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.icesi.edu.Stiven.model.sales.Customer;
-
 
 /**
  * The persistent class for the person database table.
@@ -43,7 +45,8 @@ public class Person implements Serializable {
 
 	private String middlename;
 	
-	private Timestamp modifieddate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate modifieddate;
 
 	private String namestyle;
 
@@ -56,23 +59,28 @@ public class Person implements Serializable {
 	private String title;
 
 	// bi-directional many-to-one association to Businessentitycontact
+	@JsonIgnore
 	@OneToMany(mappedBy = "person")
 	private List<Businessentitycontact> businessentitycontacts;
 
 	// bi-directional many-to-one association to Emailaddress
+	@JsonIgnore
 	@OneToMany(mappedBy = "person")
 	private List<Emailaddress> emailaddresses;
 
 	// bi-directional one-to-one association to Password
+	@JsonIgnore
 	@OneToOne(mappedBy = "person")
 	private Password password;
 
 	// bi-directional one-to-one association to Businessentity
-	@OneToOne
+	@JsonIgnore
+	@OneToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(name = "businessentityid")
 	private Businessentity businessentity;
 
 	// bi-directional many-to-one association to Personphone
+	@JsonIgnore
 	@OneToMany(mappedBy = "person")
 	private List<Personphone> personphones;
 	
@@ -144,7 +152,7 @@ public class Person implements Serializable {
 		return this.middlename;
 	}
 
-	public Timestamp getModifieddate() {
+	public LocalDate getModifieddate() {
 		return this.modifieddate;
 	}
 
@@ -241,7 +249,7 @@ public class Person implements Serializable {
 		this.middlename = middlename;
 	}
 
-	public void setModifieddate(Timestamp modifieddate) {
+	public void setModifieddate(LocalDate modifieddate) {
 		this.modifieddate = modifieddate;
 	}
 

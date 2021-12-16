@@ -74,7 +74,7 @@ public class UserService implements IUserService{
 			throw new IllegalArgumentException("Verify one of the arguments is not valid.");
 		}
 		UserModel urii = userRepo.findById(id).get();
-		urii.setUserName(userName);
+		urii.setUsername(userName);
 		urii.setPassword(password);
 		urii.setType(type);
 		

@@ -91,13 +91,13 @@ public class PruebasIntegracionDAOS {
 	private static Businessentityaddress bea;
 	private static Person person;
 	
-	private static Timestamp time;
+	private static LocalDate time;
 	private static String date;
 	
 	@BeforeAll
 	public static void setUp() {
 		date = Timestamp.from(Instant.now()) + "";
-		time = Timestamp.from(Instant.now());
+		time = LocalDate.now();
 		
 		addressService = new AddressService(adRepository, spRepository);
 		ad = new Address();
@@ -234,7 +234,7 @@ public class PruebasIntegracionDAOS {
 		person.setFirstname("Alejandro");
 		person.setLastname("Garcia");
 		person.setTitle("Abogado");
-		person.setModifieddate(Timestamp.from(Instant.now()));
+		person.setModifieddate(LocalDate.now());
 		
 		personRepository.save(person);
 		List<Person> persons = personRepository.findAll(); 

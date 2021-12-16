@@ -5,6 +5,6 @@ import com.icesi.edu.Stiven.model.person.UserModel;
 
 public interface UserRepository extends CrudRepository<UserModel,Long> {
 	
-	UserModel findByUserName(String userName);
+	UserModel findByUsername(String userName);
 	
 }

@@ -28,6 +28,6 @@ public interface IUserService {
 
 	public void deleteById(long id);
 	
-	public void editPerson(long id, String userName, String password, UserType type);
+	public void editPerson(long id, String username, String password, UserType type);
 	
 }

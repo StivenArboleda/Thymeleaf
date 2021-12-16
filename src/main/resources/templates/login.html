@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Login</title>
 
     <link
       rel="stylesheet"
@@ -18,7 +18,7 @@
       integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="../css/shards.min.css" />
+    
   </head>
   <body>
     <div class="container my-5">
@@ -27,7 +27,7 @@
           <div class="col-md-6">
             <form
               action="#"
-              th:action="@{/login}"group
+              th:action="@{/login}"
               method="post"
             >
               <div class="row">
@@ -39,6 +39,7 @@
                     class="form-control"
                     id="username"
                     placeholder="username"
+                    autofocus="autofocus"
                     name="username"
                   />
                 
@@ -50,6 +51,7 @@
                       type="password"
                       class="form-control"
                       id="password"
+                      name = "password"
                       placeholder="password"
                     />
                   
@@ -62,7 +64,7 @@
                     type="submit"
                     name="action"
                     class="btn btn-primary"
-                    value="Login"
+                    value="login"
                   />
                 </div>
                 

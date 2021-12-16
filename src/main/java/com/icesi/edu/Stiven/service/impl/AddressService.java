@@ -2,6 +2,8 @@ package com.icesi.edu.Stiven.service.impl;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDate;
+
 import org.springframework.stereotype.Service;
 
 import com.icesi.edu.Stiven.DAO.AddressDAO;
@@ -26,7 +28,7 @@ public class AddressService implements IAddressService{
 
 		if(!(address.getCity().isEmpty()) && !(address.getPostalcode().isEmpty()) && !(address.getAddressline1().isEmpty())) {
 			if(address.getStateprovince() != null) {
-				address.getStateprovince().setModifieddate(Timestamp.from(Instant.now()));
+				address.getStateprovince().setModifieddate(LocalDate.now());
 				as.save(address);
 				return address;
 				
@@ -44,6 +46,30 @@ public class AddressService implements IAddressService{
 		
 		return null;
 	}
+	
+	public Address saveCorrect(Address address) {
+
+		if(!(address.getCity().isEmpty()) && !(address.getPostalcode().isEmpty()) && !(address.getAddressline1().isEmpty())) {
+			if(address.getStateprovince() != null) {
+				address.getStateprovince().setModifieddate(LocalDate.now());
+				as.save(address);
+				return address;
+				
+			}else {
+				throw new IllegalArgumentException("There is no state province");
+			}
+			
+		}else if(address.getCity().isEmpty()) {
+			throw new IllegalArgumentException("The city is empty");
+		}else if(address.getPostalcode().isEmpty()) {
+			throw new IllegalArgumentException("The postal code is empty");
+		}else if(address.getAddressline1().isEmpty()) {
+			throw new IllegalArgumentException("The address1 is empty");
+		}
+		
+		return null;
+	}
+	
 	
 	public <S extends Address> Iterable<S> saveAll(Iterable<S> ads) {
 		for (Address addre : ads) {
@@ -89,7 +115,7 @@ public class AddressService implements IAddressService{
 			ads.setCity(city);
 			ads.setPostalcode(postalcode);
 			
-			ads.setModifieddate(Timestamp.from(Instant.now()));
+			ads.setModifieddate(LocalDate.now());
 			sp = sps.save(sp);
 			ads.setStateprovince(sp);
 			

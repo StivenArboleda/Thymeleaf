@@ -15,7 +15,7 @@ public class UserModel {
 	@Id
 	private long id;
 	@NotBlank
-	private String userName;
+	private String username;
 	private String password;
 	private UserType type;
 

@@ -18,24 +18,32 @@ import com.icesi.edu.Stiven.service.inter.IStateProvinceService;
 @Controller
 public class provinceAddressController {
 
-	private IStateProvinceService ps;
-	private IAddressService as;
+	//private IStateProvinceService ps;
+	//private IAddressService as;
+	private BusinessDelegate ps;
 	
-	@Autowired
+	/*/@Autowired
 	public provinceAddressController(IStateProvinceService ps, IAddressService as) {
 		this.ps = ps;
 		this.as = as;
+	}*/
+	@Autowired
+	public provinceAddressController(BusinessDelegate ps) {
+		this.ps = ps;
 	}
+	
 	
 	@GetMapping("/provinceAddress/")
 	public String index(Model model) {
-		model.addAttribute("addresses", as.findAll());
+		model.addAttribute("addresses", ps.showAddressList());
 		return "/provinceAddress/index";
 	}
+
 	@GetMapping("/searchAddress/{id}")
 	public String search(Model model, @PathVariable Integer id) {
 		
-		model.addAttribute("address", as.findbyId(id));
+		//model.addAttribute("address", as.findbyId(id));
+		model.addAttribute("address", ps.getFindByIdAddress(id));
 		return "provinceAddress/searchAddress";
 	}
 	
@@ -45,7 +53,7 @@ public class provinceAddressController {
 		Address address = new Address();
 		
 		model.addAttribute("address", address);
-		model.addAttribute("stateprovinces", ps.findAll());
+		model.addAttribute("stateprovinces", ps.showProvinceList());
 		
 		return "provinceAddress/addAddress";
 	}
@@ -54,13 +62,15 @@ public class provinceAddressController {
 	public String addAddress(@ModelAttribute("address") Address address,
 			@RequestParam(value="action", required=true) String action, Model model) {
 		
-		model.addAttribute("stateprovinces", ps.findAll());
-		
+		//model.addAttribute("stateprovinces", ps.findAll());
+		model.addAttribute("stateprovinces", ps.showProvinceList());
 		Stateprovince sp = new Stateprovince();
 		sp = address.getStateprovince();
-		sp = ps.saveCorrect(sp);
-		address.setStateprovince(sp);
-		as.save(address);
+		//sp = ps.saveCorrect(sp);
+		//sp = ps.addProvince(sp);
+		//address.setStateprovince(sp);
+		//as.save(address);
+		ps.addAddress(address);
 		
 		return "redirect:/provinceAddress/";
 	}
@@ -68,8 +78,10 @@ public class provinceAddressController {
 	@GetMapping("/updateAddress/{id}")
 	public String addresUpdate(Model model, @PathVariable Integer id) {
 		
-		model.addAttribute("address", as.findbyId(id));
-		model.addAttribute("stateprovinces", ps.findAll());
+		//model.addAttribute("address", as.findbyId(id));
+		//model.addAttribute("stateprovinces", ps.findAll());
+		model.addAttribute("address", ps.getFindByIdAddress(id));
+		model.addAttribute("stateprovinces", ps.showProvinceList());
 		
 		return "provinceAddress/updateAddress";
 	}
@@ -78,9 +90,10 @@ public class provinceAddressController {
 	public String updateAddress(Model model, @PathVariable Integer id, @ModelAttribute Address address,
 			@RequestParam(value="action", required=true) String action) {
 		
-		as.editAddress(id, address.getAddressline1(), address.getAddressline2(), address.getCity(),
-				address.getPostalcode(), address.getStateprovince());
+		//as.editAddress(id, address.getAddressline1(), address.getAddressline2(), address.getCity(),
+			//	address.getPostalcode(), address.getStateprovince());
 		
+		ps.editAddress(id, address);
 		return "redirect:/provinceAddress/";
 	}
 	
@@ -88,7 +101,9 @@ public class provinceAddressController {
 	@GetMapping("/provinceAddress/delete/{id}")
 	public String delete(Model model, @PathVariable Integer id) {
 
-		as.deletebyId(id);
+		//as.deletebyId(id);
+		Address a = ps.getFindByIdAddress(id);
+		ps.deleteAddress(a);
 		
 		return "redirect:/provinceAddress/";
 	}

@@ -2,6 +2,7 @@ package com.icesi.edu.Stiven.service.impl;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class BusinessEntityService implements IBusinessEntityService{
 	
 	public Businessentity save(Businessentity businessentity) {
 		businessentity = new Businessentity(); 
-		businessentity.setModifieddate(Timestamp.from(Instant.now()));
+		businessentity.setModifieddate(LocalDate.now());
 		if(businessentity.getModifieddate() != null) {
 			businessentity = businessEntityR.save(businessentity);
 			return businessentity;
@@ -33,7 +34,7 @@ public class BusinessEntityService implements IBusinessEntityService{
 	
 	public Businessentity saveForAddress(Businessentity businessentity) {
 		//businessentity = new Businessentity(); 
-		businessentity.setModifieddate(Timestamp.from(Instant.now()));
+		businessentity.setModifieddate(LocalDate.now());
 		if(businessentity.getModifieddate() != null) {
 			businessentity = businessEntityR.save(businessentity);
 			return businessentity;
@@ -52,7 +53,7 @@ public class BusinessEntityService implements IBusinessEntityService{
 	}
 	
 	
-	public void editBusinessEntity(Integer businessentityid, Timestamp modifieddate, Integer rowguid) {
+	public void editBusinessEntity(Integer businessentityid, LocalDate modifieddate, Integer rowguid) {
 		
 		if(modifieddate != null) {
 			Businessentity be = findById(businessentityid);

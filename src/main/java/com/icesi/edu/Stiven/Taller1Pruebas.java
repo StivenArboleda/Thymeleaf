@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.springframework.boot.SpringApplication;
@@ -56,7 +57,7 @@ public class Taller1Pruebas {
 		
 		UserModel u1 = new UserModel();
 		u1.setId(123);
-		u1.setUserName("admin");
+		u1.setUsername("admin");
 		u1.setPassword("{noop}admin");
 		u1.setType(UserType.Administrador);
 		
@@ -66,7 +67,7 @@ public class Taller1Pruebas {
 		
 		UserModel u2 = new UserModel();
 		u2.setId(1234);
-		u2.setUserName("Stiven");
+		u2.setUsername("Stiven");
 		u2.setPassword("{noop}admin");
 		u2.setType(UserType.Operador);
 		
@@ -82,7 +83,7 @@ public class Taller1Pruebas {
 			dateBe = df.parse("22/03/2020");
 			long time1 = dateBe.getTime();
 			Timestamp ModiDate = new Timestamp(time1);
-			be.setModifieddate(ModiDate);
+			be.setModifieddate(LocalDate.now());
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
@@ -105,7 +106,7 @@ public class Taller1Pruebas {
 			
 			date1 = df1.parse("2020-07-22");
 			long time1 = date1.getTime();
-			Timestamp ModiDate = new Timestamp(time1);
+			LocalDate ModiDate = LocalDate.now();
 			p1.setModifieddate(ModiDate);
 		} catch (ParseException e1) {
 			e1.printStackTrace();
@@ -128,7 +129,7 @@ public class Taller1Pruebas {
 		try {
 			date2 = df2.parse("2020-06-19");
 			long time2 = date2.getTime();
-			Timestamp ModiDate = new Timestamp(time2);
+			LocalDate ModiDate = LocalDate.now();
 			p2.setModifieddate(ModiDate);
 		} catch (ParseException e1) {
 			e1.printStackTrace();
@@ -146,14 +147,14 @@ public class Taller1Pruebas {
 		address.setAddressline1("Carrera");
 		address.setCity("Cali");
 		address.setPostalcode("0032");
-		address.setModifieddate(Timestamp.from(Instant.now()));
+		address.setModifieddate(LocalDate.now());
 		
 		Address address2 = new Address();
 		
 		address2.setAddressline1("Carrera");
 		address2.setCity("Bogotá");
 		address2.setPostalcode("00324");
-		address2.setModifieddate(Timestamp.from(Instant.now()));
+		address2.setModifieddate(LocalDate.now());
 		
 		IStateProvinceService sps = c.getBean(StateProvinceService.class);
 		Stateprovince state = new Stateprovince();
@@ -165,8 +166,8 @@ public class Taller1Pruebas {
 		state = sps.saveCorrect(state);
 		address.setStateprovince(state);
 		address2.setStateprovince(state);
-		as.save(address);
-		as.save(address2);
+		address = as.save(address);
+		address2 = as.save(address2);
 		
 		Stateprovince state1 = new Stateprovince();
 		
@@ -189,16 +190,21 @@ public class Taller1Pruebas {
 		IBusinessEntityAddressService bea = c.getBean(BusinessEntityAddressService.class);
 		Businessentityaddress bentity = new Businessentityaddress();
 		Businessentityaddress bentity2 = new Businessentityaddress();
+		
 		IAddressTypeService ats = c.getBean(AddressTypeService.class);
+		
 		Addresstype at = new Addresstype();
 		at.setName("Carrera");
 		at = ats.save(at);
+		
 		Addresstype at2 = new Addresstype();
 		at2.setName("Avenida");
 		at2 = ats.save(at2);
+		
 		Addresstype at3 = new Addresstype();
 		at3.setName("Calle");
 		at3 = ats.save(at3);
+		
 		Addresstype at4 = new Addresstype();
 		at4.setName("Diagonal");
 		at4 = ats.save(at4);
@@ -207,7 +213,7 @@ public class Taller1Pruebas {
 		//bentity.setBusinessentity(be);
 		
 		bentity = bea.save(bentity, address.getAddressid(), at.getAddresstypeid(), be.getBusinessentityid());
-		bea.save(bentity2, address2.getAddressid(), at2.getAddresstypeid(), be.getBusinessentityid());
+		bentity2 = bea.save(bentity2, address2.getAddressid(), at2.getAddresstypeid(), be.getBusinessentityid());
 		
 		//BUSINESS ENTITY CONTACT
 		
@@ -219,10 +225,5 @@ public class Taller1Pruebas {
 		
 		
 		bec.save(bc, be.getBusinessentityid(), ct.getContacttypeid(), p1.getBusinessentityid());
-	}
-	
-	@Bean
-	public RestTemplate restTemplate() {
-	    return new RestTemplate();
 	}
 }

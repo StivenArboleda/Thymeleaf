@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The persistent class for the businessentityaddress database table.
  *
@@ -34,16 +36,19 @@ public class Businessentityaddress implements Serializable {
 
 	// bi-directional many-to-one association to Address
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "addressid")
 	private Address address;
 
 	// bi-directional many-to-one association to Addresstype
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "addresstypeid")
 	private Addresstype addresstype;
 
 	// bi-directional many-to-one association to Businessentity
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "businessentityid")
 	private Businessentity businessentity;
 

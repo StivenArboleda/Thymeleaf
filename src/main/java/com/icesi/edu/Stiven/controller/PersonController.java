@@ -20,6 +20,7 @@ public class PersonController {
 
 	//private IPersonService ps;
 	//private IBusinessEntityService bes;
+	
 	private BusinessDelegate ps;
 	
 	/*@Autowired
@@ -35,14 +36,14 @@ public class PersonController {
 	
 	@GetMapping("/person/")
 	public String index(Model model, Person p) {
-		model.addAttribute("persons", ps.findAll());
+		model.addAttribute("persons", ps.showPersonList());
 		return "/persons/index";
 	}
 	
 	@GetMapping("/searchPersons/{id}")
 	public String search(Model model, @PathVariable Integer id) {
 		
-		model.addAttribute("person", ps.findbyId(id));
+		model.addAttribute("person", ps.getFindByIdPerson(id));
 		return "persons/searchPersons";
 	}
 	
@@ -76,13 +77,13 @@ public class PersonController {
 	public String addPersons(@ModelAttribute("person") Person person,
 			@RequestParam(value="action", required=true) String action, Model model) {
 		
-		Businessentity be = new Businessentity();
-		be = person.getBusinessentity();
-		//be = ps.saveEntity(be);
-		ps.saveEntity(be);
-		person.setBusinessentity(be);
+		//Businessentity be = new Businessentity();
+		//be = person.getBusinessentity();
+		//be = bes.save(be);
+		//ps.saveEntity(be);
+		//person.setBusinessentity(be);
+		//ps.saveCorrect(person);
 		ps.addPerson(person);
-		
 		return "redirect:/person/";
 	}
 	
@@ -100,7 +101,7 @@ public class PersonController {
 	
 	@GetMapping("/updatePersons/{id}")
 	public String personUpdate(Model model, @PathVariable Integer id) {
-		model.addAttribute("person", ps.findbyId(id));
+		model.addAttribute("person", ps.getFindByIdPerson(id));
 		
 		return "persons/updatePersons";
 	}
@@ -108,8 +109,8 @@ public class PersonController {
 	@GetMapping("/persons/delete/{id}")
 	public String delete(Model model, @PathVariable Integer id) {
 		
-		Person p = ps.findbyId(id);
-		//ps.deletePerson(p);
+		Person p = ps.getFindByIdPerson(id);
+		ps.deletePerson(p);
 		
 		return "redirect:/person/";
 	}

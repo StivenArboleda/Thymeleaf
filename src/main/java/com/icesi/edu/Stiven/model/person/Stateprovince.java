@@ -2,6 +2,7 @@ package com.icesi.edu.Stiven.model.person;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -13,6 +14,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The persistent class for the stateprovince database table.
@@ -29,8 +34,9 @@ public class Stateprovince implements Serializable {
 	private Integer stateprovinceid;
 
 	private String isonlystateprovinceflag;
-
-	private Timestamp modifieddate;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate modifieddate;
 
 	private String name;
 
@@ -42,6 +48,7 @@ public class Stateprovince implements Serializable {
 
 	// bi-directional many-to-one association to Address
 	@OneToMany(mappedBy = "stateprovince")
+	@JsonIgnore
 	private List<Address> addresses;
 
 	// bi-directional many-to-one association to Countryregion
@@ -71,7 +78,7 @@ public class Stateprovince implements Serializable {
 		return this.isonlystateprovinceflag;
 	}
 
-	public Timestamp getModifieddate() {
+	public LocalDate getModifieddate() {
 		return this.modifieddate;
 	}
 
@@ -114,7 +121,7 @@ public class Stateprovince implements Serializable {
 		this.isonlystateprovinceflag = isonlystateprovinceflag;
 	}
 
-	public void setModifieddate(Timestamp modifieddate) {
+	public void setModifieddate(LocalDate modifieddate) {
 		this.modifieddate = modifieddate;
 	}
 
