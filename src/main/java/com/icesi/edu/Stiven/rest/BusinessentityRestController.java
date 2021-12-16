@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.icesi.edu.Stiven.DAO.BusinessEntityDAO;
 import com.icesi.edu.Stiven.model.person.Businessentity;
 import com.icesi.edu.Stiven.service.impl.BusinessEntityService;
 

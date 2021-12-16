@@ -91,13 +91,13 @@ public class PruebasIntegracionDAOS {
 	private static Businessentityaddress bea;
 	private static Person person;
 	
-	private static Timestamp time;
+	private static LocalDate time;
 	private static String date;
 	
 	@BeforeAll
 	public static void setUp() {
 		date = Timestamp.from(Instant.now()) + "";
-		time = Timestamp.from(Instant.now());
+		time = LocalDate.now();
 		
 		addressService = new AddressService(adRepository, spRepository);
 		ad = new Address();

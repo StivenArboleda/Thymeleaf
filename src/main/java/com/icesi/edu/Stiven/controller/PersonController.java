@@ -87,7 +87,7 @@ public class PersonController {
 		return "redirect:/person/";
 	}
 	
-	/*@PostMapping("/persons/updatePersons/{id}")
+	@PostMapping("/persons/updatePersons/{id}")
 	public String updatePerson(Model model, @PathVariable Integer id, @ModelAttribute Person person,
 			@RequestParam(value="action", required=true) String action) {
 		
@@ -101,10 +101,10 @@ public class PersonController {
 	
 	@GetMapping("/updatePersons/{id}")
 	public String personUpdate(Model model, @PathVariable Integer id) {
-		model.addAttribute("person", ps.findbyIdPerson(id));
+		model.addAttribute("person", ps.getFindByIdPerson(id));
 		
 		return "persons/updatePersons";
-	}*/
+	}
 	
 	@GetMapping("/persons/delete/{id}")
 	public String delete(Model model, @PathVariable Integer id) {

@@ -21,32 +21,40 @@ import com.icesi.edu.Stiven.service.inter.IBusinessEntityService;
 @Controller
 public class businessEntityAddressController {
 
-	private IBusinessEntityAddressService bea;
+	/*private IBusinessEntityAddressService bea;
 	private IAddressService as;
 	private IAddressTypeService ats;
-	private IBusinessEntityService bes;
+	private IBusinessEntityService bes;*/
 	
 
-	@Autowired
+	/*@Autowired
 	public businessEntityAddressController(IBusinessEntityAddressService bea, IAddressService as,
 			IAddressTypeService ats, IBusinessEntityService bes) {
 		this.bea = bea;
 		this.as = as;
 		this.ats = ats;
 		this.bes = bes;
+	}*/
+	
+	private BusinessDelegate bea;
+	
+	@Autowired
+	public businessEntityAddressController(BusinessDelegate ps) {
+		this.bea = ps;
 	}
-
+	
+	
 	@GetMapping("/businessAddress/")
 	public String index(Model model) {
 					
-		model.addAttribute("businessentityaddresses", bea.findAll());
+		model.addAttribute("businessentityaddresses", bea.showBusinessList());
 		return "businessAddress/index";
 	}
 	
 	@GetMapping("/businessAddress/searchAddress/{id}")
 	public String search(Model model, @PathVariable Integer id) {
 					
-		model.addAttribute("businessentityaddress", bea.findById(id));
+		model.addAttribute("businessentityaddress", bea.getFindByIdBusiness(id));
 		return "businessAddress/searchAddress";
 	}
 	
@@ -55,11 +63,11 @@ public class businessEntityAddressController {
 		
 		Businessentityaddress bea = new Businessentityaddress();
 		
-		model.addAttribute("businessentityaddress", bea);
+		/*model.addAttribute("businessentityaddress", bea);
 		model.addAttribute("addresses", as.findAll());
 		model.addAttribute("addresstypes", ats.findAll());
 		model.addAttribute("businesses", bes.findAll());
-		
+		*/
 		return "businessAddress/addAddress";
 	}
 	
@@ -71,38 +79,20 @@ public class businessEntityAddressController {
 		Addresstype at = beadress.getAddresstype();
 		Businessentity be = beadress.getBusinessentity();
 		
-		a = as.save(a);
+		/*a = as.save(a);
 		at = ats.save(at);
 		be = bes.saveForAddress(be);
 		
 		bea.save(beadress, a.getAddressid(), at.getAddresstypeid(), be.getBusinessentityid());
-		
+		*/
 		return "redirect:/businessAddress/";
 	}
 	
-	/*@GetMapping("/updateAddress/{id}")
-	public String addresUpdate(Model model, @PathVariable Integer id) {
-		
-		model.addAttribute("address", as.findbyId(id));
-		model.addAttribute("stateprovinces", ps.findAll());
-		
-		return "provinceAddress/updateAddress";
-	}
-	
-	@PostMapping("/provinceAddress/updateAddress/{id}")
-	public String updateAddress(Model model, @PathVariable Integer id, @ModelAttribute Address address,
-			@RequestParam(value="action", required=true) String action) {
-		
-		as.editAddress(id, address.getAddressline1(), address.getAddressline2(), address.getCity(),
-				address.getPostalcode(), address.getStateprovince());
-		
-		return "redirect:/provinceAddress/";
-	}*/
-	
 	@GetMapping("/businessAddress/delete/{id}")
 	public String delete(Model model, @PathVariable Integer id) {
-
-		bea.deletebyId(id);
+		
+		Businessentityaddress bead = bea.getFindByIdBusiness(id);
+		bea.deleteBusiness(bead);
 		
 		return "redirect:/businessAddress/";
 	}

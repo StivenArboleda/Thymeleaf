@@ -83,7 +83,7 @@ public class Taller1Pruebas {
 			dateBe = df.parse("22/03/2020");
 			long time1 = dateBe.getTime();
 			Timestamp ModiDate = new Timestamp(time1);
-			be.setModifieddate(ModiDate);
+			be.setModifieddate(LocalDate.now());
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
@@ -147,14 +147,14 @@ public class Taller1Pruebas {
 		address.setAddressline1("Carrera");
 		address.setCity("Cali");
 		address.setPostalcode("0032");
-		address.setModifieddate(Timestamp.from(Instant.now()));
+		address.setModifieddate(LocalDate.now());
 		
 		Address address2 = new Address();
 		
 		address2.setAddressline1("Carrera");
 		address2.setCity("Bogotá");
 		address2.setPostalcode("00324");
-		address2.setModifieddate(Timestamp.from(Instant.now()));
+		address2.setModifieddate(LocalDate.now());
 		
 		IStateProvinceService sps = c.getBean(StateProvinceService.class);
 		Stateprovince state = new Stateprovince();
@@ -190,16 +190,21 @@ public class Taller1Pruebas {
 		IBusinessEntityAddressService bea = c.getBean(BusinessEntityAddressService.class);
 		Businessentityaddress bentity = new Businessentityaddress();
 		Businessentityaddress bentity2 = new Businessentityaddress();
+		
 		IAddressTypeService ats = c.getBean(AddressTypeService.class);
+		
 		Addresstype at = new Addresstype();
 		at.setName("Carrera");
 		at = ats.save(at);
+		
 		Addresstype at2 = new Addresstype();
 		at2.setName("Avenida");
 		at2 = ats.save(at2);
+		
 		Addresstype at3 = new Addresstype();
 		at3.setName("Calle");
 		at3 = ats.save(at3);
+		
 		Addresstype at4 = new Addresstype();
 		at4.setName("Diagonal");
 		at4 = ats.save(at4);
@@ -208,7 +213,7 @@ public class Taller1Pruebas {
 		//bentity.setBusinessentity(be);
 		
 		bentity = bea.save(bentity, address.getAddressid(), at.getAddresstypeid(), be.getBusinessentityid());
-		bea.save(bentity2, address2.getAddressid(), at2.getAddresstypeid(), be.getBusinessentityid());
+		bentity2 = bea.save(bentity2, address2.getAddressid(), at2.getAddresstypeid(), be.getBusinessentityid());
 		
 		//BUSINESS ENTITY CONTACT
 		
@@ -221,9 +226,4 @@ public class Taller1Pruebas {
 		
 		bec.save(bc, be.getBusinessentityid(), ct.getContacttypeid(), p1.getBusinessentityid());
 	}
-	
-	//@Bean
-	//public RestTemplate restTemplate() {
-	//    return new RestTemplate();
-	//}
 }

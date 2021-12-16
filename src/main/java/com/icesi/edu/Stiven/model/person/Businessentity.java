@@ -2,6 +2,7 @@ package com.icesi.edu.Stiven.model.person;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -12,6 +13,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 /**
  * The persistent class for the businessentity database table.
@@ -26,8 +30,9 @@ public class Businessentity implements Serializable {
 	@SequenceGenerator(name = "BUSINESSENTITY_BUSINESSENTITYID_GENERATOR", allocationSize = 1, sequenceName = "BUSINESSENTITY_SEQ")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BUSINESSENTITY_BUSINESSENTITYID_GENERATOR")
 	private Integer businessentityid;
-
-	private Timestamp modifieddate;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate modifieddate;
 
 	private Integer rowguid;
 
@@ -72,7 +77,7 @@ public class Businessentity implements Serializable {
 		return this.businessentityid;
 	}
 
-	public Timestamp getModifieddate() {
+	public LocalDate getModifieddate() {
 		return this.modifieddate;
 	}
 
@@ -110,7 +115,7 @@ public class Businessentity implements Serializable {
 		this.businessentityid = businessentityid;
 	}
 
-	public void setModifieddate(Timestamp modifieddate) {
+	public void setModifieddate(LocalDate modifieddate) {
 		this.modifieddate = modifieddate;
 	}
 

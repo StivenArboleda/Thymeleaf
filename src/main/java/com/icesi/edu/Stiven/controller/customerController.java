@@ -2,6 +2,7 @@ package com.icesi.edu.Stiven.controller;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -82,8 +83,8 @@ public class customerController {
 		p.addCustomer(customer);
 		customer.setStore(s);
 		customer.setPerson(p);
-		
-		ps.editPerson(p.getBusinessentityid(), p.getEmailpromotion(), p.getFirstname(), p.getLastname(), Timestamp.from(Instant.now()), p.getTitle());
+
+		ps.editPerson(p.getBusinessentityid(), p.getEmailpromotion(), p.getFirstname(), p.getLastname(), LocalDate.now(), p.getTitle());
 		ss.editStore(s);
 		cs.editCustomer(customer);
 		

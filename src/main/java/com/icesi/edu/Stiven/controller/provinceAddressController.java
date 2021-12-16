@@ -32,10 +32,10 @@ public class provinceAddressController {
 		this.ps = ps;
 	}
 	
-	/*
+	
 	@GetMapping("/provinceAddress/")
 	public String index(Model model) {
-		model.addAttribute("addresses", ps.findAllAddresses());
+		model.addAttribute("addresses", ps.showAddressList());
 		return "/provinceAddress/index";
 	}
 
@@ -43,7 +43,7 @@ public class provinceAddressController {
 	public String search(Model model, @PathVariable Integer id) {
 		
 		//model.addAttribute("address", as.findbyId(id));
-		model.addAttribute("address", ps.findIdAddress(id));
+		model.addAttribute("address", ps.getFindByIdAddress(id));
 		return "provinceAddress/searchAddress";
 	}
 	
@@ -53,7 +53,7 @@ public class provinceAddressController {
 		Address address = new Address();
 		
 		model.addAttribute("address", address);
-		model.addAttribute("stateprovinces", ps.findAllStates());
+		model.addAttribute("stateprovinces", ps.showProvinceList());
 		
 		return "provinceAddress/addAddress";
 	}
@@ -63,14 +63,14 @@ public class provinceAddressController {
 			@RequestParam(value="action", required=true) String action, Model model) {
 		
 		//model.addAttribute("stateprovinces", ps.findAll());
-		model.addAttribute("stateprovinces", ps.findAllStates());
+		model.addAttribute("stateprovinces", ps.showProvinceList());
 		Stateprovince sp = new Stateprovince();
 		sp = address.getStateprovince();
 		//sp = ps.saveCorrect(sp);
-		ps.addState(sp);
-		address.setStateprovince(sp);
+		//sp = ps.addProvince(sp);
+		//address.setStateprovince(sp);
 		//as.save(address);
-		ps.addAddresses(address);
+		ps.addAddress(address);
 		
 		return "redirect:/provinceAddress/";
 	}
@@ -80,8 +80,8 @@ public class provinceAddressController {
 		
 		//model.addAttribute("address", as.findbyId(id));
 		//model.addAttribute("stateprovinces", ps.findAll());
-		model.addAttribute("address", ps.findIdAddress(id));
-		model.addAttribute("stateprovinces", ps.findAllStates());
+		model.addAttribute("address", ps.getFindByIdAddress(id));
+		model.addAttribute("stateprovinces", ps.showProvinceList());
 		
 		return "provinceAddress/updateAddress";
 	}
@@ -93,7 +93,7 @@ public class provinceAddressController {
 		//as.editAddress(id, address.getAddressline1(), address.getAddressline2(), address.getCity(),
 			//	address.getPostalcode(), address.getStateprovince());
 		
-		ps.editAddresses(id, address);
+		ps.editAddress(id, address);
 		return "redirect:/provinceAddress/";
 	}
 	
@@ -102,7 +102,9 @@ public class provinceAddressController {
 	public String delete(Model model, @PathVariable Integer id) {
 
 		//as.deletebyId(id);
+		Address a = ps.getFindByIdAddress(id);
+		ps.deleteAddress(a);
 		
 		return "redirect:/provinceAddress/";
-	}*/
+	}
 }

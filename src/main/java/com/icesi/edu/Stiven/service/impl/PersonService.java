@@ -50,7 +50,7 @@ public class PersonService implements IPersonService{
 	public void saveCorrect(Person person) {
 			
 		Businessentity businessEntity = new Businessentity();
-		businessEntity.setModifieddate(Timestamp.from(Instant.now()));
+		businessEntity.setModifieddate(LocalDate.now());
 		businessEntity = ber.save(businessEntity);
 		person.setModifieddate(LocalDate.now());
 		
@@ -72,7 +72,7 @@ public class PersonService implements IPersonService{
 	public Person saveForContact(Person person) {
 		
 		Businessentity businessEntity = new Businessentity();
-		businessEntity.setModifieddate(Timestamp.from(Instant.now()));
+		businessEntity.setModifieddate(LocalDate.now());
 		businessEntity = ber.save(businessEntity);
 		person.setModifieddate(LocalDate.now());
 		

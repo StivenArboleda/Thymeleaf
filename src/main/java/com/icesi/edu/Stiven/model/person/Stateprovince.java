@@ -17,6 +17,8 @@ import javax.persistence.SequenceGenerator;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The persistent class for the stateprovince database table.
  *
@@ -46,6 +48,7 @@ public class Stateprovince implements Serializable {
 
 	// bi-directional many-to-one association to Address
 	@OneToMany(mappedBy = "stateprovince")
+	@JsonIgnore
 	private List<Address> addresses;
 
 	// bi-directional many-to-one association to Countryregion

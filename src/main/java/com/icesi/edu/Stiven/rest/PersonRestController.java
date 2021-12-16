@@ -1,15 +1,17 @@
 package com.icesi.edu.Stiven.rest;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.icesi.edu.Stiven.DAO.PersonDAO;
 import com.icesi.edu.Stiven.model.person.Person;
 import com.icesi.edu.Stiven.service.impl.PersonService;
 
@@ -26,7 +28,7 @@ public class PersonRestController {
 	}
 	
 	@PostMapping("/personRest/addperson/")
-	public void addProduct(@RequestBody Person person) {
+	public void addPerson(@RequestBody Person person) {
 		personD.saveCorrect(person);
 	}
 	
@@ -36,9 +38,15 @@ public class PersonRestController {
 	}
 	
 	@GetMapping("/personRest/find/{id}")
-	public Person viewProduct(@PathVariable("id") Integer id) {
+	public Person viewPerson(@PathVariable("id") Integer id) {
 
 		return personD.findbyId(id);
 	}
-	
+
+	@PutMapping("/personRest/edit/{id}")
+	public void editPerson(@RequestBody Person person) {
+
+		personD.editPerson(person.getBusinessentityid(), person.getEmailpromotion(),
+				person.getFirstname(), person.getLastname(), LocalDate.now(), person.getTitle());
+	}
 }
