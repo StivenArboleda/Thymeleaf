@@ -10,7 +10,9 @@ import java.util.Date;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.client.RestTemplate;
 
 import com.icesi.edu.Stiven.model.person.Address;
 import com.icesi.edu.Stiven.model.person.Addresstype;
@@ -219,5 +221,8 @@ public class Taller1Pruebas {
 		bec.save(bc, be.getBusinessentityid(), ct.getContacttypeid(), p1.getBusinessentityid());
 	}
 	
-	
+	@Bean
+	public RestTemplate restTemplate() {
+	    return new RestTemplate();
+	}
 }

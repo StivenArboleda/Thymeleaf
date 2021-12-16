@@ -18,14 +18,19 @@ import com.icesi.edu.Stiven.service.inter.IPersonService;
 @Controller
 public class PersonController {
 
-	private IPersonService ps;
-	private IBusinessEntityService bes;
+	//private IPersonService ps;
+	//private IBusinessEntityService bes;
+	private BusinessDelegate ps;
 	
-	
-	@Autowired
+	/*@Autowired
 	public PersonController(IPersonService ps, IBusinessEntityService bes) {
 		this.ps = ps;
 		this.bes = bes;
+	}*/
+	
+	@Autowired
+	public PersonController(BusinessDelegate ps) {
+		this.ps = ps;
 	}
 	
 	@GetMapping("/person/")
@@ -54,7 +59,7 @@ public class PersonController {
 		return "persons/addPersons";
 	}
 	
-	@PostMapping("/persons/addPersons")	
+	/*@PostMapping("/persons/addPersons")	
 	public String addPersons(@ModelAttribute("person") Person person,
 			@RequestParam(value="action", required=true) String action, Model model) {
 		
@@ -65,15 +70,30 @@ public class PersonController {
 		ps.saveCorrect(person);
 		
 		return "redirect:/person/";
-	}
+	}*/
 	
+	@PostMapping("/persons/addPersons")	
+	public String addPersons(@ModelAttribute("person") Person person,
+			@RequestParam(value="action", required=true) String action, Model model) {
+		
+		Businessentity be = new Businessentity();
+		be = person.getBusinessentity();
+		//be = ps.saveEntity(be);
+		ps.saveEntity(be);
+		person.setBusinessentity(be);
+		ps.addPerson(person);
+		
+		return "redirect:/person/";
+	}
 	
 	@PostMapping("/persons/updatePersons/{id}")
 	public String updatePerson(Model model, @PathVariable Integer id, @ModelAttribute Person person,
 			@RequestParam(value="action", required=true) String action) {
 		
-		ps.editPerson(person.getBusinessentityid(), person.getEmailpromotion(), person.getFirstname(), 
-				person.getLastname(), person.getModifieddate(), person.getTitle());
+		//ps.editPerson(person.getBusinessentityid(), person.getEmailpromotion(), person.getFirstname(), 
+			//	person.getLastname(), person.getModifieddate(), person.getTitle());
+		ps.editPerson(person.getBusinessentityid(), person);
+		
 		
 		return "redirect:/person/";
 	}
@@ -89,7 +109,7 @@ public class PersonController {
 	public String delete(Model model, @PathVariable Integer id) {
 		
 		Person p = ps.findbyId(id);
-		ps.deletePerson(p);
+		//ps.deletePerson(p);
 		
 		return "redirect:/person/";
 	}
