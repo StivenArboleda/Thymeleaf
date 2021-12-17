@@ -62,15 +62,13 @@ public class customerController {
 	@PostMapping("/customers/addCustomer")	
 	public String addCustomer(@ModelAttribute("customer") Customer customer,
 			@RequestParam(value="action", required=true) String action, Model model) {
-		System.out.println(customer.getStoreid1());
+
 		Store s = bd.getFindByIdStore(customer.getStoreid1());
 		Person p = bd.getFindByIdPerson(customer.getPersonid());
 		s.addCustomer(customer);
 		p.addCustomer(customer);
 		customer.setStore(s);
 		customer.setPerson(p);
-		
-		System.out.println(customer.getStore().getBusinessentityid());
 		
 		bd.editPerson(p.getBusinessentityid(), p);
 		bd.editStore(s.getBusinessentityid(), s);

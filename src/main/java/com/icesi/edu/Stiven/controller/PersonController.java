@@ -62,7 +62,7 @@ public class PersonController {
 	@GetMapping("/persons/customers/{id}")
     public String showCustomers(@PathVariable("id") Integer id,Model model) {
 		model.addAttribute("customers", ps.getCustomersByPerson(id));
-        return "customers/indexToShow";
+        return "customers/index";
     }
 	
 	@GetMapping("/persons/addPersons")
