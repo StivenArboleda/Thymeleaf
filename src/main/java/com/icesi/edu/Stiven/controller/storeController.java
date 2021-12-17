@@ -14,24 +14,31 @@ import com.icesi.edu.Stiven.service.inter.IStoreService;
 
 @Controller
 public class storeController {
-	private IStoreService ss;
+//	private IStoreService ss;
+//	
+//	@Autowired
+//	public storeController(IStoreService ss) {
+//		this.ss = ss;
+//	}
+	
+	private BusinessDelegate bs;
 	
 	@Autowired
-	public storeController(IStoreService ss) {
-		this.ss = ss;
+	public storeController(BusinessDelegate bs) {
+		this.bs = bs;
 	}
-	
+
 	@GetMapping("/stores/")
 	public String index(Model model) {
 					
-		model.addAttribute("stores", ss.findAll());
+		model.addAttribute("stores", bs.showStoreList());
 		return "stores/index";
 	}
 	
 	@GetMapping("/stores/searchStore/{id}")
 	public String search(Model model, @PathVariable Integer id) {
 					
-		model.addAttribute("store", ss.findbyId(id));
+		model.addAttribute("store", bs.getFindByIdStore(id));
 		return "stores/searchStore";
 	}
 	
@@ -49,7 +56,7 @@ public class storeController {
 	public String addStore(@ModelAttribute("store") Store store,
 			@RequestParam(value="action", required=true) String action, Model model) {
 		
-		ss.save(store);
+		bs.addStore(store);
 		
 		return "redirect:/stores/";
 	}
@@ -58,7 +65,7 @@ public class storeController {
 	public String updateStore(Model model, @PathVariable Integer id, @ModelAttribute Store store,
 			@RequestParam(value = "action", required = true) String action) {
 
-		ss.editStore(store);
+		bs.editStore(store.getBusinessentityid(), store);
 
 		return "redirect:/stores/";
 	}
@@ -66,7 +73,7 @@ public class storeController {
 	@GetMapping("/updateStore/{id}")
 	public String storeUpdate(Model model, @PathVariable Integer id) {
 		
-		model.addAttribute("store", ss.findbyId(id));
+		model.addAttribute("store", bs.getFindByIdStore(id));
 
 		return "stores/updateStore";
 	}
@@ -74,7 +81,7 @@ public class storeController {
 	@GetMapping("/stores/delete/{id}")
 	public String delete(Model model, @PathVariable Integer id) {
 
-		ss.deletebyId(id);
+		bs.deleteStore(bs.getFindByIdStore(id));
 		
 		return "redirect:/stores/";
 	}

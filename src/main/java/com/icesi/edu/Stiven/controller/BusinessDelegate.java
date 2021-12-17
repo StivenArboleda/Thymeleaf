@@ -25,6 +25,7 @@ import com.icesi.edu.Stiven.model.person.Person;
 import com.icesi.edu.Stiven.model.person.Stateprovince;
 import com.icesi.edu.Stiven.model.person.UserModel;
 import com.icesi.edu.Stiven.model.sales.Customer;
+import com.icesi.edu.Stiven.model.sales.Store;
 
 
 
@@ -73,12 +74,12 @@ public class BusinessDelegate {
 
 		return restTemplate.getForObject(baseurl + "/personRest/find/" + id, Person.class);
 	}
-	
+
 	public List<Person> showPersonList() {
 		Person[] personarray = restTemplate.getForObject(baseurl + "/personRest/list", Person[].class);
 		return Arrays.asList(personarray);
 	}
-	
+
 	public Person addPerson(Person p) {
 		HttpEntity<Person> request = new HttpEntity<>(p);
 		return restTemplate.postForObject(baseurl + "/personRest/addperson/", request, Person.class);
@@ -93,7 +94,7 @@ public class BusinessDelegate {
 
 		restTemplate.put(baseurl + "/personRest/edit/" + id, request, Person.class);
 	}
-	
+
 	public Businessentity saveEntity(Businessentity p) {
 		HttpEntity<Businessentity> request = new HttpEntity<>(p);
 		return restTemplate.postForObject(baseurl + "/businessRest/addbusiness/", request, Businessentity.class);
@@ -171,28 +172,90 @@ public class BusinessDelegate {
 	//		BUSINESS ENTITY ADDRESS
 	//=====================================
 	//=====================================
-public Businessentityaddress getFindByIdBusiness(Integer id) {
+	public Businessentityaddress getFindByIdBusiness(Integer id) {
 
-	return restTemplate.getForObject(baseurl + "/businessentityRest/find/" + id, Businessentityaddress.class);
-}
+		return restTemplate.getForObject(baseurl + "/businessentityRest/find/" + id, Businessentityaddress.class);
+	}
 
-public List<Businessentityaddress> showBusinessList() {
-	Businessentityaddress[] businessarray = restTemplate.getForObject(baseurl + "/businessentityRest/list", Businessentityaddress[].class);
-	return Arrays.asList(businessarray);
-}
+	public List<Businessentityaddress> showBusinessList() {
+		Businessentityaddress[] businessarray = restTemplate.getForObject(baseurl + "/businessentityRest/list",
+				Businessentityaddress[].class);
+		return Arrays.asList(businessarray);
+	}
 
-public Businessentityaddress addBusiness(Businessentityaddress p) {
-	HttpEntity<Businessentityaddress> request = new HttpEntity<>(p);
-	return restTemplate.postForObject(baseurl + "/businessentityRest/add/", request, Businessentityaddress.class);
-}
+	public Businessentityaddress addBusiness(Businessentityaddress p) {
+		HttpEntity<Businessentityaddress> request = new HttpEntity<>(p);
+		return restTemplate.postForObject(baseurl + "/businessentityRest/add/", request, Businessentityaddress.class);
+	}
 
-public void deleteBusiness(Businessentityaddress p) {
-	restTemplate.delete(baseurl + "/businessentityRest/delete/" + p.getId());
-}
+	public void deleteBusiness(Businessentityaddress p) {
+		restTemplate.delete(baseurl + "/businessentityRest/delete/" + p.getId());
+	}
 
-public void editBusiness(Integer id, Businessentityaddress p) {
-	HttpEntity<Businessentityaddress> request = new HttpEntity<>(p);
+	public void editBusiness(Integer id, Businessentityaddress p) {
+		HttpEntity<Businessentityaddress> request = new HttpEntity<>(p);
 
-	restTemplate.put(baseurl + "/businessentityRest/edit/" + id, request, Businessentityaddress.class);
-}
+		restTemplate.put(baseurl + "/businessentityRest/edit/" + id, request, Businessentityaddress.class);
+	}
+	
+	//=====================================
+	//=====================================
+	//				CUSTOMER
+	//=====================================
+	//=====================================
+	public Customer getFindByIdCustomer(Integer id) {
+
+		return restTemplate.getForObject(baseurl + "/customerRest/find/" + id, Customer.class);
+	}
+	
+	public List<Customer> showCustomerList() {
+		Customer[] ca = restTemplate.getForObject(baseurl + "/customerRest/list", Customer[].class);
+		return Arrays.asList(ca);
+	}
+	
+	public Customer addCustomer(Customer p) {
+		HttpEntity<Customer> request = new HttpEntity<>(p);
+		return restTemplate.postForObject(baseurl + "/customerRest/add/", request, Customer.class);
+	}
+
+	public void deleteCustomer(Customer p) {
+		restTemplate.delete(baseurl + "/customerRest/delete/" + p.getCustomerid());
+	}
+
+	public void editCustomer(Integer id, Customer p) {
+		HttpEntity<Customer> request = new HttpEntity<>(p);
+
+		restTemplate.put(baseurl + "/customerRest/edit/" + id, request, Customer.class);
+	}
+	
+	//=====================================
+	//=====================================
+	//				STORE
+	//=====================================
+	//=====================================
+	
+	public Store getFindByIdStore(Integer id) {
+
+		return restTemplate.getForObject(baseurl + "/storeRest/find/" + id, Store.class);
+	}
+	
+	public List<Store> showStoreList() {
+		Store[] sa = restTemplate.getForObject(baseurl + "/storeRest/list", Store[].class);
+		return Arrays.asList(sa);
+	}
+	
+	public Store addStore(Store p) {
+		HttpEntity<Store> request = new HttpEntity<>(p);
+		return restTemplate.postForObject(baseurl + "/storeRest/add/", request, Store.class);
+	}
+
+	public void deleteStore(Store p) {
+		restTemplate.delete(baseurl + "/storeRest/delete/" + p.getBusinessentityid());
+	}
+
+	public void editStore(Integer id, Store p) {
+		HttpEntity<Store> request = new HttpEntity<>(p);
+
+		restTemplate.put(baseurl + "/storeRest/edit/" + id, request, Store.class);
+	}
 }

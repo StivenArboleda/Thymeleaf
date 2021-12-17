@@ -38,8 +38,8 @@
 							<tr th:each="customer : ${customers}">
 								<td class="text-info" th:text="${customer.customerid}"></td>
 								<td class="text-info" th:text="${customer.personid}"></td>
-								<td class="text-info" th:text="${customer.store.businessentityid}"></td>
-								<td class="text-info" th:text="${customer.store.name}"></td>
+								<td class="text-info" th:text="${customer.storeid1}"></td>
+								<td class="text-info" th:text="${customer.storeN}"></td>
 								<td><a
 									th:href="@{/customers/searchCustomer/{id}(id=${customer.customerid})}"
 									class="btn btn-primary"><i

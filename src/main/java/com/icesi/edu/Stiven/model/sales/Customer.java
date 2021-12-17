@@ -39,6 +39,8 @@ public class Customer implements Serializable {
 	
 	private Integer storeid1;
 	
+	private String storeN;
+	
 	// bi-directional many-to-one association to Salesterritory
 	@JsonIgnore
 	@ManyToOne
@@ -137,6 +139,8 @@ public class Customer implements Serializable {
 
 	public void setStore(Store store) {
 		this.store = store;
+		storeid1 = store.getBusinessentityid();
+		storeN = store.getName();
 	}
 	
 	public void setPerson(Person person) {
@@ -149,6 +153,14 @@ public class Customer implements Serializable {
 
 	public void setStoreid1(Integer storeid1) {
 		this.storeid1 = storeid1;
+	}
+
+	public String getStoreN() {
+		return storeN;
+	}
+
+	public void setStoreN(String storeN) {
+		this.storeN = storeN;
 	}
 
 }

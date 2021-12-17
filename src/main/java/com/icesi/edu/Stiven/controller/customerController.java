@@ -1,9 +1,5 @@
 package com.icesi.edu.Stiven.controller;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalDate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,34 +12,38 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.icesi.edu.Stiven.model.person.Person;
 import com.icesi.edu.Stiven.model.sales.Customer;
 import com.icesi.edu.Stiven.model.sales.Store;
-import com.icesi.edu.Stiven.service.inter.ICustomerService;
-import com.icesi.edu.Stiven.service.inter.IPersonService;
-import com.icesi.edu.Stiven.service.inter.IStoreService;
 
 @Controller
 public class customerController {
-	private ICustomerService cs;
-	private IStoreService ss;
-	private IPersonService ps;
+//	private ICustomerService cs;
+//	private IStoreService ss;
+//	private IPersonService ps;
+//	
+//	@Autowired
+//	public customerController(ICustomerService cs, IStoreService ss, IPersonService ps) {
+//		this.cs = cs;
+//		this.ss = ss;
+//		this.ps = ps;
+//	}
+	
+	private BusinessDelegate bd;
 	
 	@Autowired
-	public customerController(ICustomerService cs, IStoreService ss, IPersonService ps) {
-		this.cs = cs;
-		this.ss = ss;
-		this.ps = ps;
+	public customerController(BusinessDelegate bd) {
+		this.bd = bd;
 	}
 
 	@GetMapping("/customers/")
 	public String index(Model model) {
 					
-		model.addAttribute("customers", cs.findAll());
+		model.addAttribute("customers", bd.showCustomerList());
 		return "customers/index";
 	}
 	
 	@GetMapping("/customers/searchCustomer/{id}")
 	public String search(Model model, @PathVariable Integer id) {
 					
-		model.addAttribute("customer", cs.findbyId(id));
+		model.addAttribute("customer", bd.getFindByIdCustomer(id));
 		return "customers/searchCustomer";
 	}
 	
@@ -53,8 +53,8 @@ public class customerController {
 		Customer c = new Customer();
 		
 		model.addAttribute("customer", c);
-		model.addAttribute("persons", ps.findAll());
-		model.addAttribute("stores", ss.findAll());
+		model.addAttribute("persons", bd.showPersonList());
+		model.addAttribute("stores", bd.showStoreList());
 		
 		return "customers/addCustomer";
 	}
@@ -62,13 +62,19 @@ public class customerController {
 	@PostMapping("/customers/addCustomer")	
 	public String addCustomer(@ModelAttribute("customer") Customer customer,
 			@RequestParam(value="action", required=true) String action, Model model) {
-		
-		Store s = ss.findbyId(customer.getStoreid1());
+		System.out.println(customer.getStoreid1());
+		Store s = bd.getFindByIdStore(customer.getStoreid1());
+		Person p = bd.getFindByIdPerson(customer.getPersonid());
 		s.addCustomer(customer);
+		p.addCustomer(customer);
 		customer.setStore(s);
+		customer.setPerson(p);
 		
-		ss.editStore(s);
-		cs.save(customer);
+		System.out.println(customer.getStore().getBusinessentityid());
+		
+		bd.editPerson(p.getBusinessentityid(), p);
+		bd.editStore(s.getBusinessentityid(), s);
+		bd.addCustomer(customer);
 		
 		return "redirect:/customers/";
 	}
@@ -77,16 +83,16 @@ public class customerController {
 	public String updateCustomer(Model model, @PathVariable Integer id, @ModelAttribute Customer customer,
 			@RequestParam(value = "action", required = true) String action) {
 
-		Store s = ss.findbyId(customer.getStoreid1());
-		Person p = ps.findbyId(customer.getPersonid());
+		Store s = bd.getFindByIdStore(customer.getStoreid1());
+		Person p = bd.getFindByIdPerson(customer.getPersonid());
 		s.addCustomer(customer);
 		p.addCustomer(customer);
 		customer.setStore(s);
 		customer.setPerson(p);
 
-		ps.editPerson(p.getBusinessentityid(), p.getEmailpromotion(), p.getFirstname(), p.getLastname(), LocalDate.now(), p.getTitle());
-		ss.editStore(s);
-		cs.editCustomer(customer);
+		bd.editPerson(p.getBusinessentityid(), p);
+		bd.editStore(s.getBusinessentityid(), s);
+		bd.editCustomer(customer.getCustomerid(), customer);
 		
 		return "redirect:/customers/";
 	}
@@ -94,9 +100,9 @@ public class customerController {
 	@GetMapping("/updateCustomer/{id}")
 	public String customerUpdate(Model model, @PathVariable Integer id) {
 		
-		model.addAttribute("customer", cs.findbyId(id));
-		model.addAttribute("persons", ps.findAll());
-		model.addAttribute("stores", ss.findAll());
+		model.addAttribute("customer", bd.getFindByIdCustomer(id));
+		model.addAttribute("persons", bd.showPersonList());
+		model.addAttribute("stores", bd.showStoreList());
 
 		return "customers/updateCustomer";
 	}
@@ -104,7 +110,7 @@ public class customerController {
 	@GetMapping("/customers/delete/{id}")
 	public String delete(Model model, @PathVariable Integer id) {
 
-		cs.deletebyId(id);
+		bd.deleteCustomer(bd.getFindByIdCustomer(id));
 		
 		return "redirect:/customers/";
 	}
