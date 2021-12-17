@@ -28,34 +28,39 @@ import com.icesi.edu.Stiven.service.inter.IPersonService;
 @Controller
 public class businessEntityContactController {
 
+//	private IBusinessEntityContactService bea;
+//	private IBusinessEntityService bes;
+//	private IContactTypeService cts;
+//	private IPersonService ps;
+//
+//	@Autowired
+//	public businessEntityContactController(IBusinessEntityContactService bea, IBusinessEntityService bes,
+//			IContactTypeService cts, IPersonService ps) {
+//		super();
+//		this.bea = bea;
+//		this.bes = bes;
+//		this.cts = cts;
+//		this.ps = ps;
+//	}
 	
-	private IBusinessEntityContactService bea;
-	private IBusinessEntityService bes;
-	private IContactTypeService cts;
-	private IPersonService ps;
+	private BusinessDelegate ps;
 	
-
 	@Autowired
-	public businessEntityContactController(IBusinessEntityContactService bea, IBusinessEntityService bes,
-			IContactTypeService cts, IPersonService ps) {
-		super();
-		this.bea = bea;
-		this.bes = bes;
-		this.cts = cts;
+	public businessEntityContactController(BusinessDelegate ps) {
 		this.ps = ps;
 	}
 	
 	@GetMapping("/businessentitycontact/")
 	public String index(Model model) {
 					
-		model.addAttribute("businessentitycontacts", bea.findAll());
+		model.addAttribute("businessentitycontacts", ps.showContactList());
 		return "businessentitycontact/index";
 	}
 	
 	@GetMapping("/businessentitycontact/searchAddress/{id}")
 	public String search(Model model, @PathVariable Integer id) {
 					
-		model.addAttribute("businessentitycontact", bea.findById(id));
+		model.addAttribute("businessentitycontact", ps.getFindByIdContact(id));
 		return "businessentitycontact/searchAddress";
 	}
 	
@@ -65,9 +70,9 @@ public class businessEntityContactController {
 		Businessentitycontact bec = new Businessentitycontact();
 		
 		model.addAttribute("businessentitycontact", bec);
-		model.addAttribute("businesses", bes.findAll());
-		model.addAttribute("contacts", cts.findAll());
-		model.addAttribute("persons", ps.findAll());
+		model.addAttribute("businesses", ps.showBusinessList());
+		model.addAttribute("contacts", ps.showContactTpList());
+		model.addAttribute("persons", ps.showPersonList());
 		
 		return "businessentitycontact/addContact";
 	}
@@ -80,11 +85,11 @@ public class businessEntityContactController {
 		Contacttype ct = beadress.getContacttype();
 		Person p = beadress.getPerson();
 		
-		be = bes.saveForAddress(be);
-		ct = cts.save(ct);
-		p = ps.saveForContact(p);
+		be = ps.saveEntity(be);
+		ct = ps.addContactTp(ct);
+		p = ps.addPerson(p);
 		
-		bea.save(beadress, be.getBusinessentityid(), ct.getContacttypeid(), p.getBusinessentityid());
+		ps.addContact(beadress);
 		
 		return "redirect:/businessentitycontact/";
 	}
@@ -111,7 +116,7 @@ public class businessEntityContactController {
 	@GetMapping("/businessentitycontact/delete/{id}")
 	public String delete(Model model, @PathVariable Integer id) {
 
-		bea.deletebyId(id);
+		ps.deleteContact(ps.getFindByIdContact(id));
 		
 		return "redirect:/businessentitycontact/";
 	}

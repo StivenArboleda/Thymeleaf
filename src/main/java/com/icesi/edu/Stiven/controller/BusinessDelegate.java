@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
 
 import com.icesi.edu.Stiven.model.person.Address;
+import com.icesi.edu.Stiven.model.person.Addresstype;
 import com.icesi.edu.Stiven.model.person.Businessentity;
 import com.icesi.edu.Stiven.model.person.Businessentityaddress;
+import com.icesi.edu.Stiven.model.person.Businessentitycontact;
+import com.icesi.edu.Stiven.model.person.Contacttype;
 import com.icesi.edu.Stiven.model.person.Person;
 import com.icesi.edu.Stiven.model.person.Stateprovince;
 import com.icesi.edu.Stiven.model.person.UserModel;
@@ -257,5 +260,80 @@ public class BusinessDelegate {
 		HttpEntity<Store> request = new HttpEntity<>(p);
 
 		restTemplate.put(baseurl + "/storeRest/edit/" + id, request, Store.class);
+	}
+	
+	//=====================================
+	// =====================================
+	// 			AddressType
+	// =====================================
+	// =====================================
+
+	public Addresstype getFindByIdAType(Integer id) {
+
+		return restTemplate.getForObject(baseurl + "/atypeRest/find/" + id, Addresstype.class);
+	}
+
+	public List<Addresstype> showATypeList() {
+		Addresstype[] sa = restTemplate.getForObject(baseurl + "/atypeRest/list", Addresstype[].class);
+		return Arrays.asList(sa);
+	}
+
+	public Addresstype addAType(Addresstype p) {
+		HttpEntity<Addresstype> request = new HttpEntity<>(p);
+		return restTemplate.postForObject(baseurl + "/atypeRest/add/", request, Addresstype.class);
+	}
+
+	public void deleteAType(Addresstype p) {
+		restTemplate.delete(baseurl + "/atypeRest/delete/" + p.getAddresstypeid());
+	}
+
+	// =====================================
+	// =====================================
+	// 				Contact
+	// =====================================
+	// =====================================
+
+	public Businessentitycontact getFindByIdContact(Integer id) {
+
+		return restTemplate.getForObject(baseurl + "/atypeRest/find/" + id, Businessentitycontact.class);
+	}
+
+	public List<Businessentitycontact> showContactList() {
+		Businessentitycontact[] sa = restTemplate.getForObject(baseurl + "/atypeRest/list", Businessentitycontact[].class);
+		return Arrays.asList(sa);
+	}
+
+	public Businessentitycontact addContact(Businessentitycontact p) {
+		HttpEntity<Businessentitycontact> request = new HttpEntity<>(p);
+		return restTemplate.postForObject(baseurl + "/atypeRest/add/", request, Businessentitycontact.class);
+	}
+
+	public void deleteContact(Businessentitycontact p) {
+		restTemplate.delete(baseurl + "/atypeRest/delete/" + p.getId());
+	}
+	
+	// =====================================
+	// =====================================
+	// 			ContactType
+	// =====================================
+	// =====================================
+
+	public Contacttype getFindByIdContactTp(Integer id) {
+
+		return restTemplate.getForObject(baseurl + "/atypeRest/find/" + id, Contacttype.class);
+	}
+
+	public List<Contacttype> showContactTpList() {
+		Contacttype[] sa = restTemplate.getForObject(baseurl + "/atypeRest/list", Contacttype[].class);
+		return Arrays.asList(sa);
+	}
+
+	public Contacttype addContactTp(Contacttype p) {
+		HttpEntity<Contacttype> request = new HttpEntity<>(p);
+		return restTemplate.postForObject(baseurl + "/atypeRest/add/", request, Contacttype.class);
+	}
+
+	public void deleteContactTp(Contacttype p) {
+		restTemplate.delete(baseurl + "/atypeRest/delete/" + p.getContacttypeid());
 	}
 }

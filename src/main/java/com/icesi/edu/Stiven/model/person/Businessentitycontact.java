@@ -33,7 +33,13 @@ public class Businessentitycontact implements Serializable {
 	private Timestamp modifieddate;
 
 	private Integer rowguid;
-
+	
+	private Integer entId;
+	
+	private Integer contactTpId;
+	
+	private Integer persId;
+	
 	// bi-directional many-to-one association to Businessentity
 	@ManyToOne
 	@JoinColumn(name = "businessentityid")
@@ -78,10 +84,12 @@ public class Businessentitycontact implements Serializable {
 
 	public void setBusinessentity(Businessentity businessentity) {
 		this.businessentity = businessentity;
+		setEntId(businessentity.getBusinessentityid());
 	}
 
 	public void setContacttype(Contacttype contacttype) {
 		this.contacttype = contacttype;
+		setContactTpId(contacttype.getContacttypeid());
 	}
 
 	public void setId(Integer id) {
@@ -94,10 +102,35 @@ public class Businessentitycontact implements Serializable {
 
 	public void setPerson(Person person) {
 		this.person = person;
+		setPersId(person.getBusinessentityid());
 	}
 
 	public void setRowguid(Integer rowguid) {
 		this.rowguid = rowguid;
+	}
+
+	public Integer getEntId() {
+		return entId;
+	}
+
+	public void setEntId(Integer entId) {
+		this.entId = entId;
+	}
+
+	public Integer getContactTpId() {
+		return contactTpId;
+	}
+
+	public void setContactTpId(Integer contactTpId) {
+		this.contactTpId = contactTpId;
+	}
+
+	public Integer getPersId() {
+		return persId;
+	}
+
+	public void setPersId(Integer persId) {
+		this.persId = persId;
 	}
 
 }

@@ -36,9 +36,9 @@
 						<tbody>
 							<tr th:each="businessentitycontact : ${businessentitycontacts}">
 								<td class="text-info" th:text="${businessentitycontact.id}"></td>
-								<td class="text-info" th:text="${businessentitycontact.businessentity.businessentityid}"></td>
-								<td class="text-info" th:text="${businessentitycontact.contacttype.contacttypeid}"></td>
-								<td class="text-info" th:text="${businessentitycontact.person.businessentityid}"></td>
+								<td class="text-info" th:text="${businessentitycontact.entId}"></td>
+								<td class="text-info" th:text="${businessentitycontact.contactTpId}"></td>
+								<td class="text-info" th:text="${businessentitycontact.persId}"></td>
 		
 								<td><a
 									th:href="@{/businessentitycontact/searchAddress/{id}(id=${businessentitycontact.id})}"

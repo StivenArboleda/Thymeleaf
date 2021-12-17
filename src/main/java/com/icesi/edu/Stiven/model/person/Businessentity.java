@@ -16,6 +16,8 @@ import javax.persistence.SequenceGenerator;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  * The persistent class for the businessentity database table.
@@ -37,6 +39,7 @@ public class Businessentity implements Serializable {
 	private Integer rowguid;
 
 	// bi-directional many-to-one association to Businessentityaddress
+	@JsonIgnore
 	@OneToMany(mappedBy = "businessentity")
 	private List<Businessentityaddress> businessentityaddresses;
 

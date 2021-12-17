@@ -51,7 +51,7 @@ public class businessEntityAddressController {
 		return "businessAddress/index";
 	}
 	
-	@GetMapping("/businessAddress/searchAddress")
+	@GetMapping("/businessAddress/searchAddress/{id}")
 	public String search(Model model, @PathVariable Integer id) {
 					
 		model.addAttribute("businessentityaddress", bea.getFindByIdBusiness(id));
@@ -77,7 +77,7 @@ public class businessEntityAddressController {
 		
 		model.addAttribute("businessentityaddress", a);
 		model.addAttribute("addresses", bea.showAddressList());
-//		model.addAttribute("addresstypes", bea.show());
+		model.addAttribute("addresstypes", bea.showATypeList());
 		model.addAttribute("businesses", bea.showBusinessList());
 		
 		return "businessAddress/addAddress";
@@ -92,10 +92,10 @@ public class businessEntityAddressController {
 		Businessentity be = beadress.getBusinessentity();
 		
 		a = bea.addAddress(a);
-//		at = bea.save(at);
+		at = bea.addAType(at);
 		be = bea.saveEntity(be);
 		
-//		bea.save(beadress, a.getAddressid(), at.getAddresstypeid(), be.getBusinessentityid());
+		bea.addBusiness(beadress);
 		
 		return "redirect:/businessAddress/";
 	}

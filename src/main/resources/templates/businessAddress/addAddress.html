@@ -55,8 +55,8 @@
 			</div>
     	
     		   <div class="form-group col-md-6">
-			<label for="add"  class="col-form-label">ID Business entity </label>
-            	<select id="businessentity" th:field="*{businessentity}">
+			<label for="bus"  class="col-form-label">ID Business entity </label>
+            	<select id="businessentity" th:field="*{entId}">
                 	<option
                     	th:each="bus : ${businesses}"
                         th:value="${bus.businessentityid}"
