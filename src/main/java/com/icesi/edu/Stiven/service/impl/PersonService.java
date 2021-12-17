@@ -11,6 +11,7 @@ import com.icesi.edu.Stiven.DAO.BusinessEntityDAO;
 import com.icesi.edu.Stiven.DAO.PersonDAO;
 import com.icesi.edu.Stiven.model.person.Businessentity;
 import com.icesi.edu.Stiven.model.person.Person;
+import com.icesi.edu.Stiven.model.sales.Customer;
 import com.icesi.edu.Stiven.repositories.BusinessEntityRepository;
 import com.icesi.edu.Stiven.repositories.PersonRepository;
 import com.icesi.edu.Stiven.service.inter.IPersonService;
@@ -134,6 +135,10 @@ public class PersonService implements IPersonService{
 	@Override
 	public Person findbyId(Integer id) {
 		return personR.findById(id);
+	}
+	
+	public Iterable<Customer> findCustomers(Integer id){
+		return personR.findCustomers(id);
 	}
 	
 	public void deletePerson(Person p) {

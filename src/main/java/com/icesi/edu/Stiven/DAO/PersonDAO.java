@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import com.icesi.edu.Stiven.model.person.Address;
 import com.icesi.edu.Stiven.model.person.Businessentity;
 import com.icesi.edu.Stiven.model.person.Person;
+import com.icesi.edu.Stiven.model.sales.Customer;
 
 
 @Repository
@@ -44,10 +45,19 @@ public class PersonDAO implements Dao<Person>{
 		return p;
 	}
 	
+	@Transactional
+	public List<Customer> findCustomers(Integer id) {
+		Person p = findById(id);
+		String jpql = "SELECT e FROM Customer e WHERE e.personid = :puta"; 
+		Query query = entityManager.createQuery(jpql);
+		query.setParameter("puta", p.getBusinessentityid());
+        return query.getResultList();
+	}
+	
 
 	@Transactional
 	public List<Person> findByTitle(String title) {
-		String jpql = "SELECT e FROM Address e WHERE modifieddate e.title  = :title"; 
+		String jpql = "SELECT e FROM Person e WHERE tittle e.title  = :title"; 
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("title", title);
         return query.getResultList();

@@ -14,6 +14,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.icesi.edu.Stiven.model.person.Person;
 
 /**
@@ -39,21 +40,25 @@ public class Customer implements Serializable {
 	private Integer storeid1;
 	
 	// bi-directional many-to-one association to Salesterritory
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "territoryid")
 	private Salesterritory salesterritory;
 
 	// bi-directional many-to-one association to Store
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "storeid")
 	private Store store;
 	
 	// bi-directional many-to-one association to Store
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "personid1")
 	private Person person;
 
 	// bi-directional many-to-one association to Salesorderheader
+	@JsonIgnore
 	@OneToMany(mappedBy = "customer")
 	private List<Salesorderheader> salesorderheaders;
 

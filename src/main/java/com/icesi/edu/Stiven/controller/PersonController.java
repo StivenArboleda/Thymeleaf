@@ -47,6 +47,24 @@ public class PersonController {
 		return "persons/searchPersons";
 	}
 	
+	@GetMapping("/persons/searchPersonId")
+	public String searchId() {
+		return "persons/query";
+	}
+	
+	@PostMapping("/persons/searchPersonId")
+	public String searchId(@RequestParam("search") @PathVariable Integer id, Model model) {
+					
+		model.addAttribute("person", ps.getFindByIdPerson(id));
+		return "persons/searchPersonId";
+	}
+	
+	@GetMapping("/persons/customers/{id}")
+    public String showCustomers(@PathVariable("id") Integer id,Model model) {
+		model.addAttribute("customers", ps.getCustomersByPerson(id));
+        return "customers/indexToShow";
+    }
+	
 	@GetMapping("/persons/addPersons")
 	public String personsAdd(Model model) {
 		

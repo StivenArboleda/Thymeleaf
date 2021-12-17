@@ -24,6 +24,7 @@ import com.icesi.edu.Stiven.model.person.Businessentityaddress;
 import com.icesi.edu.Stiven.model.person.Person;
 import com.icesi.edu.Stiven.model.person.Stateprovince;
 import com.icesi.edu.Stiven.model.person.UserModel;
+import com.icesi.edu.Stiven.model.sales.Customer;
 
 
 
@@ -96,6 +97,11 @@ public class BusinessDelegate {
 	public Businessentity saveEntity(Businessentity p) {
 		HttpEntity<Businessentity> request = new HttpEntity<>(p);
 		return restTemplate.postForObject(baseurl + "/businessRest/addbusiness/", request, Businessentity.class);
+	}
+	
+	public List<Customer> getCustomersByPerson(Integer id) {
+		Customer[] ca = restTemplate.getForObject(baseurl + "/personRest/listCustomers/" + id, Customer[].class);
+		return Arrays.asList(ca);
 	}
 	
 	//=====================================
