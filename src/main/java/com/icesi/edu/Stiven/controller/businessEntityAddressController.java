@@ -73,13 +73,13 @@ public class businessEntityAddressController {
 	@GetMapping("/businessAddress/addAddress")
 	public String addressAdd(Model model) {
 		
-		Businessentityaddress bea = new Businessentityaddress();
+		Businessentityaddress a = new Businessentityaddress();
 		
-		/*model.addAttribute("businessentityaddress", bea);
-		model.addAttribute("addresses", as.findAll());
-		model.addAttribute("addresstypes", ats.findAll());
-		model.addAttribute("businesses", bes.findAll());
-		*/
+		model.addAttribute("businessentityaddress", a);
+		model.addAttribute("addresses", bea.showAddressList());
+//		model.addAttribute("addresstypes", bea.show());
+		model.addAttribute("businesses", bea.showBusinessList());
+		
 		return "businessAddress/addAddress";
 	}
 	
@@ -91,12 +91,12 @@ public class businessEntityAddressController {
 		Addresstype at = beadress.getAddresstype();
 		Businessentity be = beadress.getBusinessentity();
 		
-		/*a = as.save(a);
-		at = ats.save(at);
-		be = bes.saveForAddress(be);
+		a = bea.addAddress(a);
+//		at = bea.save(at);
+		be = bea.saveEntity(be);
 		
-		bea.save(beadress, a.getAddressid(), at.getAddresstypeid(), be.getBusinessentityid());
-		*/
+//		bea.save(beadress, a.getAddressid(), at.getAddresstypeid(), be.getBusinessentityid());
+		
 		return "redirect:/businessAddress/";
 	}
 	

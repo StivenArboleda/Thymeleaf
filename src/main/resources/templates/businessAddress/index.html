@@ -36,9 +36,9 @@
 						<tbody>
 							<tr th:each="businessentityaddress : ${businessentityaddresses}">
 								<td class="text-info" th:text="${businessentityaddress.id}"></td>
-								<td class="text-info" th:text="${businessentityaddress.address.addressid}"></td>
-								<td class="text-info" th:text="${businessentityaddress.addresstype.addresstypeid}"></td>
-								<td class="text-info" th:text="${businessentityaddress.businessentity.businessentityid}"></td>
+								<td class="text-info" th:text="${businessentityaddress.addId}"></td>
+								<td class="text-info" th:text="${businessentityaddress.addTpId}"></td>
+								<td class="text-info" th:text="${businessentityaddress.entId}"></td>
 		
 								<td><a
 									th:href="@{/businessAddress/searchAddress/{id}(id=${businessentityaddress.id})}"

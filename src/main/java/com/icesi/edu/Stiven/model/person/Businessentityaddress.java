@@ -33,6 +33,12 @@ public class Businessentityaddress implements Serializable {
 	private Timestamp modifieddate;
 
 	private Integer rowguid;
+	
+	private Integer addId;
+
+	private Integer addTpId;
+
+	private Integer entId;
 
 	// bi-directional many-to-one association to Address
 	@ManyToOne
@@ -81,14 +87,17 @@ public class Businessentityaddress implements Serializable {
 
 	public void setAddress(Address address) {
 		this.address = address;
+		addId = address.getAddressid();
 	}
 
 	public void setAddresstype(Addresstype addresstype) {
 		this.addresstype = addresstype;
+		addTpId = addresstype.getAddresstypeid();
 	}
 
 	public void setBusinessentity(Businessentity businessentity) {
 		this.businessentity = businessentity;
+		entId = businessentity.getBusinessentityid();
 	}
 
 	public void setId(Integer id) {
@@ -101,6 +110,30 @@ public class Businessentityaddress implements Serializable {
 
 	public void setRowguid(Integer rowguid) {
 		this.rowguid = rowguid;
+	}
+
+	public Integer getAddId() {
+		return addId;
+	}
+
+	public void setAddId(Integer addId) {
+		this.addId = addId;
+	}
+
+	public Integer getAddTpId() {
+		return addTpId;
+	}
+
+	public void setAddTpId(Integer addTpId) {
+		this.addTpId = addTpId;
+	}
+
+	public Integer getEntId() {
+		return entId;
+	}
+
+	public void setEntId(Integer entId) {
+		this.entId = entId;
 	}
 	
 
