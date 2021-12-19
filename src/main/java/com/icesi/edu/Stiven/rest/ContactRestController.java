@@ -19,22 +19,22 @@ public class ContactRestController {
 	@Autowired
 	private BusinessEntityContactService becs;
 
-	@GetMapping("/contactRest/list")
+	@GetMapping("/contactRest/")
 	public Iterable<Businessentitycontact> showContactList() {
 		return becs.findAll();
 	}
 	
-	@PostMapping("/contactRest/add/")
+	@PostMapping("/contactRest/")
 	public void addContact(@RequestBody Businessentitycontact contact) {
 		becs.save(contact, contact.getBusinessentity().getBusinessentityid(), contact.getContacttype().getContacttypeid(), contact.getPerson().getBusinessentityid());
 	}
 	
-	@DeleteMapping("/contactRest/delete/{id}")
+	@DeleteMapping("/contactRest/{id}")
 	public void delete(@PathVariable("id") Integer id) {
 		becs.deletebyId(id);
 	}
 	
-	@GetMapping("/contactRest/find/{id}")
+	@GetMapping("/contactRest/{id}")
 	public Businessentitycontact viewContact(@PathVariable("id") Integer id) {
 
 		return becs.findById(id).get();

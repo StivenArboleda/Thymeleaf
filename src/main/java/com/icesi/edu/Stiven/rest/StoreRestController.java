@@ -20,28 +20,28 @@ public class StoreRestController {
 	@Autowired
 	private StoreService ss;
 	
-	@GetMapping("/storeRest/list")
+	@GetMapping("/storeRest/")
 	public Iterable<Store> showStoreList() {
 		return ss.findAll();
 	}
 	
-	@PostMapping("/storeRest/add/")
+	@PostMapping("/storeRest/")
 	public void addStore(@RequestBody Store store) {
 		ss.save(store);
 	}
 	
-	@DeleteMapping("/storeRest/delete/{id}")
+	@DeleteMapping("/storeRest/{id}")
 	public void delete(@PathVariable("id") Integer id) {
 		ss.delete(ss.findbyId(id));
 	}
 	
-	@GetMapping("/storeRest/find/{id}")
+	@GetMapping("/storeRest/{id}")
 	public Store viewStore(@PathVariable("id") Integer id) {
 
 		return ss.findbyId(id);
 	}
 
-	@PutMapping("/storeRest/edit/{id}")
+	@PutMapping("/storeRest/{id}")
 	public void editStore(@RequestBody Store store) {
 
 		ss.editStore(store);

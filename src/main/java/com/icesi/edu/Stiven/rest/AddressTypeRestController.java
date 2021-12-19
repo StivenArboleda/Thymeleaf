@@ -19,22 +19,22 @@ public class AddressTypeRestController {
 	@Autowired
 	private AddressTypeService ads;
 	
-	@GetMapping("/atypeRest/list")
+	@GetMapping("/atypeRest/")
 	public Iterable<Addresstype> showAddresstypeList() {
 		return ads.findAll();
 	}
 	
-	@PostMapping("/atypeRest/add/")
+	@PostMapping("/atypeRest/")
 	public void addAddresstype(@RequestBody Addresstype atype) {
 		ads.save(atype);
 	}
 	
-	@DeleteMapping("/atypeRest/delete/{id}")
+	@DeleteMapping("/atypeRest/{id}")
 	public void delete(@PathVariable("id") Integer id) {
 		ads.deletebyId(id);
 	}
 	
-	@GetMapping("/atypeRest/find/{id}")
+	@GetMapping("/atypeRest/{id}")
 	public Addresstype viewAddresstype(@PathVariable("id") Integer id) {
 
 		return ads.findbyId(id);

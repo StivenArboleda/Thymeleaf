@@ -19,22 +19,22 @@ public class ContactTypeRestController {
 	@Autowired
 	private ContactTypeService cs;
 	
-	@GetMapping("/contactTpRest/list")
+	@GetMapping("/contactTpRest/")
 	public Iterable<Contacttype> showContactTpList() {
 		return cs.findAll();
 	}
 	
-	@PostMapping("/contactTpRest/add/")
+	@PostMapping("/contactTpRest/")
 	public void addContactTp(@RequestBody Contacttype contactTp) {
 		cs.save(contactTp);
 	}
 	
-	@DeleteMapping("/contactTpRest/delete/{id}")
+	@DeleteMapping("/contactTpRest/{id}")
 	public void delete(@PathVariable("id") Integer id) {
 		cs.deletebyId(id);
 	}
 	
-	@GetMapping("/contactTpRest/find/{id}")
+	@GetMapping("/contactTpRest/{id}")
 	public Contacttype viewContactTp(@PathVariable("id") Integer id) {
 
 		return cs.findbyId(id);

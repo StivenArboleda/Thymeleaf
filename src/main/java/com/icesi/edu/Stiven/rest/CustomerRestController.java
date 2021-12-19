@@ -20,28 +20,28 @@ public class CustomerRestController {
 	@Autowired
 	private CustomerService cs;
 	
-	@GetMapping("/customerRest/list")
+	@GetMapping("/customerRest/")
 	public Iterable<Customer> showCustomerList() {
 		return cs.findAll();
 	}
 	
-	@PostMapping("/customerRest/add/")
+	@PostMapping("/customerRest/")
 	public void addCustomer(@RequestBody Customer customer) {
 		cs.save(customer);
 	}
 	
-	@DeleteMapping("/customerRest/delete/{id}")
+	@DeleteMapping("/customerRest/{id}")
 	public void delete(@PathVariable("id") Integer id) {
 		cs.delete(cs.findbyId(id));
 	}
 	
-	@GetMapping("/customerRest/find/{id}")
+	@GetMapping("/customerRest/{id}")
 	public Customer viewCustomer(@PathVariable("id") Integer id) {
 
 		return cs.findbyId(id);
 	}
 
-	@PutMapping("/customerRest/edit/{id}")
+	@PutMapping("/customerRest/{id}")
 	public void editCustomer(@RequestBody Customer customer) {
 
 		cs.editCustomer(customer);

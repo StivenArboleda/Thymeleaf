@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.icesi.edu.Stiven.model.person.Businessentityaddress;
 import com.icesi.edu.Stiven.model.person.Stateprovince;
 import com.icesi.edu.Stiven.service.impl.StateProvinceService;
 
@@ -20,22 +19,22 @@ public class ProvinceAddresRestController {
 	@Autowired
 	private StateProvinceService state;
 	
-	@GetMapping("/provinceRest/list")
+	@GetMapping("/provinceRest/")
 	public Iterable<Stateprovince> showStateprovinceList() {
 		return state.findAll();
 	}
 	
-	@PostMapping("/provinceRest/addProvince/")
+	@PostMapping("/provinceRest/")
 	public void addStateprovince(@RequestBody Stateprovince stateprovince) {
 		state.saveCorrect(stateprovince);
 	}
 	
-	@DeleteMapping("/provinceRest/delete/{id}")
+	@DeleteMapping("/provinceRest/{id}")
 	public void delete(@PathVariable("id") Integer id) {
 		state.delete(id);
 	}
 	
-	@GetMapping("/provinceRest/find/{id}")
+	@GetMapping("/provinceRest/{id}")
 	public Stateprovince viewbusinessentityStateprovince(@PathVariable("id") Integer id) {
 
 		return state.findbyId(id);

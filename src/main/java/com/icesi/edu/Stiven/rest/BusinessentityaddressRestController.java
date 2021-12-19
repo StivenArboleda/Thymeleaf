@@ -25,12 +25,12 @@ public class BusinessentityaddressRestController {
 	//@Autowired
 	//private BusinessEntityAddressDAO businessService;
 	
-	@GetMapping("/businessentityRest/list")
+	@GetMapping("/businessentityRest/")
 	public Iterable<Businessentityaddress> showbusinessentityaddressList() {
 		return businessService.findAll();
 	}
 	
-	@PostMapping("/businessentityRest/add/")
+	@PostMapping("/businessentityRest/")
 	public void addbusinessentityaddress(@RequestBody Businessentityaddress businessentityaddress) {
 		businessService.save(businessentityaddress, businessentityaddress.getAddress().getAddressid(),
 			businessentityaddress.getAddresstype().getAddresstypeid(), 
@@ -38,13 +38,13 @@ public class BusinessentityaddressRestController {
 		//businessService.save(businessentityaddress);
 	}
 	
-	@DeleteMapping("/businessentityRest/delete/{id}")
+	@DeleteMapping("/businessentityRest/{id}")
 	public void delete(@PathVariable("id") Integer id) {
 		businessService.deletebyId(id);
 		//businessService.delete(id);
 	}
 	
-	@GetMapping("/businessentityRest/find/{id}")
+	@GetMapping("/businessentityRest/{id}")
 	public Businessentityaddress viewbusinessentityaddress(@PathVariable("id") Integer id) {
 
 		return businessService.findById(id);

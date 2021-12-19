@@ -23,33 +23,33 @@ public class PersonRestController {
 	@Autowired
 	private PersonService personD;
 	
-	@GetMapping("/personRest/list")
+	@GetMapping("/personRest/")
 	public Iterable<Person> showPersonList() {
 		return personD.findAll();
 	}
 	
-	@GetMapping("/personRest/listCustomers/{id}")
+	@GetMapping("/personRest/customers/{id}")
 	public Iterable<Customer> showCustomersList(@PathVariable("id") Integer id) {
 		return personD.findCustomers(id);
 	}
 	
-	@PostMapping("/personRest/addperson/")
+	@PostMapping("/personRest/")
 	public void addPerson(@RequestBody Person person) {
 		personD.saveCorrect(person);
 	}
 	
-	@DeleteMapping("/personRest/delete/{id}")
+	@DeleteMapping("/personRest/{id}")
 	public void delete(@PathVariable("id") Integer id) {
 		personD.deletePerson(personD.findbyId(id));
 	}
 	
-	@GetMapping("/personRest/find/{id}")
+	@GetMapping("/personRest/{id}")
 	public Person viewPerson(@PathVariable("id") Integer id) {
 
 		return personD.findbyId(id);
 	}
 
-	@PutMapping("/personRest/edit/{id}")
+	@PutMapping("/personRest/{id}")
 	public void editPerson(@RequestBody Person person) {
 
 		personD.editPerson(person.getBusinessentityid(), person.getEmailpromotion(),

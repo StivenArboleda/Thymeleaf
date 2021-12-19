@@ -24,30 +24,30 @@ public class AddressRestController {
 	//@Autowired
 	//private AddressDAO addres;
 	
-	@GetMapping("/addressRest/list")
+	@GetMapping("/addressRest/")
 	public Iterable<Address> showAddressList() {
 		return addres.findAll();
 	}
 	
-	@PostMapping("/addressRest/add/")
+	@PostMapping("/addressRest/")
 	public void addAddress(@RequestBody Address address) {
 		addres.save(address);
 	}
 	
-	@DeleteMapping("/addressRest/delete/{id}")
+	@DeleteMapping("/addressRest/{id}")
 	public void delete(@PathVariable("id") Integer id) {
 		addres.deletebyId(id);
 		//addres.delete(id);
 	}
 	
-	@GetMapping("/addressRest/find/{id}")
+	@GetMapping("/addressRest/{id}")
 	public Address viewAddress(@PathVariable("id") Integer id) {
 
 		//return addres.findbyId(id);
 		return addres.findById(id);
 	}
 	
-	@PutMapping("/addressRest/edit/{id}")
+	@PutMapping("/addressRest/{id}")
 	public void editAddress(@RequestBody Address ad) {
 		addres.editAddress(ad.getAddressid(), ad.getAddressline1(), ad.getAddressline2(),
 			ad.getCity(), ad.getPostalcode(), ad.getStateprovince());

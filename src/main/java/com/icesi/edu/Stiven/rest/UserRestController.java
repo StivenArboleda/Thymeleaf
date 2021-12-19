@@ -15,7 +15,7 @@ public class UserRestController {
 	@Autowired
 	private UserService us;
 	
-	@GetMapping("/userRest/list")
+	@GetMapping("/userRest/")
 	public Iterable<UserModel> showUserList(){
 		return us.findAll();
 	}

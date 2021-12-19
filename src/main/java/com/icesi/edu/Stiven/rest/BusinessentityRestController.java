@@ -16,7 +16,7 @@ public class BusinessentityRestController {
 	@Autowired
 	private BusinessEntityService businessD;
 	
-	@PostMapping("/businessRest/addbusiness/")
+	@PostMapping("/businessRest/")
 	public void addProduct(@RequestBody Businessentity bu) {
 		businessD.save(bu);
 	}
